@@ -1,68 +1,87 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* mobile: da 0 a 576 px
+tablet: da 567 a 767 px
+medium: da 768 a 991px
+large: da 992 a 1199px
+x-large: da 1200 a 1399px
+xx-large: da 1400 a Infinite */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* ----- NAVBAR ----- */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Rimozione chevron  */
+@media screen and (min-width: 992px) {
+  .chevronRight {
+    display: none;
   }
-  a:hover {
-    color: #747bff;
+}
+
+/* Cambio di colore del toggle menu */
+.toggle:hover {
+  color: #0d6efd !important;
+}
+
+/* Underline dei link navigabili */
+@media screen and (min-width: 992px) {
+  .products,
+  .navMenuLink {
+    border-bottom: none !important;
+    padding-right: 40px;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .products button {
+    border-bottom: 2px solid rgb(0, 119, 255) !important;
+  }
+
+  .navMenuLink button:hover {
+    border-bottom: 2px solid rgb(0, 119, 255) !important;
+  }
+}
+
+/* Posizionamento link fino ai 1200px */
+@media screen and (max-width: 1200px) {
+  .linksHigherXl {
+    display: none;
+  }
+  .linksLowerXl {
+    display: block;
+  }
+}
+
+.linkButton:hover {
+  color: #0d6efd !important;
+}
+
+/* Posizionamento link dai 1200px */
+@media screen and (min-width: 1200px) {
+  .linksHigherXl {
+    display: block;
+  }
+  .linksLowerXl {
+    display: none;
+  }
+}
+
+/* Posizionamento icona area riservata */
+@media screen and (max-width: 576px) {
+  .reservedAreaLowerSm {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 577px) {
+  .reservedAreaHigherSm {
+    display: none;
+  }
+}
+
+/* ----- HERO ----- */
+
+/* Posizionamento delle info della pagina */
+@media screen and (min-width: 992px) {
+  .heroContent {
+    position: absolute;
+    top: 250px;
+    left: 10%;
+    transform: "translate(-50%, -50%)";
+    width: 50%;
   }
 }
