@@ -1,38 +1,142 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import RegistrationImage from "../../src/assets/images/registrationImage.png";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, resetFormAction } from "../redux/actions/registrationActions";
 
 const Registration = () => {
+  const dispatch = useDispatch();
+
   // controllo lo stato della checkbox delle condizioni di utilizzo
   const [isChecked, setIsChecked] = useState(false);
 
+  // lo stato della checkbox viene aggiornato al click
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
+  };
+
+  // lo stato del form per la registrazione dell'utente viene inizializzato con un oggetto vuoto
+  const [userRegistration, setUserRegistration] = useState({
+    email: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    password: ""
+  });
+
+  // l'avatar dell'utente inizializzato a null
+  const [avatar, setAvatar] = useState(null);
+
+  // resetForm (TRUE/FALSE) è la proprietà nello stato globale che permette di controllare quando resettare il form -> se TRUE (fetch andata a buon fine) reset del form
+  const resetFormState = useSelector((state) => state.registration.resetForm);
+
+  // all'aggiornamento della variabile di controllo viene chiamato il reset del form
+  useEffect(() => {
+    if (resetFormState) {
+      resetForm();
+    }
+  }, [resetFormState]);
+
+  // registrazione dell'utente
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setUserRegistration({
+      email: e.target.elements.emailRegistration.value,
+      username: e.target.elements.usernameRegistration.value,
+      firstName: e.target.elements.firstNameRegistration.value,
+      lastName: e.target.elements.lastNameRegistration.value,
+      password: e.target.elements.passwordRegistration.value
+    });
+
+    setAvatar(e.target.elements.avatarRegistration.files[0]);
+
+    // chiamata alla fetch con parametri oggetto con le info dell'utente e l'immagine
+    dispatch(addUser(userRegistration, avatar));
+  };
+
+  // reset del form
+  const resetForm = () => {
+    setUserRegistration({
+      email: "",
+      username: "",
+      firstName: "",
+      lastName: "",
+      password: ""
+    });
+
+    setAvatar(null);
+    setIsChecked(false);
+
+    // forzatura a resettare l'immagine tramite DOM manipulation
+    document.getElementById("avatarRegistration").value = "";
+
+    // lo stato resetFormState viene riportato su FALSE
+    dispatch(resetFormAction());
   };
 
   return (
     <Container style={{ marginTop: "180px" }}>
       <Row>
         <Col>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Row>
                 <Form.Label className="fs-3 fw-semibold text-primary-emphasis">Registrati</Form.Label>
               </Row>
               <Form.Text className="fs-6">Email</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3" type="email" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                id="emailRegistration"
+                type="email"
+                value={userRegistration.email}
+                onChange={(e) => setUserRegistration({ ...userRegistration, email: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
+                autoComplete="off"
+                required
+              />
               <Form.Text className="fs-6">Username</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3" type="text" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                id="usernameRegistration"
+                type="text"
+                value={userRegistration.username}
+                onChange={(e) => setUserRegistration({ ...userRegistration, username: e.target.value })}
+                autoComplete="off"
+                required
+              />
               <Form.Text className="fs-6">Nome</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3" type="text" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                id="firstNameRegistration"
+                type="text"
+                value={userRegistration.firstName}
+                onChange={(e) => setUserRegistration({ ...userRegistration, firstName: e.target.value })}
+                autoComplete="off"
+                required
+              />
               <Form.Text className="fs-6">Cognome</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3" type="text" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                id="lastNameRegistration"
+                type="text"
+                value={userRegistration.lastName}
+                onChange={(e) => setUserRegistration({ ...userRegistration, lastName: e.target.value })}
+                autoComplete="off"
+                required
+              />
               <Form.Text className="fs-6">Password</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus" type="password" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus"
+                id="passwordRegistration"
+                type="password"
+                value={userRegistration.password}
+                onChange={(e) => setUserRegistration({ ...userRegistration, password: e.target.value })}
+                autoComplete="off"
+                required
+              />
               <Form.Text>Minimo 3 caratteri, massimo 20 caratteri</Form.Text>
               <Row>
                 <Form.Text className="fs-6 mt-3 mb-2">Immagine di profilo 🕵️</Form.Text>
-                <Form.Control className="no-focus" type="file" required />
+                <Form.Control className="no-focus" type="file" id="avatarRegistration" onChange={(e) => setAvatar(e.target.files[0])} required />
               </Row>
               <Row className="d-flex flex-column mt-4">
                 <Col>
@@ -49,6 +153,8 @@ const Registration = () => {
                   <Form.Check className="ms-4" type="checkbox" onChange={handleCheckboxChange} />
                 </Col>
               </Row>
+
+              {/* ❗❗❗ Inserire uno spinner con la scritta REGISTRAZIONE EFFETTUATE */}
             </Form.Group>
             <Button className="navigationBtn btn-primary mb-3" type="submit" disabled={!isChecked}>
               Continua

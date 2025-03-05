@@ -133,3 +133,14 @@ xx-large: da 1400 a Infinite */
     padding-right: 150px;
   }
 }
+
+/* ----- FOOTER ----- */
+
+.containerFooter {
+  min-height: 20vh;
+  background-color: rgb(250, 248, 248);
+}
+
+.footerLink:hover {
+  color: #0d6efd !important;
+}
