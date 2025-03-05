@@ -4,7 +4,7 @@ import { InfoCircleFill } from "react-bootstrap-icons";
 
 const Login = () => {
   return (
-    <Container fluid style={{ marginTop: "220px" }}>
+    <Container fluid style={{ marginTop: "180px" }}>
       <Row>
         <Col>
           <Form>
@@ -15,11 +15,13 @@ const Login = () => {
                 </Form.Label>
               </Row>
               <Form.Text className="fs-6">Username</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom border-primary no-focus mb-3" type="text" />
+              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom border-primary no-focus mb-3" type="text" required />
               <Form.Text className="fs-6">Password</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom border-primary no-focus" type="password" />
+              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom border-primary no-focus" type="password" required />
             </Form.Group>
-            <Button className="navigationBtn btn-primary mb-3">Login</Button>
+            <Button className="navigationBtn btn-primary mb-3" type="submit">
+              Login
+            </Button>
             <Row>
               <Form.Text>
                 Non sei ancora nostro cliente? <Link to={"/reservedArea/registration"}>Registrati</Link>
