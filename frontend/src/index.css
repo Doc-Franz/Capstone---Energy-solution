@@ -115,3 +115,21 @@ xx-large: da 1400 a Infinite */
   outline: none !important;
   box-shadow: none !important;
 }
+
+@media screen and (max-width: 768px) {
+  .imageLogin {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .loginProfessionals {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .loginProfessionals {
+    padding-right: 150px;
+  }
+}
