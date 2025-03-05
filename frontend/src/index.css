@@ -50,6 +50,10 @@ xx-large: da 1400 a Infinite */
   color: #0d6efd !important;
 }
 
+.linkButtonJournal:hover {
+  background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
 /* Posizionamento link dai 1200px */
 @media screen and (min-width: 1200px) {
   .linksHigherXl {
@@ -79,9 +83,35 @@ xx-large: da 1400 a Infinite */
 @media screen and (min-width: 992px) {
   .heroContent {
     position: absolute;
-    top: 250px;
+    top: 350px;
     left: 10%;
     transform: "translate(-50%, -50%)";
     width: 50%;
   }
+}
+
+/* ----- RESERVED AREA ----- */
+
+.cardLogin {
+  -webkit-box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.47);
+}
+
+/* Colore personalizzato dei bottoni */
+.navigationBtn {
+  background-color: #124579;
+  border: none;
+}
+
+.navigationBtn:hover {
+  background-color: #124579;
+  border: none;
+}
+
+/* ----- LOGIN ----- */
+
+/* Classe personalizzata per rimuovere il bordo dal form.control  */
+.no-focus:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

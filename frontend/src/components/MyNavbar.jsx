@@ -1,4 +1,4 @@
-import { Button, Col, Container, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
+import { Button, Col, Container, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function MyNavbar() {
           </Col>
           <Col xl={8} className="linksHigherXl ms-auto text-end">
             {/* ❗❗❗Inserire il link */}
-            <Button className="linkButton text-primary bg-transparent rounded-0">
+            <Button className="linkButtonJournal text-primary bg-transparent rounded-0">
               <JournalText className="me-3" />
               Preventivo senza impegno
             </Button>
@@ -104,25 +104,33 @@ function MyNavbar() {
             </Navbar.Collapse>
           </Col>
           <Col className="linksLowerXl ms-auto text-end">
-            <Button className="linkButton text-primary bg-transparent rounded-0">
-              <JournalText className="me-3" />
-            </Button>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Preventivi</Tooltip>}>
+              <Button className="linkButtonJournal text-primary bg-transparent rounded-0 me-3">
+                <JournalText />
+              </Button>
+            </OverlayTrigger>
 
             <Link to="/contacts" className="text-decoration-none">
-              <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-                <Envelope className="me-3" />
-              </Button>
+              <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Contattaci</Tooltip>}>
+                <Button className="linkButton text-dark bg-transparent border-0 rounded-0 me-3">
+                  <Envelope />
+                </Button>
+              </OverlayTrigger>
             </Link>
 
             <Link to="/reservedArea" className="text-decoration-none">
-              <Button className="linkButton reservedAreaLowerSm text-dark bg-transparent border-0 rounded-0">
-                <BoxArrowInRight className="me-3" />
-              </Button>
+              <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Area riservata</Tooltip>}>
+                <Button className="linkButton reservedAreaLowerSm text-dark bg-transparent border-0 rounded-0 me-3">
+                  <BoxArrowInRight />
+                </Button>
+              </OverlayTrigger>
             </Link>
 
-            <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-              <Search className="me-3" />
-            </Button>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Cerca</Tooltip>}>
+              <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+                <Search />
+              </Button>
+            </OverlayTrigger>
           </Col>
         </Row>
       </Container>

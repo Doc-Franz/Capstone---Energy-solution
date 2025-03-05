@@ -10,7 +10,7 @@ const Hero = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "300px",
+          height: "400px",
           position: "relative"
         }}
       ></Row>
