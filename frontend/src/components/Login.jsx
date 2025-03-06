@@ -1,5 +1,5 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { login, prova, resetLoginAction, resetLoginState } from "../redux/action
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isRegistered = useSelector((state) => state.login.isRegistered); // variabile che controlla se l'utente può effettuare il login
   const hasSubmitted = useSelector((state) => state.login.hasSubmitted); // variabile che controlla se l'utente ha submittato
@@ -42,6 +43,13 @@ const Login = () => {
       resetLoginForm();
     }
   }, [loginToReset]);
+
+  // ❗❗❗❗❗❗ DA SISTEMARE
+  useEffect(() => {
+    if (isRegistered) {
+      navigate("/");
+    }
+  }, [isRegistered]);
 
   // reset del form
   const resetLoginForm = () => {

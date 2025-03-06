@@ -2,10 +2,12 @@ import { Button, Card, Container, Row } from "react-bootstrap";
 import Hero from "./Hero";
 import { KeyFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import MyNavbar from "./MyNavbar";
 
 const ReservedArea = () => {
   return (
     <>
+      <MyNavbar />
       <Hero />
       <Container style={{ marginTop: "120px" }}>
         <Card className="cardLogin">
