@@ -1,5 +1,9 @@
 export const ADD_USER = "ADD_USER";
 export const RESET_FORM = "RESET_FORM";
+export const SPINNER_LOADING = "SPINNER_LOADING";
+export const HAS_SUBMITTED = "HAS_SUBMITTED";
+export const REGISTRATION_FAILED = "REGISTRATION_FAILED";
+export const RESET_REGISTRATION_STATE = "RESET_REGISTRATION_STATE";
 
 // metodo associato alla registrazione di un nuovo utente
 const userRegistration = (newUser) => ({
@@ -9,6 +13,25 @@ const userRegistration = (newUser) => ({
 
 export const resetFormAction = () => ({
   type: RESET_FORM
+});
+
+export const spinnerLoading = (isLoading) => ({
+  type: SPINNER_LOADING,
+  payload: isLoading
+});
+
+export const checkHasSubmitted = (hasSubmitted) => ({
+  type: HAS_SUBMITTED,
+  payload: hasSubmitted
+});
+
+export const checkRegistration = (failed) => ({
+  type: REGISTRATION_FAILED,
+  payload: failed
+});
+
+export const resetRegistrationState = () => ({
+  type: RESET_REGISTRATION_STATE
 });
 
 // fetch POST per registrare un nuovo user
@@ -23,10 +46,20 @@ export const addUser = (user, avatar) => {
 
   return async (dispatch) => {
     try {
+      dispatch(spinnerLoading(true)); // il loading viene mostrato
+      dispatch(checkHasSubmitted(false)); // il form viene resettato
+      dispatch(checkRegistration(false)); // l'errore di registrazione viene resettato
+
       const response = await fetch("http://localhost:8080/user/new", {
         method: "POST",
         body: formData
       });
+
+      setTimeout(() => {
+        dispatch(spinnerLoading(false)); // dopo la risposta della fetch il loading viene nascosto dopo 3 sec
+      }, 1500);
+
+      dispatch(checkHasSubmitted(true)); // il form è stato inviato
 
       if (response.ok) {
         const newUser = await response.json();
@@ -34,14 +67,15 @@ export const addUser = (user, avatar) => {
         dispatch(userRegistration(newUser));
 
         // la prorietà resetForm viene aggiornata nello store per permettere di resettare il form
-        dispatch(resetFormAction());
+        dispatch(resetFormAction()); // reset del form
       } else {
         console.log("Errore nella registrazione dell'utente");
-        return null;
+        dispatch(checkRegistration(true));
       }
     } catch (error) {
       console.log("Errore durante la fetch di registrazione utente: ", error);
-      return null;
+      dispatch(spinnerLoading(false));
+      dispatch(checkRegistration(true));
     }
   };
 };

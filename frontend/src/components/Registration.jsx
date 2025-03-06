@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, resetFormAction } from "../redux/actions/registrationActions";
+import { addUser, resetFormAction, resetRegistrationState } from "../redux/actions/registrationActions";
+import { Link } from "react-router-dom";
+import {} from "../../src/assets/images/thumb.svg";
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -29,12 +31,21 @@ const Registration = () => {
   // resetForm (TRUE/FALSE) è la proprietà nello stato globale che permette di controllare quando resettare il form -> se TRUE (fetch andata a buon fine) reset del form
   const resetFormState = useSelector((state) => state.registration.resetForm);
 
+  const hasSubmitted = useSelector((state) => state.registration.hasSubmitted);
+
+  const registrationFailed = useSelector((state) => state.registration.registrationFailed);
+
   // all'aggiornamento della variabile di controllo viene chiamato il reset del form
   useEffect(() => {
     if (resetFormState) {
       resetForm();
     }
   }, [resetFormState]);
+
+  useEffect(() => {
+    // al caricamento della pagina vengono resettati tutti gli stati
+    dispatch(resetRegistrationState());
+  }, []);
 
   // registrazione dell'utente
   const handleSubmit = (e) => {
@@ -73,6 +84,9 @@ const Registration = () => {
     // lo stato resetFormState viene riportato su FALSE
     dispatch(resetFormAction());
   };
+
+  // stato che controlla lo spinner al caricamento della registrazione
+  const loginLoading = useSelector((state) => state.registration.isLoading);
 
   return (
     <Container style={{ marginTop: "180px" }}>
@@ -153,13 +167,38 @@ const Registration = () => {
                   <Form.Check className="ms-4" type="checkbox" onChange={handleCheckboxChange} />
                 </Col>
               </Row>
-
-              {/* ❗❗❗ Inserire uno spinner con la scritta REGISTRAZIONE EFFETTUATE */}
             </Form.Group>
             <Button className="navigationBtn btn-primary mb-3" type="submit" disabled={!isChecked}>
               Continua
             </Button>
           </Form>
+
+          {/* spinner che gestisce la risposta alla registrazione */}
+          {loginLoading ? (
+            <Row>
+              <Col className="d-flex align-items-center">
+                <Spinner animation="border" />
+                <p className="ms-3">Tentativo di registrazione...</p>
+              </Col>
+            </Row>
+          ) : hasSubmitted ? (
+            registrationFailed ? (
+              <Row className="text-danger">
+                <Col>Registrazione non andata a buon fine!</Col>
+              </Row>
+            ) : (
+              <Row className="d-flex flex-column text-success">
+                <Col>Registrazione effettuata!</Col>
+                <Col>
+                  <Link to="/reservedArea/login">
+                    <Image src="../../src/assets/images/thumb.svg" className="me-2" alt="thumb icon" style={{ width: "40px", height: "40px" }}></Image>
+                    Vai al login
+                  </Link>
+                </Col>
+              </Row>
+            )
+          ) : null}
+
           <Row className="loginProfessionals mt-5">
             <h1>Guardiamo al futuro </h1>
             <p>Guardiamo al futuro, rimanendo sempre aggiornati sulle nuove tecnologie per offrire comfort, efficienza e un servizio all’avanguardia.</p>

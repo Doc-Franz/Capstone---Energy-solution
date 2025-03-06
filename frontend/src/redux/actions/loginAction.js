@@ -1,7 +1,27 @@
 export const RESET_LOGIN = "RESET_LOGIN";
+export const IS_REGISTERED = "IS_REGISTERED";
+export const HAS_SUBMITTED = "HAS_SUBMITTED";
+export const RESET_LOGIN_STATE = "RESET_LOGIN_STATE";
 
 export const resetLoginAction = () => ({
   type: RESET_LOGIN
+});
+
+// metodo che controlla se l'utente che effettua il login è registrato
+export const checkUserLogin = (isRegistered) => ({
+  type: IS_REGISTERED,
+  payload: isRegistered
+});
+
+// metodo che controlla se l'utente ha già effettuato il submit del login
+export const checkLoginSubmit = (hasSubmitted) => ({
+  type: HAS_SUBMITTED,
+  payload: hasSubmitted
+});
+
+// azione che resetta lo stato del login al caricamento della pagina
+export const resetLoginState = () => ({
+  type: RESET_LOGIN_STATE
 });
 
 // fetch di prova
@@ -31,6 +51,9 @@ export const prova = (tokenUser) => {
 export const login = (userLogin) => {
   return async (dispatch) => {
     try {
+      dispatch(checkUserLogin(false)); // reset della variabile di controllo sul login
+      dispatch(checkLoginSubmit(false)); // reset della variabile di controllo sul submit login
+
       const response = await fetch("http://localhost:8080/user/login", {
         method: "POST",
         headers: {
@@ -39,6 +62,8 @@ export const login = (userLogin) => {
 
         body: JSON.stringify(userLogin)
       });
+
+      dispatch(checkLoginSubmit(true));
 
       if (response.ok) {
         const loginResponse = await response.json();
@@ -49,13 +74,13 @@ export const login = (userLogin) => {
 
         // la prorietà resetLogin viene aggiornata nello store per permettere di resettare il form
         dispatch(resetLoginAction());
+
+        dispatch(checkUserLogin(true)); // se l'utente è validato viene garantito l'accesso
       } else {
         console.log("Errore nel login dell'utente");
-        return null;
       }
     } catch (error) {
       console.log("Errore nel login dell'utente ", error);
-      return null;
     }
   };
 };

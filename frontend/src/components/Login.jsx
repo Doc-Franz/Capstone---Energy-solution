@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { login, prova, resetLoginAction } from "../redux/actions/loginAction";
+import { login, prova, resetLoginAction, resetLoginState } from "../redux/actions/loginAction";
 
 const Login = () => {
   const dispatch = useDispatch();
 
-  // const tokenUser = useSelector((state) => state.login.token);
+  const isRegistered = useSelector((state) => state.login.isRegistered); // variabile che controlla se l'utente può effettuare il login
+  const hasSubmitted = useSelector((state) => state.login.hasSubmitted); // variabile che controlla se l'utente ha submittato
+
+  // al caricamento della pagina vengono resettati tutti gli stati
+  useEffect(() => {
+    dispatch(resetLoginState());
+  }, []);
 
   // inizializzazione dello stato del login user
   const [loginUser, setLoginUser] = useState({
@@ -28,14 +34,14 @@ const Login = () => {
   };
 
   // resetLogin (TRUE/FALSE) è la proprietà nello stato globale che permette di controllare quando resettare il form -> se TRUE (fetch andata a buon fine) reset del form
-  const resetLoginState = useSelector((state) => state.login.resetLogin);
+  const loginToReset = useSelector((state) => state.login.resetLogin);
 
   // all'aggiornamento della variabile di controllo viene chiamato il reset del form
   useEffect(() => {
-    if (resetLoginState) {
+    if (loginToReset) {
       resetLoginForm();
     }
-  }, [resetLoginState]);
+  }, [loginToReset]);
 
   // reset del form
   const resetLoginForm = () => {
@@ -88,6 +94,13 @@ const Login = () => {
             <Button className="navigationBtn btn-primary mb-3" type="submit">
               Login
             </Button>
+
+            {/* l'utente non ha ancora mandato il submit? */}
+            {!hasSubmitted ? null : isRegistered ? null : ( // ora che ha mandato il submit, l'utente è registrato o no?
+              <Row className="text-danger mb-2">
+                <Col>Credenziali inserite non valide!</Col>
+              </Row>
+            )}
             <Row>
               <Form.Text>
                 Non sei ancora nostro cliente? <Link to={"/reservedArea/registration"}>Registrati</Link>
