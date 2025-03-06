@@ -1,13 +1,63 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { login, prova, resetLoginAction } from "../redux/actions/loginAction";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  // const tokenUser = useSelector((state) => state.login.token);
+
+  // inizializzazione dello stato del login user
+  const [loginUser, setLoginUser] = useState({
+    username: "",
+    password: ""
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoginUser({
+      username: e.target.elements.loginUsername.value,
+      password: e.target.elements.loginPassword.value
+    });
+
+    dispatch(login(loginUser));
+  };
+
+  // resetLogin (TRUE/FALSE) è la proprietà nello stato globale che permette di controllare quando resettare il form -> se TRUE (fetch andata a buon fine) reset del form
+  const resetLoginState = useSelector((state) => state.login.resetLogin);
+
+  // all'aggiornamento della variabile di controllo viene chiamato il reset del form
+  useEffect(() => {
+    if (resetLoginState) {
+      resetLoginForm();
+    }
+  }, [resetLoginState]);
+
+  // reset del form
+  const resetLoginForm = () => {
+    setLoginUser({
+      username: "",
+      password: ""
+    });
+
+    dispatch(resetLoginAction());
+  };
+
+  // ❗❗❗ metodo di prova
+  const handleButtonDiProva = () => {
+    const tokenUser = localStorage.getItem("token");
+    dispatch(prova(tokenUser));
+  };
+
   return (
     <Container style={{ marginTop: "180px" }}>
       <Row>
         <Col>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Row>
                 <Form.Label className="fs-3 fw-semibold text-primary-emphasis">
@@ -15,9 +65,25 @@ const Login = () => {
                 </Form.Label>
               </Row>
               <Form.Text className="fs-6">Username</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3" type="text" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                type="text"
+                id="loginUsername"
+                value={loginUser.username}
+                onChange={(e) => setLoginUser({ ...loginUser, username: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
+                autoComplete="off"
+                required
+              />
               <Form.Text className="fs-6">Password</Form.Text>
-              <Form.Control className="text-decoration-none border-0 rounded-0 border-bottom no-focus" type="password" required />
+              <Form.Control
+                className="text-decoration-none border-0 rounded-0 border-bottom no-focus"
+                type="password"
+                id="loginPassword"
+                value={loginUser.password}
+                onChange={(e) => setLoginUser({ ...loginUser, password: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
+                autoComplete="off"
+                required
+              />
             </Form.Group>
             <Button className="navigationBtn btn-primary mb-3" type="submit">
               Login
@@ -29,6 +95,11 @@ const Login = () => {
             </Row>
           </Form>
           <Row className="loginProfessionals mt-5">
+            {/* ❗❗❗Bottone di prova  */}
+            <Button className="navigationBtn btn-danger mb-3" onClick={handleButtonDiProva}>
+              Bottone di prova
+            </Button>
+
             <h1>Professionisti nel settore</h1>
             <p>
               La nostra azienda è specializzata e professionista nel settore della climatizzazione da anni, offrendo soluzioni affidabili con caldaie e pompe di
