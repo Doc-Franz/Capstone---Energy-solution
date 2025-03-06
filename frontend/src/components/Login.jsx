@@ -48,6 +48,8 @@ const Login = () => {
   useEffect(() => {
     if (isRegistered) {
       navigate("/");
+
+      dispatch(resetLoginState());
     }
   }, [isRegistered]);
 
