@@ -5,6 +5,74 @@ large: da 992 a 1199px
 x-large: da 1200 a 1399px
 xx-large: da 1400 a Infinite */
 
+/* ----- BODY ----- */
+
+/* viene aggiunta opacità al caricamento dopo il login */
+.pageLoading {
+  opacity: 0.3;
+}
+
+/* ----- HERO ----- */
+
+/* Posizionamento delle info della pagina */
+@media screen and (min-width: 992px) {
+  .heroContent {
+    position: absolute;
+    top: 350px;
+    left: 10%;
+    transform: "translate(-50%, -50%)";
+    width: 50%;
+  }
+}
+
+/* Posizionamento del testo sopra il carosello */
+@media screen and (min-width: 1140px) {
+  .heroContent {
+    top: 400px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .heroContent {
+    top: 450px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .heroContent {
+    top: 500px;
+  }
+}
+
+@media screen and (min-width: 1550px) {
+  .heroContent {
+    top: 550px;
+  }
+}
+
+@media screen and (min-width: 1720px) {
+  .heroContent {
+    top: 600px;
+  }
+}
+
+@media screen and (min-width: 1780px) {
+  .heroContent {
+    top: 650px;
+  }
+}
+
+@media screen and (min-width: 1950px) {
+  .heroContent {
+    top: 700px;
+  }
+}
+
+.hero {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 92%, rgba(226, 236, 247, 1) 100%);
+}
+
 /* ----- NAVBAR ----- */
 
 /* Rimozione chevron  */
@@ -77,19 +145,6 @@ xx-large: da 1400 a Infinite */
   }
 }
 
-/* ----- HERO ----- */
-
-/* Posizionamento delle info della pagina */
-@media screen and (min-width: 992px) {
-  .heroContent {
-    position: absolute;
-    top: 350px;
-    left: 10%;
-    transform: "translate(-50%, -50%)";
-    width: 50%;
-  }
-}
-
 /* ----- RESERVED AREA ----- */
 
 .cardLogin {
@@ -132,6 +187,31 @@ xx-large: da 1400 a Infinite */
   .loginProfessionals {
     padding-right: 150px;
   }
+}
+
+/* ----- BUILDING EVALUATION ----- */
+
+/* stilizzazione del bottone per simular un calcolo del carico termico per l'edificio */
+.btnEvaluation {
+  width: 150px;
+  border: 0px;
+  border-radius: 0;
+  background-color: rgb(26, 13, 43, 0.75);
+}
+
+.btnEvaluation:hover {
+  background-color: rgb(26, 13, 43);
+  scale: 1.02;
+}
+
+.cardSelection {
+  max-width: 200px;
+}
+
+.cardSelection:hover {
+  background-color: #c4d2e2;
+  scale: 1.03;
+  color: #568fcf;
 }
 
 /* ----- FOOTER ----- */

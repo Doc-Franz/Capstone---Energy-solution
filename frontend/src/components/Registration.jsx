@@ -89,6 +89,7 @@ const Registration = () => {
   const loginLoading = useSelector((state) => state.registration.isLoading);
 
   return (
+    // ❗❗❗ inserire un header
     <Container style={{ marginTop: "180px" }}>
       <Row>
         <Col>

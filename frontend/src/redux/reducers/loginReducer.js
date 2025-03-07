@@ -1,9 +1,10 @@
-import { HAS_SUBMITTED, IS_REGISTERED, RESET_LOGIN, RESET_LOGIN_STATE } from "../actions/loginAction";
+import { GO_TO_HOMEPAGE, HAS_SUBMITTED, IS_REGISTERED, RESET_LOGIN, RESET_LOGIN_STATE } from "../actions/loginAction";
 
 export const initialStateLogin = {
   resetLogin: false, // variabile di controllo per il reset del form
   isRegistered: false, // variabile che controlla se lo user è registrato
-  hasSubmitted: false // variabile che controlla se l'utente ha già effettuato il submit per il login
+  hasSubmitted: false, // variabile che controlla se l'utente ha già effettuato il submit per il login
+  goToHomepage: false // variabile che controlla lo spinner per il reindirizzamento all'homepage dopo il login
 };
 
 const loginReducer = (state = initialStateLogin, action) => {
@@ -22,6 +23,11 @@ const loginReducer = (state = initialStateLogin, action) => {
       return {
         ...state,
         hasSubmitted: action.payload
+      };
+    case GO_TO_HOMEPAGE:
+      return {
+        ...state,
+        goToHomepage: action.payload
       };
     case RESET_LOGIN_STATE:
       return initialStateLogin;

@@ -1,9 +1,9 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { login, prova, resetLoginAction, resetLoginState } from "../redux/actions/loginAction";
+import { login, prova, resetLoginAction, resetLoginState, spinnerLoading } from "../redux/actions/loginAction";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -11,6 +11,8 @@ const Login = () => {
 
   const isRegistered = useSelector((state) => state.login.isRegistered); // variabile che controlla se l'utente può effettuare il login
   const hasSubmitted = useSelector((state) => state.login.hasSubmitted); // variabile che controlla se l'utente ha submittato
+
+  const goToHomepage = useSelector((state) => state.login.goToHomepage); // variabile che controlla lo spinner prima del reindirizzamento all'homepage
 
   // al caricamento della pagina vengono resettati tutti gli stati
   useEffect(() => {
@@ -47,9 +49,23 @@ const Login = () => {
   // ❗❗❗❗❗❗ DA SISTEMARE
   useEffect(() => {
     if (isRegistered) {
-      navigate("/");
+      /* viene aggiunta opacità al caricamento dopo il login */
+      const body = document.querySelector("body");
+      body.classList.add("pageLoading");
 
-      dispatch(resetLoginState());
+      // viene attivato lo spinner
+      dispatch(spinnerLoading(true));
+
+      setTimeout(() => {
+        navigate("/");
+        body.classList.remove("pageLoading");
+
+        // lo spinner viene disattivato
+        dispatch(spinnerLoading(false));
+
+        // gli state del login vengono resettati
+        dispatch(resetLoginState());
+      }, 2000);
     }
   }, [isRegistered]);
 
@@ -70,7 +86,24 @@ const Login = () => {
   };
 
   return (
+    // ❗❗❗ inserire un header
     <Container style={{ marginTop: "180px" }}>
+      {/* spinner che viene mostrato al caricamento della homepage dopo il login */}
+      {goToHomepage ? (
+        <Spinner
+          animation="border"
+          className="spinnerLogin"
+          style={{
+            width: "50px",
+            height: "50px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            zIndex: 999
+          }}
+        />
+      ) : null}
+
       <Row>
         <Col>
           <Form onSubmit={handleSubmit}>

@@ -2,6 +2,7 @@ export const RESET_LOGIN = "RESET_LOGIN";
 export const IS_REGISTERED = "IS_REGISTERED";
 export const HAS_SUBMITTED = "HAS_SUBMITTED";
 export const RESET_LOGIN_STATE = "RESET_LOGIN_STATE";
+export const GO_TO_HOMEPAGE = "GO_TO_HOMEPAGE";
 
 export const resetLoginAction = () => ({
   type: RESET_LOGIN
@@ -22,6 +23,11 @@ export const checkLoginSubmit = (hasSubmitted) => ({
 // azione che resetta lo stato del login al caricamento della pagina
 export const resetLoginState = () => ({
   type: RESET_LOGIN_STATE
+});
+
+export const spinnerLoading = (pageLoading) => ({
+  type: GO_TO_HOMEPAGE,
+  payload: pageLoading
 });
 
 // fetch di prova
