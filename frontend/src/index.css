@@ -7,6 +7,12 @@ xx-large: da 1400 a Infinite */
 
 /* ----- BODY ----- */
 
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 /* viene aggiunta opacità al caricamento dopo il login */
 .pageLoading {
   opacity: 0.3;
@@ -214,6 +220,21 @@ xx-large: da 1400 a Infinite */
   color: #568fcf;
 }
 
+/* barra dello slider */
+.form-range.sliderAreaBuilding::-webkit-slider-runnable-track {
+  background: #dfe3e7;
+}
+
+/* cursore dello slider */
+.form-range.sliderAreaBuilding::-webkit-slider-thumb {
+  background: #568fcf;
+  border: 2px solid #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  /* cursor: pointer; */
+}
+
 /* ----- FOOTER ----- */
 
 .containerFooter {
@@ -222,4 +243,12 @@ xx-large: da 1400 a Infinite */
 
 .footerLink:hover {
   color: #0d6efd !important;
+}
+
+/* ----- BUILDING EVALUATION ----- */
+
+@media screen and (min-width: 992px) {
+  .buildingEvaluation {
+    margin-top: 300px;
+  }
 }
