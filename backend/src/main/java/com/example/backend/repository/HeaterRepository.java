@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface HeaterRepository extends JpaRepository<Heater, Long> {
 
     // in base alla potenza calcolata da input dell'utente verificare se a database ci sono macchine che soddisfano questi valori
-    Optional<List<Heater>> findByPowerGreatherThan (int powerEvaluated);
+    Optional<List<Heater>> findByPowerGreaterThan (int powerEvaluated);
 }

@@ -1,6 +1,8 @@
 package com.example.backend.payload.request;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -14,7 +16,8 @@ public class GeothermicDTO {
     @NotBlank(message = "Il campo description non può essere vuoto")
     private String description;
 
-    @NotBlank(message = "Il campo power non può essere vuoto")
+    @NotNull(message = "Il campo power non può essere vuoto")
+    @Min(value = 5, message = "Il campo power deve essere almeno 5")
     private int power;
 
     private String firstElementList;
@@ -26,6 +29,5 @@ public class GeothermicDTO {
     private String thirdIcon;
 
     @URL
-    @NotBlank(message = "Il campo image non può essere vuoto")
     private String image;
 }
