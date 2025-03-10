@@ -81,6 +81,17 @@ body {
 
 /* ----- NAVBAR ----- */
 
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-item:active,
+.dropdown-item:focus {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
 /* Rimozione chevron  */
 @media screen and (min-width: 992px) {
   .chevronRight {
@@ -202,12 +213,17 @@ body {
   width: 150px;
   border: 0px;
   border-radius: 0;
-  background-color: rgb(26, 13, 43, 0.75);
+  background-color: rgb(26, 13, 43);
 }
 
 .btnEvaluation:hover {
-  background-color: rgb(26, 13, 43);
+  background-color: #568fcf;
   scale: 1.02;
+}
+
+.btnEvaluation:active {
+  background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
 }
 
 .cardSelection {
@@ -251,4 +267,21 @@ body {
   .buildingEvaluation {
     margin-top: 300px;
   }
+}
+
+/* ----- ALL PRODUCTS ----- */
+
+.btnBuyProduct {
+  border: 0px;
+  background-color: rgb(26, 13, 43);
+}
+
+.btnBuyProduct:hover {
+  background-color: #568fcf;
+  scale: 1.02;
+}
+
+.btnBuyProduct:active {
+  background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
 }

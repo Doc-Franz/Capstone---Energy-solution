@@ -1,4 +1,4 @@
-import { Button, Col, Container, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
@@ -45,18 +45,61 @@ function MyNavbar() {
         </Row>
         <Row className="gx-0 w-100 d-flex justify-content-start">
           <Col>
-            <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none" style={{}}>
+            <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none">
               <List className="me-3" />
               Menu
             </Navbar.Toggle>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Link to="/products" className="text-decoration-none">
-                  <Nav.Item className="products d-flex justify-content-between align-items-center border-bottom">
-                    <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Prodotti</Button>
-                    <ChevronRight className="chevronRight ms-auto text-dark" />
-                  </Nav.Item>
-                </Link>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-autoclose-true" className="p-0 bg-transparent border-0 shadow-none w-100">
+                    <Nav.Item className="products d-flex justify-content-between align-items-center border-bottom">
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Prodotti</Button>
+                      <ChevronRight className="chevronRight ms-auto text-dark" />
+                    </Nav.Item>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="border-0 shadow-none">
+                    {/* Tutti i prodotti */}
+
+                    <Dropdown.Item as={Link} to="/allProducts" className="d-flex justify-content-between align-items-center border-bottom">
+                      {" "}
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Tutti i prodotti</Button>
+                      <ChevronRight className="chevronRightProducts ms-auto text-dark" />
+                    </Dropdown.Item>
+
+                    {/* Sistema geotermico */}
+
+                    <Dropdown.Item as={Link} to="/geothermic" className="d-flex justify-content-between align-items-center border-bottom">
+                      {" "}
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Sistemi geotermici</Button>
+                      <ChevronRight className="chevronRightProducts ms-auto text-dark" />
+                    </Dropdown.Item>
+
+                    {/* Pompa di calore */}
+
+                    <Dropdown.Item as={Link} to="/heatPump" className="d-flex justify-content-between align-items-center border-bottom">
+                      {" "}
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Pompe di calore</Button>
+                      <ChevronRight className="chevronRightProducts ms-auto text-dark" />
+                    </Dropdown.Item>
+
+                    {/* Caldaia tradizionale */}
+
+                    <Dropdown.Item as={Link} to="/traditionalBoiler" className="d-flex justify-content-between align-items-center border-bottom">
+                      {" "}
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Caldaie tradizionali</Button>
+                      <ChevronRight className="chevronRightProducts ms-auto text-dark" />
+                    </Dropdown.Item>
+
+                    {/* Caldaia a condensazione */}
+
+                    <Dropdown.Item as={Link} to="/condensingBoiler" className="d-flex justify-content-between align-items-center border-bottom">
+                      {" "}
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Caldaie a condensazione</Button>
+                      <ChevronRight className="chevronRightProducts ms-auto text-dark" />
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
 
                 <Link to="/quotes" className="text-decoration-none">
                   <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">

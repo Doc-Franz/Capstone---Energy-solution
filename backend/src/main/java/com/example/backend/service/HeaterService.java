@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.HeaterNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.payload.request.CondensingBoilerDTO;
 import com.example.backend.payload.request.GeothermicDTO;
@@ -9,6 +10,9 @@ import com.example.backend.repository.HeaterRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -86,6 +90,11 @@ public class HeaterService {
 
         heaterRepository.save(newCondensingBoiler);
         return newCondensingBoiler.getId();
+    }
+
+    // metodo che restituisce un tipo di sistema
+    public List<Heater> getByHeaterType(Class<? extends Heater> heaterClass) {
+         return  heaterRepository.findBydiscriminatorType(heaterClass);
     }
 
 

@@ -3,11 +3,14 @@ package com.example.backend.controller;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.backend.exception.EmailDuplicatedException;
+import com.example.backend.exception.HeaterNotFoundException;
 import com.example.backend.exception.UsernameDuplicatedException;
-import com.example.backend.model.User;
+import com.example.backend.model.*;
 import com.example.backend.payload.request.LoginRequest;
 import com.example.backend.payload.request.RegistrationRequest;
 import com.example.backend.payload.response.LoginResponse;
+import com.example.backend.repository.HeaterRepository;
+import com.example.backend.service.HeaterService;
 import com.example.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.AuthenticationException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +39,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    HeaterRepository heaterRepository;
+
+    @Autowired
+    HeaterService heaterService;
 
     @PostMapping("/new")
     public ResponseEntity<Map<String, String>> userRegistration(@RequestPart("user") @Validated RegistrationRequest registrationRequest,
@@ -109,4 +120,84 @@ public class UserController {
         }
     }
 
+    // GET di tutti i prodotti
+    @GetMapping("/allProducts")
+    public ResponseEntity<?> getAllProducts() {
+
+        try {
+            List<Heater> heaterList = heaterRepository.findAll();
+
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // GET dei sistemi geotermici
+    @GetMapping("/geothermic")
+    public ResponseEntity<?> getGeothermic() {
+
+        try {
+            List<Heater> heaterList = heaterService.getByHeaterType(Geothermic.class);
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // GET dei sistemi in pompa di calore
+    @GetMapping("/heatPump")
+    public ResponseEntity<?> getHeatPump() {
+
+        try {
+            List<Heater> heaterList = heaterService.getByHeaterType(HeatPump.class);
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // GET dei sistemi con caldaia a condensazione
+    @GetMapping("/condensingBoiler")
+    public ResponseEntity<?> getCondensingBoiler() {
+
+        try {
+            List<Heater> heaterList = heaterService.getByHeaterType(CondensingBoiler.class);
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // GET dei sistemi con caldaia tradizionale
+    @GetMapping("/traditionalBoiler")
+    public ResponseEntity<?> getTraditionalBoiler() {
+
+        try {
+            List<Heater> heaterList = heaterService.getByHeaterType(TraditionalBoiler.class);
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
