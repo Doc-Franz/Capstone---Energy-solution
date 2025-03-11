@@ -27,7 +27,7 @@ function MyNavbar() {
                 <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
                   <Col className="username d-flex justify-content-end">{username}</Col>
 
-                  <Image fluid src={avatar} className="rounded-circle ms-3" style={{ maxHeight: "40px" }} />
+                  <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
                 </Link>
               </Row>
             ) : (
@@ -80,7 +80,7 @@ function MyNavbar() {
                     <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
                       <Col className="username d-flex justify-content-end">{username}</Col>
 
-                      <Image fluid src={avatar} className="rounded-circle ms-3" style={{ maxHeight: "40px" }} />
+                      <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
                     </Link>
                   </Row>
                 ) : null}

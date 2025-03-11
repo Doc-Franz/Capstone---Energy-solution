@@ -81,6 +81,14 @@ body {
 
 /* ----- NAVBAR ----- */
 
+/* avatar */
+.circularAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }
