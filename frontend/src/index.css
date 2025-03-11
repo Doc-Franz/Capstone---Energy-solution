@@ -169,15 +169,25 @@ body {
   box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.47);
 }
 
+@media screen and (min-width: 992px) {
+  .cardLogin {
+    margin-top: 250px;
+  }
+}
+
 /* Colore personalizzato dei bottoni */
 .navigationBtn {
-  background-color: #124579;
-  border: none;
+  background-color: rgb(26, 13, 43);
+  border: 0px;
 }
 
 .navigationBtn:hover {
-  background-color: #124579;
-  border: none;
+  background-color: #568fcf;
+}
+
+.navigationBtn:active {
+  background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
 }
 
 /* ----- LOGIN ----- */

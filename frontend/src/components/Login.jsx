@@ -4,6 +4,11 @@ import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { login, prova, resetLoginAction, resetLoginState, spinnerLoading } from "../redux/actions/loginAction";
+import airSourceHeatPump from "../assets/images/login/air-source-heat-pump.svg";
+import energy from "../assets/images/login/energy.svg";
+import heating from "../assets/images/login/heating.svg";
+import solarWaterHeater from "../assets/images/login/solar-water-heater.svg";
+import waterBoiler from "../assets/images/login/water-boiler.svg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -164,10 +169,32 @@ const Login = () => {
           </Row>
         </Col>
         <Col className="imageLogin">
-          <Image
-            src="https://files.oaiusercontent.com/file-GPGER17p3Jyi8YRqaHjm2s?se=2025-03-05T10%3A48%3A47Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D4765f165-bad4-46d4-82b9-84f22da45e58.webp&sig=sjIgTviIh1AQ67opwQDZZkOUKT3/qDjT7n7oAVt33VM%3D"
-            style={{ height: "100%", width: "100%", objectFit: "cover" }}
-          />
+          <Row className="d-flex justify-content-between">
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={airSourceHeatPump} />
+            </Col>
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={energy} />
+            </Col>
+          </Row>
+          <Row className="d-flex justify-content-between">
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={heating} />
+            </Col>
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={solarWaterHeater} />
+            </Col>
+          </Row>
+          <Row>
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={waterBoiler} />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
