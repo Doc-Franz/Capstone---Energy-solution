@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, FloatingLabel, Form, Image, Row, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import energy from "../assets/images/login/energy.svg";
 import heating from "../assets/images/login/heating.svg";
 import solarWaterHeater from "../assets/images/login/solar-water-heater.svg";
 import waterBoiler from "../assets/images/login/water-boiler.svg";
+import geothermalHeating from "../assets/images/login/geothermal-heating.svg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -118,26 +119,32 @@ const Login = () => {
                   Iscriviti o accedi <InfoCircleFill className="ms-2" style={{ height: "18px", width: "18px", color: "#126FA4" }} />
                 </Form.Label>
               </Row>
-              <Form.Text className="fs-6">Username</Form.Text>
-              <Form.Control
-                className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
-                type="text"
-                id="loginUsername"
-                value={loginUser.username}
-                onChange={(e) => setLoginUser({ ...loginUser, username: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
-                autoComplete="off"
-                required
-              />
-              <Form.Text className="fs-6">Password</Form.Text>
-              <Form.Control
-                className="text-decoration-none border-0 rounded-0 border-bottom no-focus"
-                type="password"
-                id="loginPassword"
-                value={loginUser.password}
-                onChange={(e) => setLoginUser({ ...loginUser, password: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
-                autoComplete="off"
-                required
-              />
+
+              <FloatingLabel label="Username" className="mb-3">
+                <Form.Control
+                  className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
+                  type="text"
+                  id="loginUsername"
+                  value={loginUser.username}
+                  onChange={(e) => setLoginUser({ ...loginUser, username: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
+                  autoComplete="off"
+                  placeholder="name@example.com"
+                  required
+                />
+              </FloatingLabel>
+
+              <FloatingLabel label="Password" className="mb-3">
+                <Form.Control
+                  className="text-decoration-none border-0 rounded-0 border-bottom no-focus"
+                  type="password"
+                  id="loginPassword"
+                  value={loginUser.password}
+                  onChange={(e) => setLoginUser({ ...loginUser, password: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
+                  autoComplete="off"
+                  placeholder="password"
+                  required
+                />
+              </FloatingLabel>
             </Form.Group>
             <Button className="navigationBtn btn-primary mb-3" type="submit">
               Login
@@ -169,30 +176,30 @@ const Login = () => {
           </Row>
         </Col>
         <Col className="imageLogin">
-          <Row className="d-flex justify-content-between">
+          <Row className="d-flex flex-wrap justify-content-between">
             <Col className="col-5">
               {" "}
-              <Image fluid src={airSourceHeatPump} />
+              <Image fluid src={airSourceHeatPump} className="airSourceHeatPump" />
             </Col>
             <Col className="col-5">
               {" "}
-              <Image fluid src={energy} />
-            </Col>
-          </Row>
-          <Row className="d-flex justify-content-between">
-            <Col className="col-5">
-              {" "}
-              <Image fluid src={heating} />
+              <Image fluid src={energy} className="energy" />
             </Col>
             <Col className="col-5">
               {" "}
-              <Image fluid src={solarWaterHeater} />
+              <Image fluid src={heating} className="heating" />
             </Col>
-          </Row>
-          <Row>
             <Col className="col-5">
               {" "}
-              <Image fluid src={waterBoiler} />
+              <Image fluid src={solarWaterHeater} className="solarWaterHeater" />
+            </Col>
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={waterBoiler} className="waterBoiler" />
+            </Col>
+            <Col className="col-5">
+              {" "}
+              <Image fluid src={geothermalHeating} className="geothermalHeating" />
             </Col>
           </Row>
         </Col>

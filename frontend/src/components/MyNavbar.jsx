@@ -1,8 +1,15 @@
-import { Button, Col, Container, Dropdown, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function MyNavbar() {
+  // riprendo dallo store l'indirizzo dell'avatar
+  const avatar = useSelector((state) => state.login.avatar);
+
+  // riprendo dallo store username
+  const username = useSelector((state) => state.login.username);
+
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
       <Container className="d-flex flex-column align-items-start">
@@ -12,35 +19,73 @@ function MyNavbar() {
               <Navbar.Brand>Logo</Navbar.Brand>
             </Link>
           </Col>
-          <Col className="ms-auto text-end">
-            <Navbar.Brand style={{ marginRight: "0px" }}>Logo 2</Navbar.Brand>
+
+          {/* se l'utente ha effettuato il login viene mostrato il suo avatar */}
+          <Col className="avatarAndUsernameLowerXl ms-auto text-end">
+            {username != null ? (
+              <Row className>
+                <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
+                  <Col className="username d-flex justify-content-end">{username}</Col>
+
+                  <Image fluid src={avatar} className="rounded-circle ms-3" style={{ maxHeight: "40px" }} />
+                </Link>
+              </Row>
+            ) : (
+              <Navbar.Brand style={{ marginRight: "0px" }}>Logo 2</Navbar.Brand>
+            )}
           </Col>
-          <Col xl={8} className="linksHigherXl ms-auto text-end">
-            {/* ❗❗❗Inserire il link */}
-            <Button className="linkButtonJournal text-primary bg-transparent rounded-0">
-              <JournalText className="me-3" />
-              Preventivo senza impegno
-            </Button>
+          <Col xl={10} className="linksHigherXl ms-auto text-end gx-0">
+            <Row className="d-flex align-items-center">
+              <Col className="col-4 d-flex justify-content-center">
+                {/* ❗❗❗Inserire il link */}
+                <Button className="linkButtonJournal text-primary bg-transparent rounded-0">
+                  <JournalText className="me-3" />
+                  Preventivo senza impegno
+                </Button>
+              </Col>
 
-            <Link to="/contacts" className="text-decoration-none">
-              <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-                <Envelope className="me-3" />
-                Contattaci
-              </Button>
-            </Link>
+              <Col className="d-flex justify-content-center">
+                <Link to="/contacts" className="text-decoration-none">
+                  <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+                    <Envelope className="me-3" />
+                    Contattaci
+                  </Button>
+                </Link>
+              </Col>
 
-            <Link to="/reservedArea" className="text-decoration-none">
-              <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-                <BoxArrowInRight className="me-3" />
-                Area riservata
-              </Button>
-            </Link>
+              {username != null ? null : (
+                <Col className="d-flex justify-content-center">
+                  <Link to="/reservedArea" className="text-decoration-none">
+                    <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+                      <BoxArrowInRight className="me-3" />
+                      Area riservata
+                    </Button>
+                  </Link>
+                </Col>
+              )}
 
-            {/* ❗❗❗Va messo un link per il search?? */}
-            <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-              <Search className="me-3" />
-              Cerca
-            </Button>
+              {/* ❗❗❗Va messo un link per il search?? */}
+              <Col className="d-flex justify-content-center">
+                {" "}
+                <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+                  <Search className="me-3" />
+                  Cerca
+                </Button>
+              </Col>
+
+              <Col className="avatarAndUsernameHigherXl ms-auto text-end">
+                {/* se l'utente non è loggato rimane visibile l'icona di area riservata */}
+                {username != null ? (
+                  <Row>
+                    <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
+                      <Col className="username d-flex justify-content-end">{username}</Col>
+
+                      <Image fluid src={avatar} className="rounded-circle ms-3" style={{ maxHeight: "40px" }} />
+                    </Link>
+                  </Row>
+                ) : null}
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row className="gx-0 w-100 d-flex justify-content-start">
@@ -52,7 +97,7 @@ function MyNavbar() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-autoclose-true" className="p-0 bg-transparent border-0 shadow-none w-100">
+                  <Dropdown.Toggle as="div" id="dropdown-autoclose-true" className="p-0 bg-transparent border-0 shadow-none w-100">
                     <Nav.Item className="products d-flex justify-content-between align-items-center border-bottom">
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Prodotti</Button>
                       <ChevronRight className="chevronRight ms-auto text-dark" />
@@ -161,13 +206,16 @@ function MyNavbar() {
               </OverlayTrigger>
             </Link>
 
-            <Link to="/reservedArea" className="text-decoration-none">
-              <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Area riservata</Tooltip>}>
-                <Button className="linkButton reservedAreaLowerSm text-dark bg-transparent border-0 rounded-0 me-3">
-                  <BoxArrowInRight />
-                </Button>
-              </OverlayTrigger>
-            </Link>
+            {/* se l'utente non è loggato rimane visibile l'icona di area riservata */}
+            {username != null ? null : (
+              <Link to="/reservedArea" className="text-decoration-none">
+                <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Area riservata</Tooltip>}>
+                  <Button className="linkButton reservedAreaLowerSm text-dark bg-transparent border-0 rounded-0 me-3">
+                    <BoxArrowInRight />
+                  </Button>
+                </OverlayTrigger>
+              </Link>
+            )}
 
             <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Cerca</Tooltip>}>
               <Button className="linkButton text-dark bg-transparent border-0 rounded-0">

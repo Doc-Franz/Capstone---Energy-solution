@@ -3,6 +3,8 @@ export const IS_REGISTERED = "IS_REGISTERED";
 export const HAS_SUBMITTED = "HAS_SUBMITTED";
 export const RESET_LOGIN_STATE = "RESET_LOGIN_STATE";
 export const GO_TO_HOMEPAGE = "GO_TO_HOMEPAGE";
+export const GET_AVATAR = "GET_AVATAR";
+export const GET_USERNAME = "GET_USERNAME";
 
 export const resetLoginAction = () => ({
   type: RESET_LOGIN
@@ -28,6 +30,18 @@ export const resetLoginState = () => ({
 export const spinnerLoading = (pageLoading) => ({
   type: GO_TO_HOMEPAGE,
   payload: pageLoading
+});
+
+// azione che salva l'indirizzo dell'avatar
+export const getAvatar = (avatar) => ({
+  type: GET_AVATAR,
+  payload: avatar
+});
+
+// azione che salva l'username dell'utente
+export const getUsername = (username) => ({
+  type: GET_USERNAME,
+  payload: username
 });
 
 // fetch di prova
@@ -73,10 +87,15 @@ export const login = (userLogin) => {
 
       if (response.ok) {
         const loginResponse = await response.json();
-        console.log(loginResponse.token);
 
         // il token viene salvato nel local storage
         localStorage.setItem("token", loginResponse.token);
+
+        // l'avatar viene salvato nello store
+        dispatch(getAvatar(loginResponse.avatar));
+
+        // username viene salvato nello store
+        dispatch(getUsername(loginResponse.username));
 
         // la prorietà resetLogin viene aggiornata nello store per permettere di resettare il form
         dispatch(resetLoginAction());

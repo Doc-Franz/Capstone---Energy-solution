@@ -115,6 +115,12 @@ public class UserService {
         }
     }
 
+    // metodo che ricerca l'avatar di un utente tramite username
+    public String getAvatarByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        return user.getAvatar();
+    }
+
     // LOGIN
     public LoginResponse login(String username, String password){
 

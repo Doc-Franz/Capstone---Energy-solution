@@ -1,6 +1,8 @@
-import { GO_TO_HOMEPAGE, HAS_SUBMITTED, IS_REGISTERED, RESET_LOGIN, RESET_LOGIN_STATE } from "../actions/loginAction";
+import { GET_AVATAR, GET_USERNAME, GO_TO_HOMEPAGE, HAS_SUBMITTED, IS_REGISTERED, RESET_LOGIN, RESET_LOGIN_STATE } from "../actions/loginAction";
 
 export const initialStateLogin = {
+  avatar: null,
+  username: null,
   resetLogin: false, // variabile di controllo per il reset del form
   isRegistered: false, // variabile che controlla se lo user è registrato
   hasSubmitted: false, // variabile che controlla se l'utente ha già effettuato il submit per il login
@@ -29,8 +31,18 @@ const loginReducer = (state = initialStateLogin, action) => {
         ...state,
         goToHomepage: action.payload
       };
+    case GET_AVATAR:
+      return {
+        ...state,
+        avatar: action.payload
+      };
+    case GET_USERNAME:
+      return {
+        ...state,
+        username: action.payload
+      };
     case RESET_LOGIN_STATE:
-      return initialStateLogin;
+      return { ...initialStateLogin, avatar: state.avatar, username: state.username };
 
     default:
       return state;

@@ -131,6 +131,15 @@ body {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .avatarAndUsernameLowerXl {
+    display: block;
+  }
+  .avatarAndUsernameHigherXl {
+    display: none;
+  }
+}
+
 .linkButton:hover {
   color: #0d6efd !important;
 }
@@ -149,6 +158,15 @@ body {
   }
 }
 
+@media screen and (min-width: 1200px) {
+  .avatarAndUsernameLowerXl {
+    display: none;
+  }
+  .avatarAndUsernameHigherXl {
+    display: block;
+  }
+}
+
 /* Posizionamento icona area riservata */
 @media screen and (max-width: 576px) {
   .reservedAreaLowerSm {
@@ -160,6 +178,14 @@ body {
   .reservedAreaHigherSm {
     display: none;
   }
+}
+
+/* stilizzazione username */
+
+.username {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 900;
+  color: black;
 }
 
 /* ----- RESERVED AREA ----- */

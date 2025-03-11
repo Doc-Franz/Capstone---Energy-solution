@@ -10,6 +10,7 @@ import com.example.backend.payload.request.LoginRequest;
 import com.example.backend.payload.request.RegistrationRequest;
 import com.example.backend.payload.response.LoginResponse;
 import com.example.backend.repository.HeaterRepository;
+import com.example.backend.repository.UserRepository;
 import com.example.backend.service.HeaterService;
 import com.example.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     HeaterRepository heaterRepository;
@@ -110,8 +114,11 @@ public class UserController {
 
             LoginResponse loginResponse = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
 
-            response.put("utente", loginRequest.getUsername());
+            response.put("username", loginRequest.getUsername());
             response.put("token" , loginResponse.getToken());
+
+            response.put("avatar", userService.getAvatarByUsername(loginRequest.getUsername()));
+
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception ex) {
