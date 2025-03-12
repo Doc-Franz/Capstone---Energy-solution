@@ -2,6 +2,7 @@ import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, Over
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import logo from "../assets/images/logo.svg";
 
 function MyNavbar() {
   // riprendo dallo store l'indirizzo dell'avatar
@@ -13,10 +14,10 @@ function MyNavbar() {
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
       <Container className="d-flex flex-column align-items-start">
-        <Row className="gx-0 w-100 mb-4 d-flex justify-content-between">
-          <Col>
+        <Row className="gx-0 w-100 d-flex justify-content-between align-items-center mt-2 mb-3">
+          <Col className="col-4" md={3} xl={2}>
             <Link to="/" className="text-decoration-none">
-              <Navbar.Brand>Logo</Navbar.Brand>
+              <Image fluid src={logo} />
             </Link>
           </Col>
 
@@ -44,7 +45,7 @@ function MyNavbar() {
                 </Button>
               </Col>
 
-              <Col className="d-flex justify-content-center">
+              <Col className="d-flex justify-content-center" xl={2}>
                 <Link to="/contacts" className="text-decoration-none">
                   <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
                     <Envelope className="me-3" />
@@ -54,7 +55,7 @@ function MyNavbar() {
               </Col>
 
               {username != null ? null : (
-                <Col className="d-flex justify-content-center">
+                <Col className="d-flex justify-content-center" xl={3}>
                   <Link to="/reservedArea" className="text-decoration-none">
                     <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
                       <BoxArrowInRight className="me-3" />
@@ -65,7 +66,7 @@ function MyNavbar() {
               )}
 
               {/* ❗❗❗Va messo un link per il search?? */}
-              <Col className="d-flex justify-content-center">
+              <Col className="d-flex justify-content-center" xl={2}>
                 {" "}
                 <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
                   <Search className="me-3" />

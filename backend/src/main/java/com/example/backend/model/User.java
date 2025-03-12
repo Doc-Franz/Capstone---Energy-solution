@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -34,6 +37,9 @@ public class User {
     private String role;
 
     private String avatar;
+
+    @OneToMany
+    List<Heater> heaterList = new ArrayList<>();
 
     public User(String username, String firstName, String lastName, String email, String password, String avatar) {
         this.username = username;

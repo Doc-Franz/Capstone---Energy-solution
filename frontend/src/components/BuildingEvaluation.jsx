@@ -191,9 +191,11 @@ const BuildingEvaluation = () => {
         <>
           {/* ❗❗❗DA STILIZZARE */}
           <Row className="fs-5 fw-bold d-flex justify-content-center text-center mt-4 mb-4">Indicaci la superficie dell'edificio</Row>
-          <Row>
-            <Form.Range className="sliderAreaBuilding" min={15} max={500} step={5} value={sliderValue} onChange={handleSliderChange} />
-            <p>{sliderValue} m&sup2;</p>
+          <Row className="d-flex flex-column align-items-center">
+            <Col md={8}>
+              <Form.Range className="sliderAreaBuilding" min={15} max={500} step={5} value={sliderValue} onChange={handleSliderChange} />
+              <p>{sliderValue} m&sup2;</p>
+            </Col>
             <Col className="text-center">
               <Button className="navigationBtn" onClick={handleFirstQuestion}>
                 AVANTI
@@ -205,8 +207,8 @@ const BuildingEvaluation = () => {
         <>
           <Row className="fs-5 fw-bold d-flex justify-content-center text-center mt-4 mb-4">Da quale regione provieni?</Row>
           <Row className="d-flex flex-column align-items-center">
-            <Col className="col-6 text-center" xs={4} sm={3} lg={2}>
-              <Form.Select className="mb-3" size="sm" htmlSize={3}>
+            <Col className="col-6 text-center" sm={5} lg={3}>
+              <Form.Select className="formRegion mb-3" htmlSize={3}>
                 <option value="abruzzo">Abruzzo</option>
                 <option value="basilicata">Basilicata</option>
                 <option value="calabria">Calabria</option>
@@ -246,17 +248,19 @@ const BuildingEvaluation = () => {
                 className="mb-3"
                 type="switch"
                 id="checkboxInsulation"
-                label="Switchare se è presente l'isolamento"
+                label="Indicare se è presente l'isolamento"
                 checked={isChecked}
                 onChange={handleCheckbox}
               />
             </Col>
 
             {isChecked ? (
-              <Row>
-                <Col className="mb-3">Indicare lo spessore dell'isolamento</Col>
+              <Row className="d-flex align-items-center justify-content-start mb-3">
+                <Col className="col-6" md={4} xl={3}>
+                  Spessore dell'isolamento
+                </Col>
                 <Col>
-                  <InputGroup className="mb-3">
+                  <InputGroup className="inputInsulation" style={{ maxWidth: "120px" }}>
                     <Form.Control type="number" />
                     <InputGroup.Text id="basic-addon2">cm</InputGroup.Text>
                   </InputGroup>

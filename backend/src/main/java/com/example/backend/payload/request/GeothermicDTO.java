@@ -20,6 +20,14 @@ public class GeothermicDTO {
     @Min(value = 5, message = "Il campo power deve essere almeno 5")
     private int power;
 
+    @NotNull(message = "Il campo price non può essere vuoto")
+    @Min(value = 1, message = "Il campo price deve essere almeno 1")
+    private double price;
+
+    @NotNull(message = "Il campo numberOfPieces non può essere vuoto")
+    @Min(value = 1, message = "Il campo numberOfPieces deve essere almeno 1")
+    private int numberOfPieces;
+
     private String firstElementList;
     private String secondElementList;
     private String thirdElementList;

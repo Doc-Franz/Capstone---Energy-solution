@@ -20,6 +20,7 @@ public class TraditionalBoilerService {
         traditionalBoiler.setTitle(traditionalBoilerDTO.getTitle());
         traditionalBoiler.setDescription(traditionalBoilerDTO.getDescription());
         traditionalBoiler.setPower(traditionalBoilerDTO.getPower());
+        traditionalBoiler.setPrice(traditionalBoilerDTO.getPrice());
         traditionalBoiler.setImage(traditionalBoilerDTO.getImage());
 
         traditionalBoiler.setFirstElementList(traditionalBoilerDTO.getFirstElementList());
@@ -41,6 +42,7 @@ public class TraditionalBoilerService {
         traditionalBoilerDTO.setTitle(traditionalBoiler.getTitle());
         traditionalBoilerDTO.setDescription(traditionalBoiler.getDescription());
         traditionalBoilerDTO.setPower(traditionalBoiler.getPower());
+        traditionalBoilerDTO.setPrice(traditionalBoiler.getPrice());
         traditionalBoilerDTO.setImage(traditionalBoiler.getImage());
 
         traditionalBoilerDTO.setFirstElementList(traditionalBoiler.getFirstElementList());

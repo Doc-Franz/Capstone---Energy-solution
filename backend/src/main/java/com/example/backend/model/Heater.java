@@ -28,6 +28,12 @@ public abstract class Heater {
     @Column(nullable = false)
     private int power;
 
+    @Column(nullable = false)
+    private double price;
+
+    @Column(nullable = false)
+    private int numberOfPieces;
+
     private String firstElementList;
     private String secondElementList;
     private String thirdElementList;

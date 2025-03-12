@@ -79,6 +79,24 @@ body {
   background: linear-gradient(0deg, rgba(255, 255, 255, 1) 92%, rgba(226, 236, 247, 1) 100%);
 }
 
+@media screen and (min-width: 500px) {
+  .hero {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 90%, rgba(226, 236, 247, 1) 100%);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .hero {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 80%, rgba(226, 236, 247, 1) 100%);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .hero {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 87%, rgba(226, 236, 247, 1) 100%);
+  }
+}
+
 /* ----- NAVBAR ----- */
 
 /* avatar */
@@ -232,6 +250,10 @@ body {
   box-shadow: none !important;
 }
 
+.headerLogin {
+  background: rgb(255, 255, 255);
+  background: radial-gradient(closest-corner, rgba(255, 255, 255, 1) 70%, rgba(86, 143, 207, 0.4) 100%);
+}
 @media screen and (max-width: 768px) {
   .imageLogin {
     display: none;
@@ -248,6 +270,10 @@ body {
   .loginProfessionals {
     padding-right: 150px;
   }
+}
+
+.energyImage {
+  opacity: 0.2;
 }
 
 /* ----- BUILDING EVALUATION ----- */
@@ -293,6 +319,18 @@ body {
   height: 20px;
   border-radius: 50%;
   /* cursor: pointer; */
+}
+
+.formRegion:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.inputInsulation .form-control:focus,
+.inputInsulation .input-group:focus-within {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit !important;
 }
 
 /* ----- FOOTER ----- */

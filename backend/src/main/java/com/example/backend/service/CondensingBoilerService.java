@@ -20,6 +20,8 @@ public class CondensingBoilerService {
         condensingBoiler.setTitle(condensingBoilerDTO.getTitle());
         condensingBoiler.setDescription(condensingBoilerDTO.getDescription());
         condensingBoiler.setPower(condensingBoilerDTO.getPower());
+        condensingBoiler.setPrice(condensingBoilerDTO.getPrice());
+        condensingBoiler.setNumberOfPieces(condensingBoilerDTO.getNumberOfPieces());
         condensingBoiler.setImage(condensingBoilerDTO.getImage());
 
         condensingBoiler.setFirstElementList(condensingBoilerDTO.getFirstElementList());
@@ -41,6 +43,8 @@ public class CondensingBoilerService {
         condensingBoilerDTO.setTitle(condensingBoiler.getTitle());
         condensingBoilerDTO.setDescription(condensingBoiler.getDescription());
         condensingBoilerDTO.setPower(condensingBoiler.getPower());
+        condensingBoilerDTO.setPrice(condensingBoiler.getPrice());
+        condensingBoilerDTO.setNumberOfPieces(condensingBoiler.getNumberOfPieces());
         condensingBoilerDTO.setImage(condensingBoiler.getImage());
 
         condensingBoilerDTO.setFirstElementList(condensingBoiler.getFirstElementList());

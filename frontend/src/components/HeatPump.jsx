@@ -7,6 +7,8 @@ import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 const HeatPump = () => {
   const dispatch = useDispatch();
 
+  const username = useSelector((state) => state.login.username); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
+
   // mostrare i sistemi geotermici al caricamento della pagina
   useEffect(() => {
     dispatch(buildProductsPage("heatPump"));
@@ -28,7 +30,7 @@ const HeatPump = () => {
                 <Card className="shadow">
                   <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
                   <Card.Body>
-                    <Card.Title className="text-center fs-3 fw-bold">{product.title}</Card.Title>
+                    <Card.Title className="text-center fs-3 fw-semibold">{product.title}</Card.Title>
                     <Card.Text className="lead mb-2 text-center" style={{ marginBlockEnd: "0px" }}>
                       {product.description}
                     </Card.Text>
@@ -44,13 +46,19 @@ const HeatPump = () => {
                         <Image fluid src={product.thirdIcon} style={{ maxHeight: "40px" }} />
                       </Col>
                     </Row>
-                    <Row className="text-center mb-2">
-                      <Col>
-                        <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                          Acquista
-                        </Button>
-                      </Col>{" "}
+                    <Row>
+                      <Col className="fs-3 fw-bold lead d-flex justify-content-end">{product.price} €</Col>
                     </Row>
+                    {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
+                    {username ? (
+                      <Row className="text-center mb-2">
+                        <Col>
+                          <Button className="btnBuyProduct mt-3 text-center" variant="primary">
+                            Acquista
+                          </Button>
+                        </Col>{" "}
+                      </Row>
+                    ) : null}
                   </Card.Body>
                 </Card>
               </Col>

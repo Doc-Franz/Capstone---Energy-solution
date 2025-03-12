@@ -7,6 +7,8 @@ import { buildProductsPage } from "../redux/actions/allProductsActions";
 const AllProducts = () => {
   const dispatch = useDispatch();
 
+  const username = useSelector((state) => state.login.username); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
+
   // al caricamento della pagina vengono mostrati tutti i prodotti
   useEffect(() => {
     dispatch(buildProductsPage("allProducts"));
@@ -24,11 +26,11 @@ const AllProducts = () => {
         <Container>
           <Row>
             {allProducts.map((product) => (
-              <Col className="col-12 mb-4" sm={6} xl={4} xxl={3} key={product.id}>
+              <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
                 <Card className="shadow">
                   <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
                   <Card.Body>
-                    <Card.Title className="text-center fs-3 fw-bold">{product.title}</Card.Title>
+                    <Card.Title className="text-center fs-3 fw-semibold">{product.title}</Card.Title>
                     <Card.Text className="lead mb-2 text-center" style={{ marginBlockEnd: "0px" }}>
                       {product.description}
                     </Card.Text>
@@ -44,13 +46,20 @@ const AllProducts = () => {
                         <Image fluid src={product.thirdIcon} style={{ maxHeight: "40px" }} />
                       </Col>
                     </Row>
-                    <Row className="text-center mb-2">
-                      <Col>
-                        <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                          Acquista
-                        </Button>
-                      </Col>{" "}
+                    <Row>
+                      <Col className="fs-3 fw-bold lead d-flex justify-content-end">{product.price} €</Col>
                     </Row>
+
+                    {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
+                    {username ? (
+                      <Row className="text-center mb-2">
+                        <Col>
+                          <Button className="btnBuyProduct mt-3 text-center" variant="primary">
+                            Acquista
+                          </Button>
+                        </Col>{" "}
+                      </Row>
+                    ) : null}
                   </Card.Body>
                 </Card>
               </Col>
