@@ -18,6 +18,7 @@ public class GeothermicService {
 
         geothermic.setTitle(geothermicDTO.getTitle());
         geothermic.setDescription(geothermicDTO.getDescription());
+        geothermic.setLongDescription(geothermicDTO.getLongDescription());
         geothermic.setPower(geothermicDTO.getPower());
         geothermic.setPrice(geothermicDTO.getPrice());
         geothermic.setNumberOfPieces(geothermicDTO.getNumberOfPieces());
@@ -41,6 +42,7 @@ public class GeothermicService {
 
         geothermicDTO.setTitle(geothermic.getTitle());
         geothermicDTO.setDescription(geothermic.getDescription());
+        geothermicDTO.setLongDescription(geothermic.getLongDescription());
         geothermicDTO.setPower(geothermic.getPower());
         geothermicDTO.setPrice(geothermic.getPrice());
         geothermicDTO.setNumberOfPieces(geothermic.getNumberOfPieces());

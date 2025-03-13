@@ -47,14 +47,14 @@ const CondensingBoiler = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col className="fs-3 fw-bold lead d-flex justify-content-end">{product.price} €</Col>
+                      <Col className="price fs-1 lead d-flex justify-content-end">{product.price} €</Col>
                     </Row>
                     {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
                     {username ? (
                       <Row className="text-center mb-2">
                         <Col>
                           <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                            Acquista
+                            SCEGLI E ACQUISTA
                           </Button>
                         </Col>{" "}
                       </Row>

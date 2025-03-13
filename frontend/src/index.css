@@ -367,3 +367,7 @@ body {
   background-color: rgb(26, 13, 43) !important;
   box-shadow: none !important;
 }
+
+.price {
+  color: rgb(252, 89, 24);
+}

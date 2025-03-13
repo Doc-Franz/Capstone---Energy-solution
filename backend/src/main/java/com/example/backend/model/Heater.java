@@ -25,6 +25,10 @@ public abstract class Heater {
     @Column(nullable = false)
     private String description;
 
+    // descrizione che sarà presente nella pagina di dettaglio
+    @Column(nullable = false)
+    private String longDescription;
+
     @Column(nullable = false)
     private int power;
 
@@ -44,5 +48,10 @@ public abstract class Heater {
 
     @Column(nullable = false)
     private String image;
+
+    // quando viene acquistato un prodotto si riduce il numero di pezzi disponibile a magazzino
+    public void reduceNumberOfPieces () {
+        this.numberOfPieces -= 1;
+    }
 
 }

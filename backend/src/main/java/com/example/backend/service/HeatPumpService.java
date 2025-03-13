@@ -19,6 +19,7 @@ public class HeatPumpService {
 
         heatPump.setTitle(heatPumpDTO.getTitle());
         heatPump.setDescription(heatPumpDTO.getDescription());
+        heatPump.setLongDescription(heatPumpDTO.getLongDescription());
         heatPump.setPower(heatPumpDTO.getPower());
         heatPump.setPrice(heatPumpDTO.getPrice());
         heatPump.setNumberOfPieces(heatPumpDTO.getNumberOfPieces());
@@ -42,6 +43,7 @@ public class HeatPumpService {
 
         heatPumpDTO.setTitle(heatPump.getTitle());
         heatPumpDTO.setDescription(heatPump.getDescription());
+        heatPumpDTO.setLongDescription(heatPump.getLongDescription());
         heatPumpDTO.setPower(heatPump.getPower());
         heatPumpDTO.setPrice(heatPump.getPrice());
         heatPumpDTO.setNumberOfPieces(heatPump.getNumberOfPieces());

@@ -2,9 +2,7 @@ package com.example.backend.controller;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.backend.exception.EmailDuplicatedException;
-import com.example.backend.exception.HeaterNotFoundException;
-import com.example.backend.exception.UsernameDuplicatedException;
+import com.example.backend.exception.*;
 import com.example.backend.model.*;
 import com.example.backend.payload.request.LoginRequest;
 import com.example.backend.payload.request.RegistrationRequest;
@@ -13,8 +11,17 @@ import com.example.backend.repository.HeaterRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.service.HeaterService;
 import com.example.backend.service.UserService;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.checkout.Session;
+import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,6 +41,12 @@ import java.util.Map;
 @RequestMapping("/user")
 
 public class UserController {
+
+    @Value("${stripe.secretKey}")
+    String secretKey;
+
+    @Value("${stripe.publishableKey}")
+    String publishableKey;
 
     @Autowired
     Cloudinary cloudinary;
@@ -206,5 +219,90 @@ public class UserController {
         } catch (HeaterNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // metodo per aggiungere un heater a uno user
+    @PostMapping("buyProduct/{username}/{heaterId}")
+    public ResponseEntity<?> buyHeater (@PathVariable String username, @PathVariable long heaterId) throws StripeException {
+
+        // oggetto convertibile in formato JSON
+        Map<String, String> response = new HashMap<>();
+
+        // ricerco l'utente tramite username
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        // ricerco l'heater tramite ID
+        Heater heater = heaterRepository.findById(heaterId).orElseThrow();
+
+        try {
+
+                if (heater.getNumberOfPieces() > 0) {
+
+                    // viene generato l'oggetto Customer che avrà accesso al pagamento
+                    Stripe.apiKey = secretKey;
+                    CustomerCreateParams customerParams = CustomerCreateParams.builder().setName(user.getUsername()).setEmail(user.getEmail()).build();
+                    Customer customer = Customer.create(customerParams);
+
+                    // generazione di un intento di pagamento
+                   /* PaymentIntentCreateParams paymentParams =
+                            PaymentIntentCreateParams.builder()
+                                    .setAmount((long) (heater.getPrice() * 100))
+                                    .setCurrency("eur")
+                                    .setAutomaticPaymentMethods(
+                                            PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
+                                                    .setEnabled(true)
+                                                    .build()
+                                    )
+                                    .build();
+                    PaymentIntent paymentIntent = PaymentIntent.create(paymentParams);*/
+
+                    // generazione di una sessione di checkout per il reindirizzamento del pagamento sulla pagina di Stripe
+                    SessionCreateParams sessionParams = SessionCreateParams.builder()
+                            .setSuccessUrl("http://localhost:8080/success")
+                            .setCancelUrl("http://localhost:8080/cancel")
+                            .setCustomer(customer.getId())
+                            .addLineItem(
+                                    SessionCreateParams.LineItem.builder()
+                                            .setQuantity(1L)
+                                            .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
+                                                    .setCurrency("eur")
+                                                    .setUnitAmount((long) (heater.getPrice() * 100)) // Prezzo in centesimi
+                                                    .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                            .setName(heater.getTitle())
+                                                            .setDescription(heater.getDescription())
+                                                            .build())
+                                                    .build())
+                                            .build()
+                            )
+                            .setMode(SessionCreateParams.Mode.PAYMENT)
+                            .build();
+                    Session session = Session.create(sessionParams);
+
+                    user.getHeaterList().add(heater);
+
+                    // aggiornamento dei pezzi a magazzino
+                    heater.reduceNumberOfPieces();
+
+                    // Persistenza
+                    userRepository.save(user);
+                    heaterRepository.save(heater);
+
+                    response.put("message", "Acquisto andato a buon fine!");
+                    response.put("publishableKey", publishableKey);
+                    // response.put("clientSecret", paymentIntent.getClientSecret());
+
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                } else {
+                    throw new ProductOutOfStockException("Siamo spiacenti ma il prodotto è esaurito");
+                }
+
+
+        } catch (ProductOutOfStockException ex) {
+            response.put("message", ex.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+
+
     }
 }

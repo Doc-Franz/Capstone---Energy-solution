@@ -16,6 +16,9 @@ public class HeatPumpDTO {
     @NotBlank(message = "Il campo description non può essere vuoto")
     private String description;
 
+    @NotBlank(message = "Il campo longDescription non può essere vuoto")
+    private String longDescription;
+
     @NotNull(message = "Il campo power non può essere vuoto")
     @Min(value = 5, message = "Il campo power deve essere almeno 5")
     private int power;

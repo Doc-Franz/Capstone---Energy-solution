@@ -21,12 +21,6 @@ const Hero = () => {
           slidesToShow: 2
         }
       }
-      // {
-      //   breakpoint: 500, // fino a 600px viene mostrata 1 slide
-      //   settings: {
-      //     slidesToShow: 1
-      //   }
-      // }
     ]
   };
 

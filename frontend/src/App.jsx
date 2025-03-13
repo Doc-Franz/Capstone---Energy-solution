@@ -9,6 +9,7 @@ import Geothermic from "./components/Geothermic";
 import HeatPump from "./components/HeatPump";
 import TraditionalBoiler from "./components/TraditionalBoiler";
 import CondensingBoiler from "./components/CondensingBoiler";
+import DetailsProduct from "./components/DetailsProduct";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/heatPump" element={<HeatPump />} />
         <Route path="/traditionalBoiler" element={<TraditionalBoiler />} />
         <Route path="/condensingBoiler" element={<CondensingBoiler />} />
+        <Route path="/detailsProduct/:username/:heaterId" element={<DetailsProduct />} />
       </Routes>
       <Footer />
     </BrowserRouter>

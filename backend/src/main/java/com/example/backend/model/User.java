@@ -38,8 +38,13 @@ public class User {
 
     private String avatar;
 
-    @OneToMany
-    List<Heater> heaterList = new ArrayList<>();
+    @ManyToMany
+            @JoinTable(
+                    name = "user_heater",
+                    joinColumns = @JoinColumn(name = "user_id"),
+                    inverseJoinColumns = @JoinColumn(name = "heater_id")
+            )
+    private List<Heater> heaterList = new ArrayList<>();
 
     public User(String username, String firstName, String lastName, String email, String password, String avatar) {
         this.username = username;
@@ -49,4 +54,5 @@ public class User {
         this.password = password;
         this.avatar = avatar;
     }
+
 }
