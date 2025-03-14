@@ -1,18 +1,37 @@
 import { loadStripe } from "@stripe/stripe-js";
 
 export const UPDATE_PRODUCTS_PAGE = "UPDATE_PRODUCTS_PAGE";
-// export const BUY_PRODUCT = "BUY_PRODUCT";
+export const PREVENTIVE_PRODUCTS_PAGE = "PREVENTIVE_PRODUCTS_PAGE";
 
 const allProductsPage = (allProducts) => ({
   type: UPDATE_PRODUCTS_PAGE,
   payload: allProducts
 });
 
-// const buyHeater = () => ({
-//   type: BUY_PRODUCT
-// });
+const preventiveProductPage = (preventiveProducts) => ({
+  type: PREVENTIVE_PRODUCTS_PAGE,
+  payload: preventiveProducts
+});
 
-// fetch che carica le pagine con i proditti
+// fetch che carica una pagina con i prodotti che soddisfano i parametri inseriti in building evaluation
+export const allPreventiveProducts = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://localhost:8080/user/preventiveProducts");
+
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(preventiveProductPage(data));
+      } else {
+        console.log("errore");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// fetch che carica le pagine con i prodotti
 export const buildProductsPage = (product) => {
   return async (dispatch) => {
     try {
@@ -32,6 +51,7 @@ export const buildProductsPage = (product) => {
 // fetch per acquistare una macchina
 export const buyProduct = (username, heaterId) => {
   return async () => {
+    // caricamento della libreria stripe utilizzando la chiave pubblicabile
     const stripe = await loadStripe("pk_test_51R2E70RvZG041WSozJBdsotDKeGkogDJotMyVao4a0JLsvp3qoEOE8uoqr8sCOuawFxniPpBbPjZ3w3bRD1p0FUQ002UIZ6DiM");
 
     try {
@@ -43,10 +63,10 @@ export const buyProduct = (username, heaterId) => {
       });
 
       if (response.ok) {
-        const session = await response.json(); // Aggiungi await per ottenere i dati
+        const session = await response.json();
 
         if (session && session.id) {
-          console.log(session.id);
+          // reindirizzamento alla pagina di stripe, se la sessione contiene un ID valido
           const result = await stripe.redirectToCheckout({
             sessionId: session.id
           });
@@ -55,7 +75,7 @@ export const buyProduct = (username, heaterId) => {
             console.error(result.error.message);
           }
         } else {
-          console.log("Session ID non disponibile nella risposta");
+          console.log("Session ID non disponibile");
         }
       } else {
         console.log("Errore nella fetch");

@@ -88,8 +88,10 @@ export const login = (userLogin) => {
       if (response.ok) {
         const loginResponse = await response.json();
 
-        // il token viene salvato nel local storage
-        localStorage.setItem("token", loginResponse.token);
+        // il token viene salvato nel session storage -> al refresh della pagina rimane salvato, si cancella solamente alla chiusura della scheda
+        sessionStorage.setItem("token", loginResponse.token);
+        sessionStorage.setItem("avatar", loginResponse.avatar);
+        sessionStorage.setItem("username", loginResponse.username);
 
         // l'avatar viene salvato nello store
         dispatch(getAvatar(loginResponse.avatar));

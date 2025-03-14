@@ -7,7 +7,7 @@ import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 const HeatPump = () => {
   const dispatch = useDispatch();
 
-  const username = useSelector((state) => state.login.username); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
+  const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
 
   // mostrare i sistemi geotermici al caricamento della pagina
   useEffect(() => {

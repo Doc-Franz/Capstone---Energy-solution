@@ -16,6 +16,7 @@ import airFilter from "../assets/images/muratura/air-filter.svg";
 import concrete from "../assets/images/muratura/concrete.svg";
 import mobileHouse from "../assets/images/muratura/mobile-house.svg";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const BuildingEvaluation = () => {
   // al cambio di pagina lo stato del componente viene resettato
@@ -280,30 +281,72 @@ const BuildingEvaluation = () => {
           <Row className="fs-5 fw-bold d-flex justify-content-center text-center mt-4 mb-4">{questionsAndAnswers.question[questionNumber]}</Row>
           {/* indicazioni per poter calcolare il carico termico  */}
           <Row className="d-flex flex-wrap">
-            <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-              <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
-                <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.firstAnswer[questionNumber].icon} />
-                <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.firstAnswer[questionNumber].textContent}</Card.Text>
-              </Card>
-            </Col>
-            <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-              <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
-                <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.secondAnswer[questionNumber].icon} />
-                <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.secondAnswer[questionNumber].textContent}</Card.Text>
-              </Card>
-            </Col>
-            <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-              <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
-                <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.thirdAnswer[questionNumber].icon} />
-                <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.thirdAnswer[questionNumber].textContent}</Card.Text>
-              </Card>
-            </Col>
-            <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-              <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
-                <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.fourthAnswer[questionNumber].icon} />
-                <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.fourthAnswer[questionNumber].textContent}</Card.Text>
-              </Card>
-            </Col>
+            {questionNumber == questionsAndAnswers.question.length - 1 ? (
+              <>
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                      <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.firstAnswer[questionNumber].icon} />
+                      <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.firstAnswer[questionNumber].textContent}</Card.Text>
+                    </Card>
+                  </Link>
+                </Col>
+
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                      <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.secondAnswer[questionNumber].icon} />
+                      <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.secondAnswer[questionNumber].textContent}</Card.Text>
+                    </Card>
+                  </Link>
+                </Col>
+
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                      <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.thirdAnswer[questionNumber].icon} />
+                      <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.thirdAnswer[questionNumber].textContent}</Card.Text>
+                    </Card>
+                  </Link>
+                </Col>
+
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                      <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.fourthAnswer[questionNumber].icon} />
+                      <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.fourthAnswer[questionNumber].textContent}</Card.Text>
+                    </Card>
+                  </Link>
+                </Col>
+              </>
+            ) : (
+              <>
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                    <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.firstAnswer[questionNumber].icon} />
+                    <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.firstAnswer[questionNumber].textContent}</Card.Text>
+                  </Card>
+                </Col>
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                    <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.secondAnswer[questionNumber].icon} />
+                    <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.secondAnswer[questionNumber].textContent}</Card.Text>
+                  </Card>
+                </Col>
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                    <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.thirdAnswer[questionNumber].icon} />
+                    <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.thirdAnswer[questionNumber].textContent}</Card.Text>
+                  </Card>
+                </Col>
+                <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
+                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                    <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.fourthAnswer[questionNumber].icon} />
+                    <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.fourthAnswer[questionNumber].textContent}</Card.Text>
+                  </Card>
+                </Col>
+              </>
+            )}
           </Row>{" "}
         </>
       )}

@@ -1,32 +1,32 @@
-import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
-import MyNavbar from "./MyNavbar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { buildProductsPage } from "../redux/actions/allProductsActions";
+import { allPreventiveProducts } from "../redux/actions/allProductsActions";
+import MyNavbar from "./MyNavbar";
+import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const AllProducts = () => {
+const BuildingEvaluationPreventive = () => {
   const dispatch = useDispatch();
 
-  const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
+  const username = sessionStorage.getItem("username");
 
-  // al caricamento della pagina vengono mostrati tutti i prodotti
+  // al caricamento della pagina vengono mostrati tutti i prodotti derivati da building evaluation
   useEffect(() => {
-    dispatch(buildProductsPage("allProducts"));
+    dispatch(allPreventiveProducts());
   }, []);
 
-  const allProducts = useSelector((state) => state.allProducts.content);
+  const preventiveProducts = useSelector((state) => state.allProducts.preventiveContent);
 
   return (
     <>
       <MyNavbar />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
         <Row className="fs-1 mb-4 fw-bold text-center">
-          <Col>Tutti i prodotti disponibili a catalogo</Col>
+          <Col>Ti suggeriamo uno dei seguenti prodotti:</Col>
         </Row>
         <Container>
           <Row>
-            {allProducts.map((product) => (
+            {preventiveProducts.map((product) => (
               <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
                 <Card className="shadow">
                   <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
@@ -74,4 +74,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default BuildingEvaluationPreventive;

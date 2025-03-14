@@ -157,6 +157,23 @@ public class UserController {
         }
     }
 
+    // GET di tutti i prodotti con potenza maggiore di quella calcolata nel building evaluation
+    @GetMapping("/preventiveProducts")
+    public ResponseEntity<?> getAllProductsGreaterThanPower() {
+
+        try {
+            List<Heater> heaterList = heaterService.getByPowerGreaterThan(40);
+
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // GET dei sistemi geotermici
     @GetMapping("/geothermic")
     public ResponseEntity<?> getGeothermic() {
@@ -258,8 +275,8 @@ public class UserController {
 
                     // generazione di una sessione di checkout per il reindirizzamento del pagamento sulla pagina di Stripe
                     SessionCreateParams sessionParams = SessionCreateParams.builder()
-                            .setSuccessUrl("http://localhost:8080/success")
-                            .setCancelUrl("http://localhost:8080/cancel")
+                            .setSuccessUrl("http://localhost:5174/success")
+                            .setCancelUrl("http://localhost:5174/cancel")
                             .setCustomer(customer.getId())
                             .addLineItem(
                                     SessionCreateParams.LineItem.builder()

@@ -10,6 +10,9 @@ import HeatPump from "./components/HeatPump";
 import TraditionalBoiler from "./components/TraditionalBoiler";
 import CondensingBoiler from "./components/CondensingBoiler";
 import DetailsProduct from "./components/DetailsProduct";
+import Success from "./components/Success";
+import Cancel from "./components/Cancel";
+import BuildingEvaluationPreventive from "./components/BuildingEvaluationPreventive";
 
 function App() {
   return (
@@ -20,11 +23,14 @@ function App() {
         <Route path="/reservedArea/login" element={<Login />} />
         <Route path="/reservedArea/registration" element={<Registration />} />
         <Route path="/allProducts" element={<AllProducts />} />
+        <Route path="/preventiveProducts" element={<BuildingEvaluationPreventive />} />
         <Route path="/geothermic" element={<Geothermic />} />
         <Route path="/heatPump" element={<HeatPump />} />
         <Route path="/traditionalBoiler" element={<TraditionalBoiler />} />
         <Route path="/condensingBoiler" element={<CondensingBoiler />} />
         <Route path="/detailsProduct/:username/:heaterId" element={<DetailsProduct />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
       </Routes>
       <Footer />
     </BrowserRouter>

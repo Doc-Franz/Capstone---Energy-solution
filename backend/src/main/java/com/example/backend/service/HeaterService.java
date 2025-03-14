@@ -97,6 +97,10 @@ public class HeaterService {
          return  heaterRepository.findBydiscriminatorType(heaterClass);
     }
 
+    // metodo che restituisce tutte le macchine con potenza maggiore di quella calcolata in building evaluation
+    public List<Heater> getByPowerGreaterThan(int power) {
+        return heaterRepository.findByPowerGreaterThan(power);
+    }
 
 }
 

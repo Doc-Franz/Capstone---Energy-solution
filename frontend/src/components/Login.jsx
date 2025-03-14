@@ -83,7 +83,7 @@ const Login = () => {
 
   // ❗❗❗ metodo di prova
   const handleButtonDiProva = () => {
-    const tokenUser = localStorage.getItem("token");
+    const tokenUser = sessionStorage.getItem("token");
     dispatch(prova(tokenUser));
   };
 

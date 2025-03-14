@@ -1,15 +1,14 @@
 import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 
 function MyNavbar() {
-  // riprendo dallo store l'indirizzo dell'avatar
-  const avatar = useSelector((state) => state.login.avatar);
+  // riprendo dal session storage l'indirizzo dell'avatar
+  const avatar = sessionStorage.getItem("avatar");
 
-  // riprendo dallo store username
-  const username = useSelector((state) => state.login.username);
+  // riprendo dal session storage username
+  const username = sessionStorage.getItem("username");
 
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
