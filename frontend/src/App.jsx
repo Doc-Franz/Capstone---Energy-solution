@@ -17,22 +17,28 @@ import BuildingEvaluationPreventive from "./components/BuildingEvaluationPrevent
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/reservedArea" element={<ReservedArea />} />
-        <Route path="/reservedArea/login" element={<Login />} />
-        <Route path="/reservedArea/registration" element={<Registration />} />
-        <Route path="/allProducts" element={<AllProducts />} />
-        <Route path="/preventiveProducts" element={<BuildingEvaluationPreventive />} />
-        <Route path="/geothermic" element={<Geothermic />} />
-        <Route path="/heatPump" element={<HeatPump />} />
-        <Route path="/traditionalBoiler" element={<TraditionalBoiler />} />
-        <Route path="/condensingBoiler" element={<CondensingBoiler />} />
-        <Route path="/detailsProduct/:username/:heaterId" element={<DetailsProduct />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/cancel" element={<Cancel />} />
-      </Routes>
-      <Footer />
+      <div className="appContainer">
+        <div className="routeContainer">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/reservedArea" element={<ReservedArea />} />
+            <Route path="/reservedArea/login" element={<Login />} />
+            <Route path="/reservedArea/registration" element={<Registration />} />
+            <Route path="/allProducts" element={<AllProducts />} />
+            <Route path="/preventiveProducts" element={<BuildingEvaluationPreventive />} />
+            <Route path="/geothermic" element={<Geothermic />} />
+            <Route path="/heatPump" element={<HeatPump />} />
+            <Route path="/traditionalBoiler" element={<TraditionalBoiler />} />
+            <Route path="/condensingBoiler" element={<CondensingBoiler />} />
+            <Route path="/detailsProduct/:username/:heaterId" element={<DetailsProduct />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/cancel" element={<Cancel />} />
+          </Routes>
+        </div>
+        <div>
+          <Footer />
+        </div>
+      </div>
     </BrowserRouter>
   );
 }

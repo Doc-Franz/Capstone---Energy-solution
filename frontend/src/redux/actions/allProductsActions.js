@@ -14,10 +14,11 @@ const preventiveProductPage = (preventiveProducts) => ({
 });
 
 // fetch che carica una pagina con i prodotti che soddisfano i parametri inseriti in building evaluation
-export const allPreventiveProducts = () => {
+export const allPreventiveProducts = (power) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("http://localhost:8080/user/preventiveProducts");
+      // passo power come query string
+      const response = await fetch(`http://localhost:8080/user/preventiveProducts?power=${power}`);
 
       if (response.ok) {
         const data = await response.json();

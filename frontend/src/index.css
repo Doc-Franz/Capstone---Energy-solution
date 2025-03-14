@@ -5,6 +5,18 @@ large: da 992 a 1199px
 x-large: da 1200 a 1399px
 xx-large: da 1400 a Infinite */
 
+/* ----- APP ----- */
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.routeContainer {
+  flex: 1;
+}
+
 /* ----- BODY ----- */
 
 body {
@@ -109,6 +121,17 @@ body {
 
 .dropdown-toggle::after {
   display: none !important;
+}
+
+.dropdown-toggle.dropdownAvatar::after {
+  display: inline !important;
+}
+
+.dropdownAvatar:active,
+.dropdownAvatar:focus {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
 }
 
 .dropdown-item:active,

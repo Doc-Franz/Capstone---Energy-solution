@@ -159,10 +159,10 @@ public class UserController {
 
     // GET di tutti i prodotti con potenza maggiore di quella calcolata nel building evaluation
     @GetMapping("/preventiveProducts")
-    public ResponseEntity<?> getAllProductsGreaterThanPower() {
+    public ResponseEntity<?> getAllProductsGreaterThanPower(@RequestParam("power") int power) {
 
         try {
-            List<Heater> heaterList = heaterService.getByPowerGreaterThan(40);
+            List<Heater> heaterList = heaterService.getByPowerGreaterThan(power);
 
             if (heaterList.isEmpty()) {
                 throw new HeaterNotFoundException("Nessun sistema trovato");

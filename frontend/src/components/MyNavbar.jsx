@@ -24,11 +24,23 @@ function MyNavbar() {
           <Col className="avatarAndUsernameLowerXl ms-auto text-end">
             {username != null ? (
               <Row className>
-                <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
+                {/* <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
                   <Col className="username d-flex justify-content-end">{username}</Col>
-
                   <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
-                </Link>
+                </Link> */}
+
+                <Dropdown>
+                  <Dropdown.Toggle as="div" id="dropdown-basic" className="p-0 bg-transparent border-0 shadow-none w-100">
+                    <Dropdown.Item className="dropdownAvatar products d-flex justify-content-between align-items-center dropdown-toggle">
+                      <Col className="username d-flex justify-content-end">{username}</Col>
+                      <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
+                    </Dropdown.Item>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className="">
+                    <Dropdown.Item>ciao</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Row>
             ) : (
               <Navbar.Brand style={{ marginRight: "0px" }}>Logo 2</Navbar.Brand>
