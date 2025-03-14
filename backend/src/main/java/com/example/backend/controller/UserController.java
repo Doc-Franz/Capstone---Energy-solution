@@ -288,6 +288,7 @@ public class UserController {
                     heaterRepository.save(heater);
 
                     response.put("message", "Acquisto andato a buon fine!");
+                    response.put("id", session.getId());
                     response.put("publishableKey", publishableKey);
                     // response.put("clientSecret", paymentIntent.getClientSecret());
 
