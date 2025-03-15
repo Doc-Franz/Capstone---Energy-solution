@@ -3,8 +3,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { CheckLg } from "react-bootstrap-icons";
+import { useEffect } from "react";
 
-const Hero = () => {
+const Hero = (props) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -24,22 +25,17 @@ const Hero = () => {
     ]
   };
 
+  useEffect(() => {
+    console.log(props.carouselImage);
+  }, []);
+
   return (
     <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px", position: "relative" }}>
       <Row className="slider-container">
-        {/* ❗❗❗ CAMBIARE LE IMMAGINI */}
         <Slider className="gx-0" {...settings}>
-          <Image fluid src="../../src/assets/images/hero_1.webp" />
-
-          <Image fluid src="../../src/assets/images/hero_2.webp" />
-
-          <Image fluid src="../../src/assets/images/hero_1.webp" />
-
-          <Image fluid src="../../src/assets/images/hero_2.webp" />
-
-          <Image fluid src="../../src/assets/images/hero_1.webp" />
-
-          <Image fluid src="../../src/assets/images/hero_2.webp" />
+          {props.carouselImage && props.carouselImage.length > 0
+            ? props.carouselImage.map((element, index) => <Image key={index} fluid src={element} />)
+            : null}
         </Slider>
       </Row>
 

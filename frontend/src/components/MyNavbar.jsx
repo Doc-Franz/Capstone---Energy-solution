@@ -2,13 +2,30 @@ import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, Over
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
+import { useEffect, useState } from "react";
 
 function MyNavbar() {
-  // riprendo dal session storage l'indirizzo dell'avatar
-  const avatar = sessionStorage.getItem("avatar");
+  const [avatar, setAvatar] = useState("");
+  const [username, setUsername] = useState("");
 
-  // riprendo dal session storage username
-  const username = sessionStorage.getItem("username");
+  // al caricamento della pagina riprendo i dati da session storage
+  useEffect(() => {
+    const storedAvatar = sessionStorage.getItem("avatar");
+    const storedUsername = sessionStorage.getItem("username");
+
+    if (storedUsername) {
+      setAvatar(storedAvatar);
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleExit = () => {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("avatar");
+
+    setUsername("");
+    setAvatar("");
+  };
 
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
@@ -22,13 +39,8 @@ function MyNavbar() {
 
           {/* se l'utente ha effettuato il login viene mostrato il suo avatar */}
           <Col className="avatarAndUsernameLowerXl ms-auto text-end">
-            {username != null ? (
+            {username != "" ? (
               <Row className>
-                {/* <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
-                  <Col className="username d-flex justify-content-end">{username}</Col>
-                  <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
-                </Link> */}
-
                 <Dropdown>
                   <Dropdown.Toggle as="div" id="dropdown-basic" className="p-0 bg-transparent border-0 shadow-none w-100">
                     <Dropdown.Item className="dropdownAvatar products d-flex justify-content-between align-items-center dropdown-toggle">
@@ -37,8 +49,11 @@ function MyNavbar() {
                     </Dropdown.Item>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu className="">
-                    <Dropdown.Item>ciao</Dropdown.Item>
+                  <Dropdown.Menu align="end">
+                    <Dropdown.Item>Profilo</Dropdown.Item>
+                    <Dropdown.Item>I miei preventivi</Dropdown.Item>
+                    <NavDropdown.Divider />
+                    <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Row>
@@ -56,7 +71,7 @@ function MyNavbar() {
                 </Button>
               </Col>
 
-              <Col className="d-flex justify-content-center" xl={2}>
+              <Col className="d-flex justify-content-center" xl={3}>
                 <Link to="/contacts" className="text-decoration-none">
                   <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
                     <Envelope className="me-3" />
@@ -65,7 +80,7 @@ function MyNavbar() {
                 </Link>
               </Col>
 
-              {username != null ? null : (
+              {username != "" ? null : (
                 <Col className="d-flex justify-content-center" xl={3}>
                   <Link to="/reservedArea" className="text-decoration-none">
                     <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
@@ -87,13 +102,23 @@ function MyNavbar() {
 
               <Col className="avatarAndUsernameHigherXl ms-auto text-end">
                 {/* se l'utente non è loggato rimane visibile l'icona di area riservata */}
-                {username != null ? (
-                  <Row>
-                    <Link to="/reservedArea" className="text-decoration-none d-flex align-items-center">
-                      <Col className="username d-flex justify-content-end">{username}</Col>
+                {username != "" ? (
+                  <Row className>
+                    <Dropdown>
+                      <Dropdown.Toggle as="div" id="dropdown-basic" className="p-0 bg-transparent border-0 shadow-none w-100">
+                        <Dropdown.Item className="dropdownAvatar products d-flex justify-content-between align-items-center dropdown-toggle">
+                          <Col className="username d-flex justify-content-end">{username}</Col>
+                          <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
+                        </Dropdown.Item>
+                      </Dropdown.Toggle>
 
-                      <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
-                    </Link>
+                      <Dropdown.Menu align="end">
+                        <Dropdown.Item>Profilo</Dropdown.Item>
+                        <Dropdown.Item>I miei preventivi</Dropdown.Item>
+                        <NavDropdown.Divider />
+                        <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Row>
                 ) : null}
               </Col>
@@ -219,7 +244,7 @@ function MyNavbar() {
             </Link>
 
             {/* se l'utente non è loggato rimane visibile l'icona di area riservata */}
-            {username != null ? null : (
+            {username != "" ? null : (
               <Link to="/reservedArea" className="text-decoration-none">
                 <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Area riservata</Tooltip>}>
                   <Button className="linkButton reservedAreaLowerSm text-dark bg-transparent border-0 rounded-0 me-3">
