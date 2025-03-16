@@ -47,45 +47,57 @@ body {
 }
 
 /* Posizionamento del testo sopra il carosello */
+@media screen and (min-width: 992px) {
+  .heroContent {
+    top: 300px;
+  }
+}
+
 @media screen and (min-width: 1140px) {
   .heroContent {
-    top: 400px;
+    top: 350px;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .heroContent {
-    top: 450px;
+    top: 400px;
   }
 }
 
 @media screen and (min-width: 1400px) {
   .heroContent {
-    top: 500px;
+    top: 420px;
   }
 }
 
 @media screen and (min-width: 1550px) {
   .heroContent {
-    top: 550px;
+    top: 450px;
   }
 }
 
 @media screen and (min-width: 1720px) {
   .heroContent {
-    top: 600px;
+    top: 500px;
   }
 }
 
 @media screen and (min-width: 1780px) {
   .heroContent {
-    top: 650px;
+    top: 550px;
   }
 }
 
 @media screen and (min-width: 1950px) {
   .heroContent {
-    top: 700px;
+    top: 580px;
+  }
+}
+
+@media screen and (min-width: 2150px) {
+  .heroContent {
+    top: 620px;
   }
 }
 

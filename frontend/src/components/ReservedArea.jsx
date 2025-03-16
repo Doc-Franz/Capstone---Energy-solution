@@ -3,12 +3,22 @@ import Hero from "./Hero";
 import { KeyFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import MyNavbar from "./MyNavbar";
+import img6 from "../assets/images/areaRiservata/img6.jpg";
+import img7 from "../assets/images/areaRiservata/img7.jpg";
+import img8 from "../assets/images/areaRiservata/img8.jpg";
+import img9 from "../assets/images/areaRiservata/img9.jpg";
+import img10 from "../assets/images/areaRiservata/img10.jpg";
 
 const ReservedArea = () => {
+  {
+    /* ❗❗❗ CAMBIARE LE IMMAGINI */
+  }
+  const carouselArray = [img6, img7, img8, img9, img10];
+
   return (
     <>
       <MyNavbar />
-      <Hero />
+      <Hero carouselImage={carouselArray} />
       <Container style={{ marginTop: "120px" }}>
         <Card className="cardLogin">
           <Card.Header className="fs-3 fw-semibold text-primary-emphasis">

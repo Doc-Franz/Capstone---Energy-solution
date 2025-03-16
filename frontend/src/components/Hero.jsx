@@ -3,17 +3,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { CheckLg } from "react-bootstrap-icons";
-import { useEffect } from "react";
 
 const Hero = (props) => {
   const settings = {
-    dots: true,
     infinite: true,
     slidesToScroll: 1, // valore predefinito
-    slidesToShow: 3, // valore predefinito
+    slidesToShow: 2, // valore predefinito
     autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 3000,
+    speed: 3000,
+    autoplaySpeed: 2000,
     cssEase: "linear",
     responsive: [
       {
@@ -24,10 +22,6 @@ const Hero = (props) => {
       }
     ]
   };
-
-  useEffect(() => {
-    console.log(props.carouselImage);
-  }, []);
 
   return (
     <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px", position: "relative" }}>

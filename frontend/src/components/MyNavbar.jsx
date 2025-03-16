@@ -1,10 +1,13 @@
-import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import { useEffect, useState } from "react";
 
 function MyNavbar() {
+  // stato che controlla lo spinner
+  const [spinnerIsLoading, setSpinnerIsLoading] = useState(false);
+
   const [avatar, setAvatar] = useState("");
   const [username, setUsername] = useState("");
 
@@ -25,11 +28,43 @@ function MyNavbar() {
 
     setUsername("");
     setAvatar("");
+
+    // gestione dell'opacità e spinner al momento del logout
+
+    const body = document.querySelector("body");
+    body.classList.add("pageLoading");
+
+    // viene attivato lo spinner
+    setSpinnerIsLoading(true);
+
+    setTimeout(() => {
+      body.classList.remove("pageLoading");
+
+      // lo spinner viene disattivato
+      setSpinnerIsLoading(false);
+    }, 2000);
   };
 
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
       <Container className="d-flex flex-column align-items-start">
+        {/* spinner che viene mostrato al caricamento al momento del logout */}
+        {spinnerIsLoading ? (
+          <Spinner
+            animation="border"
+            className="spinnerLogin"
+            style={{
+              width: "50px",
+              height: "50px",
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+
+              zIndex: 999
+            }}
+          />
+        ) : null}
+
         <Row className="gx-0 w-100 d-flex justify-content-between align-items-center mt-2 mb-3">
           <Col className="col-4" md={3} xl={2}>
             <Link to="/" className="text-decoration-none">
