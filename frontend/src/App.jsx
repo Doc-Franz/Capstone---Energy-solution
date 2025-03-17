@@ -13,6 +13,7 @@ import DetailsProduct from "./components/DetailsProduct";
 import Success from "./components/Success";
 import Cancel from "./components/Cancel";
 import BuildingEvaluationPreventive from "./components/BuildingEvaluationPreventive";
+import SearchProducts from "./components/SearchProducts";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/reservedArea/login" element={<Login />} />
             <Route path="/reservedArea/registration" element={<Registration />} />
             <Route path="/allProducts" element={<AllProducts />} />
+            <Route path="/search/:product" element={<SearchProducts />} />
             <Route path="/preventiveProducts" element={<BuildingEvaluationPreventive />} />
             <Route path="/geothermic" element={<Geothermic />} />
             <Route path="/heatPump" element={<HeatPump />} />

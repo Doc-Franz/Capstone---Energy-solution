@@ -140,6 +140,22 @@ public class UserController {
         }
     }
 
+    // GET dall barra di ricerca
+    @GetMapping("/search")
+    public ResponseEntity<?> findProductBySearch(@RequestParam("search") String search) {
+        try {
+            List<Heater> heaterList = heaterService.getHeaterBySearch(search);
+
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // GET di tutti i prodotti
     @GetMapping("/allProducts")
     public ResponseEntity<?> getAllProducts() {
@@ -319,8 +335,6 @@ public class UserController {
             response.put("message", ex.getMessage());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-
-
 
     }
 }

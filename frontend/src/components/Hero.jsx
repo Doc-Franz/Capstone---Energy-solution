@@ -24,7 +24,7 @@ const Hero = (props) => {
   };
 
   return (
-    <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px", position: "relative" }}>
+    <Container fluid className="hero">
       <Row className="slider-container">
         <Slider className="gx-0" {...settings}>
           {props.carouselImage && props.carouselImage.length > 0

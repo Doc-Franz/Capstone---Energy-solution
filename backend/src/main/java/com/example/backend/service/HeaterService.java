@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -100,6 +102,27 @@ public class HeaterService {
     // metodo che restituisce tutte le macchine con potenza maggiore di quella calcolata in building evaluation
     public List<Heater> getByPowerGreaterThan(int power) {
         return heaterRepository.findByPowerGreaterThan(power);
+    }
+
+    // metodo che restituisce le macchine ricercate dalla barra di ricerca
+    public List<Heater> getHeaterBySearch(String search) {
+
+        // creo una lista delle macchine ricercate per titolo e descrizione -> potrebbero esserci duplicati
+        List<Heater> heaterListByTitle = heaterRepository.findByTitleStartingWithIgnoreCase(search);
+        List<Heater> heaterListByDescription = heaterRepository.findByDescriptionStartingWithIgnoreCase(search);
+
+        // creo un set degli Id delle macchine ricercate per titolo
+        Set<Long> hetaerIdByTitle = heaterListByTitle.stream().map(Heater::getId).collect(Collectors.toSet());
+
+        for (Heater elementByDescription: heaterListByDescription) {
+
+            // se l'Id di una macchina ricercata per descrizione è già presente tra le macchine ricercate per titolo non la aggiungo alla lista che ritorno
+            if(!hetaerIdByTitle.contains(elementByDescription.getId())) {
+                heaterListByTitle.add(elementByDescription);
+            }
+        }
+
+        return heaterListByTitle;
     }
 
 }

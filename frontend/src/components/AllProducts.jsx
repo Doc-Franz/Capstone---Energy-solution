@@ -21,7 +21,7 @@ const AllProducts = () => {
     <>
       <MyNavbar />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        <Row className="fs-1 mb-4 fw-bold text-center">
+        <Row className="fs-1 mb-4 fw-bold text-center mt-3">
           <Col>Tutti i prodotti disponibili a catalogo</Col>
         </Row>
         <Container>

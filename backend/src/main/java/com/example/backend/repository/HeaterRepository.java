@@ -12,7 +12,11 @@ public interface HeaterRepository extends JpaRepository<Heater, Long> {
     // in base alla potenza calcolata da input dell'utente verificare se a database ci sono macchine che soddisfano questi valori
     List<Heater> findByPowerGreaterThan (int powerEvaluated);
 
-    // ricerca dei sistemi geotermici
+    // ricerca per tipo di sistema
     @Query("SELECT h FROM Heater h WHERE TYPE(h) = :heaterClass")
     List<Heater> findBydiscriminatorType (Class<? extends Heater> heaterClass);
+
+    // ricerca un heater dalla barra di ricerca case insensitive
+    List<Heater> findByTitleStartingWithIgnoreCase(String search);
+    List<Heater> findByDescriptionStartingWithIgnoreCase(String search);
 }

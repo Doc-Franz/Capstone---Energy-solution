@@ -49,6 +49,26 @@ export const buildProductsPage = (product) => {
   };
 };
 
+// fetch che carica la pagina con i prodotti dalla barra di ricerca
+export const allProductsBySearch = (searchProduct) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`http://localhost:8080/user/search?search=${searchProduct}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(allProductsPage(data));
+      } else {
+        // viene dispatchata l'azione con un array vuoto
+        dispatch(allProductsPage());
+        console.log("Nessun prodotto trovato");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // fetch per acquistare una macchina
 export const buyProduct = (username, heaterId) => {
   return async () => {

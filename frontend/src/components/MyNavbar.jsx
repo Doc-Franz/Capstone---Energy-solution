@@ -1,15 +1,24 @@
-import { Button, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Form, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
 import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import { useEffect, useState } from "react";
 
 function MyNavbar() {
+  const navigate = useNavigate();
+
   // stato che controlla lo spinner
   const [spinnerIsLoading, setSpinnerIsLoading] = useState(false);
 
+  // controllo dell'icona dell'utente
   const [avatar, setAvatar] = useState("");
   const [username, setUsername] = useState("");
+
+  // stato che controlla se mostrare o meno la barra di ricerca
+  const [isSearching, setIsSearching] = useState(false);
+
+  // stato che controlla la stringa dentro la barra di ricerca
+  const [searchBar, setSearchBar] = useState("");
 
   // al caricamento della pagina riprendo i dati da session storage
   useEffect(() => {
@@ -22,6 +31,28 @@ function MyNavbar() {
     }
   }, []);
 
+  // metodo che controlla la barra di ricerca
+  const handleSearch = () => {
+    setIsSearching(!isSearching);
+  };
+
+  // metodo che gestisce la ricerca del prodotto
+  const SearchProducts = (e) => {
+    e.preventDefault();
+
+    // viene salvato il prodotto ricercato
+    const product = e.target.elements.product.value;
+
+    console.log(product);
+
+    // il prodotto ricecato viene inserito come parametro nell'URL e poi verrà ripreso nella pagina che mostrerà i risultati della ricerca
+    navigate(`/search/${product}`);
+
+    // reset della barra di ricerca
+    setSearchBar("");
+  };
+
+  // metodo che controlla il logout dell'utente
   const handleExit = () => {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("avatar");
@@ -129,7 +160,7 @@ function MyNavbar() {
               {/* ❗❗❗Va messo un link per il search?? */}
               <Col className="d-flex justify-content-center" xl={2}>
                 {" "}
-                <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+                <Button className="linkButton text-dark bg-transparent border-0 rounded-0" onClick={handleSearch}>
                   <Search className="me-3" />
                   Cerca
                 </Button>
@@ -160,6 +191,16 @@ function MyNavbar() {
             </Row>
           </Col>
         </Row>
+
+        {/* barra di ricerca attiva quando si clicca sulla lente di ricerca */}
+        {isSearching ? (
+          <Col className="col-12 mb-3" sm={8} md={6} lg={4} xl={3}>
+            <Form inline className="search" onSubmit={SearchProducts}>
+              <Form.Control type="text" placeholder="Ricerca" id="product" value={searchBar} onChange={(e) => setSearchBar(e.target.value)} />
+            </Form>
+          </Col>
+        ) : null}
+
         <Row className="gx-0 w-100 d-flex justify-content-start">
           <Col>
             <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none">
@@ -263,6 +304,7 @@ function MyNavbar() {
               </Nav>
             </Navbar.Collapse>
           </Col>
+
           <Col className="linksLowerXl ms-auto text-end">
             <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Preventivi</Tooltip>}>
               <Button className="linkButtonJournal text-primary bg-transparent rounded-0 me-3">
@@ -290,7 +332,7 @@ function MyNavbar() {
             )}
 
             <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Cerca</Tooltip>}>
-              <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
+              <Button className="linkButton text-dark bg-transparent border-0 rounded-0" onClick={handleSearch}>
                 <Search />
               </Button>
             </OverlayTrigger>
