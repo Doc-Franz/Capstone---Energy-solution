@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReservedArea from "./components/ReservedArea";
-import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Footer from "./components/Footer";
 import HomePage from "./components/Homepage";
@@ -14,8 +13,39 @@ import Success from "./components/Success";
 import Cancel from "./components/Cancel";
 import BuildingEvaluationPreventive from "./components/BuildingEvaluationPreventive";
 import SearchProducts from "./components/SearchProducts";
+import { useEffect, useState } from "react";
+import { Button, Image, Row } from "react-bootstrap";
+import goUp from "../src/assets/images/goup.svg";
+import Login from "./components/Login.Jsx";
 
 function App() {
+  // gestione dello scroll all'interno delle pagine
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolling(true);
+      } else {
+        setIsScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // l'event listener viene rimosso quando il componente si smonta
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [window.scrollY]);
+
+  const handleScroll = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <BrowserRouter>
       <div className="appContainer">
@@ -41,6 +71,27 @@ function App() {
           <Footer />
         </div>
       </div>
+      {isScrolling && (
+        <Row>
+          <Button
+            className="rounded-circle"
+            style={{
+              backgroundColor: "rgb(202, 202, 202)",
+              border: "none",
+              width: "50px",
+              height: "50px",
+              position: "fixed",
+              top: "92%",
+              left: "50%",
+              zIndex: 999,
+              opacity: 0.5
+            }}
+            onClick={handleScroll}
+          >
+            <Image fluid src={goUp} />
+          </Button>
+        </Row>
+      )}
     </BrowserRouter>
   );
 }

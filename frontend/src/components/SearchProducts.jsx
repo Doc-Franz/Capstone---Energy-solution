@@ -13,8 +13,6 @@ const SearchProducts = () => {
   const params = useParams();
   const productSearch = params.product;
 
-  console.log("Il prodotto ricercato è " + productSearch);
-
   const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
 
   // al caricamento della pagina vengono mostrati tutti i prodotti
@@ -27,7 +25,7 @@ const SearchProducts = () => {
   return (
     <>
       <MyNavbar />
-      <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
+      <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px", minHeight: "100vh" }}>
         <Row className="fs-1 mb-4 fw-bold text-center mt-3">
           <Col>
             {productsBySearch && productsBySearch.length > 0 ? (

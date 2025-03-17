@@ -4,7 +4,7 @@ import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { login, prova, resetLoginAction, resetLoginState, spinnerLoading } from "../redux/actions/loginAction";
-import geothermalEnergy from "../assets/images/login/geothermal-energy.svg";
+import loginImage from "../assets/images/login/login.jpeg";
 import logo from "../assets/images/logo.svg";
 
 const Login = () => {
@@ -183,7 +183,7 @@ const Login = () => {
             </Row>
           </Col>
           <Col className="imageLogin text-end">
-            <Image fluid src={geothermalEnergy} className="energyImage" />
+            <Image fluid src={loginImage} className="energyImage" />
           </Col>
         </Row>
       </Container>

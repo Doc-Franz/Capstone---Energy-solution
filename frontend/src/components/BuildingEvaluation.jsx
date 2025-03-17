@@ -18,7 +18,7 @@ import mobileHouse from "../assets/images/muratura/mobile-house.svg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const BuildingEvaluation = () => {
+const BuildingEvaluation = (props) => {
   // al cambio di pagina lo stato del componente viene resettato
   const [startEvaluation, setStartEvaluation] = useState(false);
 
@@ -172,7 +172,7 @@ const BuildingEvaluation = () => {
   };
 
   return (
-    <Container className="buildingEvaluation">
+    <Container className="buildingEvaluation" ref={props.ref}>
       <Row className="fs-1 fw-bold d-flex justify-content-center text-center mt-4">Hai bisogno di aiuto?</Row>
       <Row className="fs-1 fw-bold d-flex justify-content-center text-center mb-2">Ci pensiamo noi!</Row>
       <Row className="lead fs-6 d-flex justify-content-start">

@@ -76,6 +76,12 @@ function MyNavbar() {
     }, 2000);
   };
 
+  // metodo che gestisce lo scroll fino a building evaluation
+  const handleScrollToEvaluation = () => {
+    // quando clicco su "preventivo senza impegno" viene impostato uno stato su true
+    navigate("/", { state: { scrollToEvaluation: true } });
+  };
+
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
       <Container className="d-flex flex-column align-items-start">
@@ -90,7 +96,6 @@ function MyNavbar() {
               position: "fixed",
               top: "50%",
               left: "50%",
-
               zIndex: 999
             }}
           />
@@ -131,7 +136,7 @@ function MyNavbar() {
             <Row className="d-flex align-items-center">
               <Col className="col-4 d-flex justify-content-center">
                 {/* ❗❗❗Inserire il link */}
-                <Button className="linkButtonJournal text-primary bg-transparent rounded-0">
+                <Button className="linkButtonJournal text-primary bg-transparent rounded-0" onClick={handleScrollToEvaluation}>
                   <JournalText className="me-3" />
                   Preventivo senza impegno
                 </Button>
@@ -195,7 +200,7 @@ function MyNavbar() {
         {/* barra di ricerca attiva quando si clicca sulla lente di ricerca */}
         {isSearching ? (
           <Col className="col-12 mb-3" sm={8} md={6} lg={4} xl={3}>
-            <Form inline className="search" onSubmit={SearchProducts}>
+            <Form className="search" onSubmit={SearchProducts}>
               <Form.Control type="text" placeholder="Ricerca" id="product" value={searchBar} onChange={(e) => setSearchBar(e.target.value)} />
             </Form>
           </Col>

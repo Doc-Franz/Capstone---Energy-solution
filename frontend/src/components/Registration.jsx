@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser, resetFormAction, resetRegistrationState } from "../redux/actions/registrationActions";
 import { Link } from "react-router-dom";
 import {} from "../../src/assets/images/thumb.svg";
-import waterHeater from "../assets/images/login/water-heater.svg";
+import registrationImage from "../assets/images/login/registration.jpeg";
 import logo from "../assets/images/logo.svg";
 
 const Registration = () => {
@@ -236,7 +236,7 @@ const Registration = () => {
           </Col>
           <Col className="imageLogin text-end">
             {/* ❗❗❗ Sostituire immagine */}
-            <Image fluid src={waterHeater} className="energyImage" />
+            <Image fluid src={registrationImage} className="energyImage" />
           </Col>
         </Row>
       </Container>

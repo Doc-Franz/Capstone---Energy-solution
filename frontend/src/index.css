@@ -300,9 +300,9 @@ body {
 }
 
 .headerLogin {
-  background: rgb(255, 255, 255);
-  background: radial-gradient(closest-corner, rgba(255, 255, 255, 1) 70%, rgba(86, 143, 207, 0.4) 100%);
+  background-color: rgb(250, 248, 248);
 }
+
 @media screen and (max-width: 768px) {
   .imageLogin {
     display: none;
