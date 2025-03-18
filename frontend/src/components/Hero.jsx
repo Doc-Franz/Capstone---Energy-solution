@@ -36,11 +36,11 @@ const Hero = (props) => {
       <Row>
         <Card className="heroContent border-0 rounded-0 shadow">
           <Card.Body>
-            <Card.Title className="fs-1 mb-4 fw-bold">Richiedi subito un preventivo gratuito</Card.Title>
+            <Card.Title className="fs-1 mb-4 fw-bold">{props.cardTitle}</Card.Title>
             <Row className="mb-2">
               <Col className="fs-6 d-flex align-items-start">
                 <div className="me-3">
-                  <CheckLg className="text-primary fs-3" />
+                  <CheckLg className="fs-3" style={{ color: "#568FCF" }} />
                 </div>
                 <div>
                   Tecnici abilitati, competenti e&nbsp; <span className="fw-bold">sistemi certificati</span>
@@ -51,7 +51,7 @@ const Hero = (props) => {
             <Row className="mb-2">
               <Col className="fs-6 d-flex align-items-start">
                 <div className="me-3">
-                  <CheckLg className="text-primary fs-3" />
+                  <CheckLg className="fs-3" style={{ color: "#568FCF" }} />
                 </div>
                 <div>
                   Esperienza nel settore di&nbsp; <span className="fw-bold">oltre 60 anni</span>
@@ -61,7 +61,7 @@ const Hero = (props) => {
             <Row className="mb-2">
               <Col className="fs-6 d-flex align-items-start">
                 <div className="me-3">
-                  <CheckLg className="text-primary fs-3" />
+                  <CheckLg className="fs-3" style={{ color: "#568FCF" }} />
                 </div>
                 <div>
                   <span className="fw-bold">Tecnologia ed innovazione&nbsp;</span> sempre a servizio del cliente
@@ -71,7 +71,7 @@ const Hero = (props) => {
             <Row className="mb-2">
               <Col className="fs-6 d-flex align-items-start">
                 <div className="me-3">
-                  <CheckLg className="text-primary fs-3" />
+                  <CheckLg className="fs-3" style={{ color: "#568FCF" }} />
                 </div>
                 <div>
                   Dettaglio, &nbsp;<span className="fw-bold">cura del prodotto&nbsp;</span> e continua ricerca

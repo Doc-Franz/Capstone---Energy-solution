@@ -276,6 +276,20 @@ body {
   }
 }
 
+.checkRegistration input[type="checkbox"] {
+  border: 2px solid #568fcf;
+  border-radius: 0px;
+}
+
+.checkRegistration input[type="checkbox"]:checked {
+  background-color: #568fcf;
+}
+
+.checkRegistration input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* Colore personalizzato dei bottoni */
 .navigationBtn {
   background-color: rgb(26, 13, 43);
@@ -288,6 +302,12 @@ body {
 
 .navigationBtn:active {
   background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
+}
+
+.navigationBtn:disabled {
+  background-color: rgb(26, 13, 43) !important;
+  opacity: 0.5;
   box-shadow: none !important;
 }
 
@@ -419,4 +439,18 @@ body {
 
 .price {
   color: rgb(252, 89, 24);
+}
+
+/* ----- ASSISTANCE ----- */
+
+@media screen and (min-width: 992px) {
+  .assistance {
+    margin-top: 200px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .assistancePoints {
+    display: none;
+  }
 }

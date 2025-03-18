@@ -5,6 +5,7 @@ import { addUser, resetFormAction, resetRegistrationState } from "../redux/actio
 import { Link } from "react-router-dom";
 import {} from "../../src/assets/images/thumb.svg";
 import registrationImage from "../assets/images/login/registration.jpeg";
+import boy from "../assets/images/login/boy.svg";
 import logo from "../assets/images/logo.svg";
 
 const Registration = () => {
@@ -178,27 +179,25 @@ const Registration = () => {
                 </FloatingLabel>
 
                 <Form.Text>Minimo 3 caratteri, massimo 20 caratteri</Form.Text>
-                <Row>
-                  <Form.Text className="fs-6 mt-3 mb-2">Immagine di profilo 🕵️</Form.Text>
+                <Row className="fs-6 mt-3 mb-2">
+                  <Col className="mb-2">
+                    Immagine di profilo
+                    <Image fluid src={boy} className="ms-2" style={{ width: "25px", height: "25px" }} />
+                  </Col>
                   <Form.Control className="no-focus" type="file" id="avatarRegistration" onChange={(e) => setAvatar(e.target.files[0])} required />
                 </Row>
                 <Row className="d-flex flex-column mt-4">
                   <Col>
-                    Prendo atto{" "}
-                    <span className="text-primary" style={{ cursor: "pointer" }}>
-                      dell'informativa privacy
-                    </span>{" "}
+                    Prendo atto <span style={{ cursor: "pointer", color: "#568FCF" }}>dell'informativa privacy</span>{" "}
                   </Col>
                   <Col className="d-flex">
                     Accetto le<span>&nbsp;</span>
-                    <span className="text-primary" style={{ cursor: "pointer" }}>
-                      condizioni di utilizzo
-                    </span>{" "}
-                    <Form.Check className="ms-4" type="checkbox" onChange={handleCheckboxChange} />
+                    <span style={{ cursor: "pointer", color: "#568FCF" }}>condizioni di utilizzo</span>{" "}
+                    <Form.Check className="checkRegistration ms-4" type="checkbox" onChange={handleCheckboxChange} />
                   </Col>
                 </Row>
               </Form.Group>
-              <Button className="navigationBtn btn-primary mb-3" type="submit" disabled={!isChecked}>
+              <Button className="navigationBtn mb-3" type="submit" disabled={!isChecked}>
                 Continua
               </Button>
             </Form>

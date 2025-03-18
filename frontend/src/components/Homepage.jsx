@@ -15,6 +15,7 @@ const HomePage = () => {
     /* ❗❗❗ CAMBIARE LE IMMAGINI */
   }
   const carouselArray = [img1, img2, img3, img4, img5];
+  const cardInfo = "Richiedi subito un preventivo gratuito";
 
   // gestione dello scroll fino a building evaluation
   const evaluationRef = useRef(null);
@@ -31,7 +32,7 @@ const HomePage = () => {
   return (
     <>
       <MyNavbar />
-      <Hero carouselImage={carouselArray} />
+      <Hero carouselImage={carouselArray} cardTitle={cardInfo} />
       <BuildingEvaluation ref={evaluationRef} />
     </>
   );

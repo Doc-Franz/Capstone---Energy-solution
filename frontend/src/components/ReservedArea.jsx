@@ -14,11 +14,12 @@ const ReservedArea = () => {
     /* ❗❗❗ CAMBIARE LE IMMAGINI */
   }
   const carouselArray = [img6, img7, img8, img9, img10];
+  const cardInfo = "Visita la nostra azienda";
 
   return (
     <>
       <MyNavbar />
-      <Hero carouselImage={carouselArray} />
+      <Hero carouselImage={carouselArray} cardTitle={cardInfo} />
       <Container style={{ marginTop: "120px" }}>
         <Card className="cardLogin">
           <Card.Header className="fs-3 fw-semibold text-primary-emphasis">

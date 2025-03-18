@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { Button, Image, Row } from "react-bootstrap";
 import goUp from "../src/assets/images/goup.svg";
 import Login from "./components/Login.Jsx";
+import Assistance from "./components/Assistance";
 
 function App() {
   // gestione dello scroll all'interno delle pagine
@@ -52,6 +53,7 @@ function App() {
         <div className="routeContainer">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/assistance" element={<Assistance />} />
             <Route path="/reservedArea" element={<ReservedArea />} />
             <Route path="/reservedArea/login" element={<Login />} />
             <Route path="/reservedArea/registration" element={<Registration />} />
