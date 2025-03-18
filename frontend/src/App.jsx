@@ -59,7 +59,7 @@ function App() {
             <Route path="/reservedArea/registration" element={<Registration />} />
             <Route path="/allProducts" element={<AllProducts />} />
             <Route path="/search/:product" element={<SearchProducts />} />
-            <Route path="/preventiveProducts" element={<BuildingEvaluationPreventive />} />
+            <Route path="/preventiveProducts/:machine/:power" element={<BuildingEvaluationPreventive />} />
             <Route path="/geothermic" element={<Geothermic />} />
             <Route path="/heatPump" element={<HeatPump />} />
             <Route path="/traditionalBoiler" element={<TraditionalBoiler />} />

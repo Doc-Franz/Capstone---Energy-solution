@@ -17,8 +17,18 @@ import concrete from "../assets/images/muratura/concrete.svg";
 import mobileHouse from "../assets/images/muratura/mobile-house.svg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { powerCalculation } from "../redux/actions/buildingEvaluationActions";
 
 const BuildingEvaluation = (props) => {
+  // array che contiene le diverse macchine
+  const machineArr = ["Geothermic", "HeatPump", "CondensingBoiler", "TraditionalBoiler"];
+
+  // array che contiene le risposte
+  const [arrAnswers, setArrAnswers] = useState([]);
+
+  // potenza termica calcolata
+  const [power, setPower] = useState(0);
+
   // al cambio di pagina lo stato del componente viene resettato
   const [startEvaluation, setStartEvaluation] = useState(false);
 
@@ -37,6 +47,22 @@ const BuildingEvaluation = (props) => {
   // variabile che controlla il valore dello slider per la superficie
   const [sliderValue, setSliderValue] = useState(50);
 
+  // variabile che controlla quale regione è stata selezionata
+  const [region, setRegion] = useState(null);
+
+  // variabile che controlla se è stata selezionata una regione
+  const [isRegionSelected, setIsRegionSelected] = useState(false);
+
+  // variabile che controlla lo spessore dell'isolamento
+  const [insulationWidth, setInsulationWidth] = useState("0");
+
+  // quando viene selezinata una regione si attiva il button AVANTI
+  useEffect(() => {
+    if (region != null) {
+      setIsRegionSelected(true);
+    }
+  }, [region]);
+
   // variabile che controlla il checkbox sull'isolamento
   const [isChecked, setIsChecked] = useState(false);
 
@@ -51,6 +77,9 @@ const BuildingEvaluation = (props) => {
 
   // metodo che controlla la prima domanda
   const handleFirstQuestion = () => {
+    // ❗❗❗❗❗❗❗❗❗❗PRIMA DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, sliderValue]);
+
     setTimeout(() => {
       setIsFirstQuestion(false);
       setIsSecondQuestion(true);
@@ -59,9 +88,17 @@ const BuildingEvaluation = (props) => {
 
   // metodo che controlla la seconda domanda
   const handleSecondQuestion = () => {
+    // ❗❗❗❗❗❗❗❗❗❗SECONDA DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, region]);
+
     setTimeout(() => {
       setIsSecondQuestion(false);
     }, 300);
+  };
+
+  // metodo che controlla la selezione della regione
+  const handleFormSelection = (e) => {
+    setRegion(e.target.value);
   };
 
   useEffect(() => {
@@ -73,15 +110,55 @@ const BuildingEvaluation = (props) => {
 
   const handleThermalInsulationQuestion = () => {
     setTimeout(() => {
+      setArrAnswers((prevArrAnswers) => [...prevArrAnswers, insulationWidth]);
       setIsThermalInsulation(false);
     }, 300);
   };
 
   // al click sulla risposta si passa alla domanda successiva, con un leggero lag di 3000 ms
-  const handleClick = () => {
+  const handleClickFirstAnswer = () => {
+    // ❗❗❗❗❗❗❗❗❗❗CARD DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, "1"]);
+
     setTimeout(() => {
       setQuestionNumber((questionNumber += 1));
     }, 300);
+  };
+
+  // al click sulla risposta si passa alla domanda successiva, con un leggero lag di 3000 ms
+  const handleClickSecondAnswer = () => {
+    // ❗❗❗❗❗❗❗❗❗❗CARD DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, "2"]);
+
+    setTimeout(() => {
+      setQuestionNumber((questionNumber += 1));
+    }, 300);
+  };
+
+  // al click sulla risposta si passa alla domanda successiva, con un leggero lag di 3000 ms
+  const handleClickThirdAnswer = () => {
+    // ❗❗❗❗❗❗❗❗❗❗CARD DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, "3"]);
+
+    setTimeout(() => {
+      setQuestionNumber((questionNumber += 1));
+    }, 300);
+  };
+
+  // al click sulla risposta si passa alla domanda successiva, con un leggero lag di 3000 ms
+  const handleClickFourthAnswer = () => {
+    // ❗❗❗❗❗❗❗❗❗❗CARD DOMANDA
+    setArrAnswers((prevArrAnswers) => [...prevArrAnswers, "4"]);
+
+    setTimeout(() => {
+      setQuestionNumber((questionNumber += 1));
+    }, 300);
+  };
+
+  // metodo che controlla lo spessore dell'isolamento
+  const handleInsulationWidth = (e) => {
+    // ❗❗❗❗❗❗❗❗❗❗ULTIMA DOMANDA
+    setInsulationWidth(e.target.value);
   };
 
   // metodo che controlla il checkbox sull'isolamento termico
@@ -89,7 +166,7 @@ const BuildingEvaluation = (props) => {
     setIsChecked(!isChecked);
   };
 
-  //  oggeto che contiente le domande e le risposte per fare la valutazione del carico termico
+  //  oggetto che contiente le domande e le risposte per fare la valutazione del carico termico
   const questionsAndAnswers = {
     question: [
       "Che tipologia di edificio intendi climatizzare?",
@@ -171,6 +248,14 @@ const BuildingEvaluation = (props) => {
     ]
   };
 
+  // prima dell'ultima domanda (scelta del sistema) si richiama il metodo per calcolare la potenza termica
+  useEffect(() => {
+    if (arrAnswers.length == 6) {
+      setPower(powerCalculation(arrAnswers));
+      console.log(arrAnswers);
+    }
+  }, [arrAnswers]);
+
   return (
     <Container className="buildingEvaluation" ref={props.ref}>
       <Row className="fs-1 fw-bold d-flex justify-content-center text-center mt-4">Hai bisogno di aiuto?</Row>
@@ -209,7 +294,7 @@ const BuildingEvaluation = (props) => {
           <Row className="fs-5 fw-bold d-flex justify-content-center text-center mt-4 mb-4">Da quale regione provieni?</Row>
           <Row className="d-flex flex-column align-items-center">
             <Col className="col-6 text-center" sm={5} lg={3}>
-              <Form.Select className="formRegion mb-3" htmlSize={3}>
+              <Form.Select className="formRegion mb-3" htmlSize={3} onClick={handleFormSelection}>
                 <option value="abruzzo">Abruzzo</option>
                 <option value="basilicata">Basilicata</option>
                 <option value="calabria">Calabria</option>
@@ -234,7 +319,7 @@ const BuildingEvaluation = (props) => {
             </Col>
 
             <Col className="text-center">
-              <Button className="navigationBtn" onClick={handleSecondQuestion}>
+              <Button className="navigationBtn" onClick={handleSecondQuestion} disabled={!isRegionSelected}>
                 AVANTI
               </Button>
             </Col>
@@ -262,7 +347,7 @@ const BuildingEvaluation = (props) => {
                 </Col>
                 <Col>
                   <InputGroup className="inputInsulation" style={{ maxWidth: "120px" }}>
-                    <Form.Control type="number" />
+                    <Form.Control type="number" min="0" onChange={handleInsulationWidth} />
                     <InputGroup.Text id="basic-addon2">cm</InputGroup.Text>
                   </InputGroup>
                 </Col>
@@ -284,8 +369,8 @@ const BuildingEvaluation = (props) => {
             {questionNumber == questionsAndAnswers.question.length - 1 ? (
               <>
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
-                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Link to={`/preventiveProducts/${machineArr[0]}/${power}`} className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClickFirstAnswer} style={{ cursor: "pointer" }}>
                       <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.firstAnswer[questionNumber].icon} />
                       <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.firstAnswer[questionNumber].textContent}</Card.Text>
                     </Card>
@@ -293,8 +378,8 @@ const BuildingEvaluation = (props) => {
                 </Col>
 
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
-                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Link to={`/preventiveProducts/${machineArr[1]}/${power}`} className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClickSecondAnswer} style={{ cursor: "pointer" }}>
                       <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.secondAnswer[questionNumber].icon} />
                       <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.secondAnswer[questionNumber].textContent}</Card.Text>
                     </Card>
@@ -302,8 +387,8 @@ const BuildingEvaluation = (props) => {
                 </Col>
 
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
-                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Link to={`/preventiveProducts/${machineArr[2]}/${power}`} className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClickThirdAnswer} style={{ cursor: "pointer" }}>
                       <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.thirdAnswer[questionNumber].icon} />
                       <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.thirdAnswer[questionNumber].textContent}</Card.Text>
                     </Card>
@@ -311,8 +396,8 @@ const BuildingEvaluation = (props) => {
                 </Col>
 
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Link to="/preventiveProducts" className="text-decoration-none d-flex align-items-center">
-                    <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Link to={`/preventiveProducts/${machineArr[3]}/${power}`} className="text-decoration-none d-flex align-items-center">
+                    <Card className="cardSelection" onClick={handleClickFourthAnswer} style={{ cursor: "pointer" }}>
                       <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.fourthAnswer[questionNumber].icon} />
                       <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.fourthAnswer[questionNumber].textContent}</Card.Text>
                     </Card>
@@ -322,25 +407,25 @@ const BuildingEvaluation = (props) => {
             ) : (
               <>
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Card className="cardSelection" onClick={handleClickFirstAnswer} style={{ cursor: "pointer" }}>
                     <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.firstAnswer[questionNumber].icon} />
                     <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.firstAnswer[questionNumber].textContent}</Card.Text>
                   </Card>
                 </Col>
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Card className="cardSelection" onClick={handleClickSecondAnswer} style={{ cursor: "pointer" }}>
                     <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.secondAnswer[questionNumber].icon} />
                     <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.secondAnswer[questionNumber].textContent}</Card.Text>
                   </Card>
                 </Col>
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Card className="cardSelection" onClick={handleClickThirdAnswer} style={{ cursor: "pointer" }}>
                     <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.thirdAnswer[questionNumber].icon} />
                     <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.thirdAnswer[questionNumber].textContent}</Card.Text>
                   </Card>
                 </Col>
                 <Col sm={6} md={3} className="col-6 d-flex flex-stretch mt-2 justify-content-center">
-                  <Card className="cardSelection" onClick={handleClick} style={{ cursor: "pointer" }}>
+                  <Card className="cardSelection" onClick={handleClickFourthAnswer} style={{ cursor: "pointer" }}>
                     <Card.Img className="my-3 px-2" variant="top" src={questionsAndAnswers.fourthAnswer[questionNumber].icon} />
                     <Card.Text className="text-center mb-3 mx-2">{questionsAndAnswers.fourthAnswer[questionNumber].textContent}</Card.Text>
                   </Card>

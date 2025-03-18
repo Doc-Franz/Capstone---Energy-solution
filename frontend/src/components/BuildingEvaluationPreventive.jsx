@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { allPreventiveProducts } from "../redux/actions/allProductsActions";
 import MyNavbar from "./MyNavbar";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BuildingEvaluationPreventive = () => {
   const dispatch = useDispatch();
 
   const username = sessionStorage.getItem("username");
 
+  const params = useParams();
+
   // al caricamento della pagina vengono mostrati tutti i prodotti derivati da building evaluation
   useEffect(() => {
-    dispatch(allPreventiveProducts(40));
+    dispatch(allPreventiveProducts(params.power));
   }, []);
 
   const preventiveProducts = useSelector((state) => state.allProducts.preventiveContent);
