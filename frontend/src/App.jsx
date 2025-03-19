@@ -18,6 +18,9 @@ import { Button, Image, Row } from "react-bootstrap";
 import goUp from "../src/assets/images/goup.svg";
 import Login from "./components/Login.Jsx";
 import Assistance from "./components/Assistance";
+import Quotes from "./components/Quotes";
+import Information from "./components/Information";
+import Photovoltaic from "./components/Photovoltaic";
 
 function App() {
   // gestione dello scroll all'interno delle pagine
@@ -25,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 100) {
         setIsScrolling(true);
       } else {
         setIsScrolling(false);
@@ -53,7 +56,10 @@ function App() {
         <div className="routeContainer">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/quotes" element={<Quotes />} />
             <Route path="/assistance" element={<Assistance />} />
+            <Route path="/information" element={<Information />} />
+            <Route path="/photovoltaic" element={<Photovoltaic />} />
             <Route path="/reservedArea" element={<ReservedArea />} />
             <Route path="/reservedArea/login" element={<Login />} />
             <Route path="/reservedArea/registration" element={<Registration />} />

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { buildProductsPage } from "../redux/actions/allProductsActions";
 import MyNavbar from "./MyNavbar";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Geothermic = () => {
   const dispatch = useDispatch();

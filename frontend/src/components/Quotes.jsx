@@ -1,34 +1,24 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { buildProductsPage } from "../redux/actions/allProductsActions";
+import { useSelector } from "react-redux";
 import MyNavbar from "./MyNavbar";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const CondensingBoiler = () => {
-  const dispatch = useDispatch();
-
+const Quotes = () => {
   const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
-
-  // mostrare i sistemi geotermici al caricamento della pagina
-  useEffect(() => {
-    dispatch(buildProductsPage("condensingBoiler"));
-  }, []);
-
-  const condensingBoiler = useSelector((state) => state.allProducts.content);
+  const allProducts = useSelector((state) => state.allProducts.content);
 
   return (
     <>
-      <MyNavbar />
+      <MyNavbar quotesSelected={true} />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        {condensingBoiler.length > 0 ? (
+        {allProducts.length > 0 ? (
           <>
             <Row className="fs-1 mb-4 fw-bold text-center mt-3">
-              <Col>Sistemi con caldaia a condensazione</Col>
+              <Col>Elenco dei preventivi da te richiesti</Col>
             </Row>
             <Container>
               <Row>
-                {condensingBoiler.map((product) => (
+                {allProducts.map((product) => (
                   <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
                     <Card className="shadow">
                       <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
@@ -82,4 +72,4 @@ const CondensingBoiler = () => {
   );
 };
 
-export default CondensingBoiler;
+export default Quotes;

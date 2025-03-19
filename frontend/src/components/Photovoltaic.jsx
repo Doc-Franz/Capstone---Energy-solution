@@ -9,13 +9,13 @@ import img6 from "../assets/images/assistenza/img6.jpeg";
 import { CheckLg } from "react-bootstrap-icons";
 import { Col, Container, Image, Row } from "react-bootstrap";
 
-const Assistance = () => {
+const Photovoltaic = () => {
   const carouselArray = [img1, img2, img3, img4, img5];
-  const cardInfo = "Assistenza e servizi";
+  const cardInfo = "Fotovoltaico";
 
   return (
     <>
-      <MyNavbar assistanceSelected={true} />
+      <MyNavbar photovoltaicSelected={true} />
       <Hero carouselImage={carouselArray} cardTitle={cardInfo} />
       <Container className="assistance">
         <Row className="fs-1 fw-bold d-flex justify-content-center text-center mt-4">Non esitare a contattarci!</Row>
@@ -76,4 +76,4 @@ const Assistance = () => {
   );
 };
 
-export default Assistance;
+export default Photovoltaic;

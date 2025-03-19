@@ -1,11 +1,18 @@
-import { Button, Col, Container, Dropdown, Form, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
-import { List, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
+import { Badge, Button, Col, Container, Dropdown, Form, Image, Nav, Navbar, NavDropdown, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
+import { List, X, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import { useEffect, useState } from "react";
 
-function MyNavbar() {
+function MyNavbar(props) {
   const navigate = useNavigate();
+
+  // stato che controlla se mostrare o meno il dropdown del Menu
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleShowMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   // stato che controlla lo spinner
   const [spinnerIsLoading, setSpinnerIsLoading] = useState(false);
@@ -136,7 +143,11 @@ function MyNavbar() {
             <Row className="d-flex align-items-center">
               <Col className="col-4 d-flex justify-content-center">
                 {/* ❗❗❗Inserire il link */}
-                <Button className="linkButtonJournal text-primary bg-transparent rounded-0" onClick={handleScrollToEvaluation}>
+                <Button
+                  className="linkButtonJournal bg-transparent rounded-0"
+                  style={{ color: "#568FCF", borderColor: "#568FCF" }}
+                  onClick={handleScrollToEvaluation}
+                >
                   <JournalText className="me-3" />
                   Preventivo senza impegno
                 </Button>
@@ -201,21 +212,33 @@ function MyNavbar() {
         {isSearching ? (
           <Col className="col-12 mb-3" sm={8} md={6} lg={4} xl={3}>
             <Form className="search" onSubmit={SearchProducts}>
-              <Form.Control type="text" placeholder="Ricerca" id="product" value={searchBar} onChange={(e) => setSearchBar(e.target.value)} />
+              <Form.Control
+                type="text"
+                placeholder="Ricerca"
+                id="product"
+                value={searchBar}
+                autoComplete="off"
+                onChange={(e) => setSearchBar(e.target.value)}
+              />
             </Form>
           </Col>
         ) : null}
 
         <Row className="gx-0 w-100 d-flex justify-content-start">
           <Col>
-            <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none">
-              <List className="me-3" />
+            <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none" onClick={handleShowMenu}>
+              {showMenu ? <X className="fs-3 me-2" /> : <List className="me-3" />}
               Menu
             </Navbar.Toggle>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Dropdown>
-                  <Dropdown.Toggle as="div" id="dropdown-autoclose-true" className="p-0 bg-transparent border-0 shadow-none w-100">
+                  <Dropdown.Toggle
+                    as="div"
+                    id="dropdown-autoclose-true"
+                    className="p-0 bg-transparent border-0 shadow-none w-100"
+                    style={{ cursor: "pointer" }}
+                  >
                     <Nav.Item className="products d-flex justify-content-between align-items-center border-bottom">
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Prodotti</Button>
                       <ChevronRight className="chevronRight ms-auto text-dark" />
@@ -265,29 +288,56 @@ function MyNavbar() {
                 </Dropdown>
 
                 <Link to="/quotes" className="text-decoration-none">
-                  <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">
+                  <Nav.Item
+                    className={
+                      props.quotesSelected
+                        ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
+                        : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
+                    }
+                  >
                     <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Preventivi</Button>
                     <ChevronRight className="chevronRight ms-auto text-dark" />
                   </Nav.Item>
                 </Link>
 
                 <Link to="/assistance" className="text-decoration-none">
-                  <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">
+                  <Nav.Item
+                    className={
+                      props.assistanceSelected
+                        ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
+                        : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
+                    }
+                  >
                     <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Assistenza</Button>
                     <ChevronRight className="chevronRight ms-auto text-dark" />
                   </Nav.Item>
                 </Link>
 
                 <Link to="/information" className="text-decoration-none">
-                  <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">
+                  <Nav.Item
+                    className={
+                      props.informationSelected
+                        ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
+                        : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
+                    }
+                  >
                     <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Informazioni</Button>
                     <ChevronRight className="chevronRight ms-auto text-dark" />
                   </Nav.Item>
                 </Link>
 
-                <Link to="/professionals" className="text-decoration-none">
-                  <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">
-                    <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Professionisti</Button>
+                <Link to="/photovoltaic" className="text-decoration-none">
+                  <Nav.Item
+                    className={
+                      props.photovoltaicSelected
+                        ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
+                        : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
+                    }
+                  >
+                    <Button className="d-flex align-items-center text-dark bg-transparent border-0 rounded-0 px-0">
+                      Fotovoltaico
+                      <Badge className="photovoltaicBadge ms-2">new</Badge>
+                    </Button>
                     <ChevronRight className="chevronRight ms-auto text-dark" />
                   </Nav.Item>
                 </Link>
@@ -312,7 +362,7 @@ function MyNavbar() {
 
           <Col className="linksLowerXl ms-auto text-end">
             <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Preventivi</Tooltip>}>
-              <Button className="linkButtonJournal text-primary bg-transparent rounded-0 me-3">
+              <Button className="linkButtonJournal bg-transparent rounded-0 me-3" style={{ color: "#568FCF", borderColor: "#568FCF" }}>
                 <JournalText />
               </Button>
             </OverlayTrigger>

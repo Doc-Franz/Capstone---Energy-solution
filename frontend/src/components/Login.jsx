@@ -165,7 +165,10 @@ const Login = () => {
               )}
               <Row>
                 <Form.Text>
-                  Non sei ancora nostro cliente? <Link to={"/reservedArea/registration"}>Registrati</Link>
+                  Non sei ancora nostro cliente?{" "}
+                  <Link to={"/reservedArea/registration"} style={{ color: "#568FCF" }}>
+                    Registrati
+                  </Link>
                 </Form.Text>
               </Row>
             </Form>

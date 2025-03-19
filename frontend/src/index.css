@@ -138,6 +138,11 @@ body {
   border-color: #568fcf;
 }
 
+/* photovoltaic */
+.photovoltaicBadge {
+  background-color: rgb(27, 224, 27) !important;
+}
+
 /* avatar */
 .circularAvatar {
   width: 40px;
@@ -177,7 +182,7 @@ body {
 
 /* Cambio di colore del toggle menu */
 .toggle:hover {
-  color: #0d6efd !important;
+  color: #568fcf !important;
 }
 
 /* Underline dei link navigabili */
@@ -188,12 +193,12 @@ body {
     padding-right: 40px;
   }
 
-  .products button {
-    border-bottom: 2px solid rgb(0, 119, 255) !important;
+  .navMenuLink button:hover {
+    border-bottom: 2px solid#568FCF !important;
   }
 
-  .navMenuLink button:hover {
-    border-bottom: 2px solid rgb(0, 119, 255) !important;
+  .navMenuLinkSelected button {
+    border-bottom: 2px solid#568FCF !important;
   }
 }
 
@@ -217,7 +222,7 @@ body {
 }
 
 .linkButton:hover {
-  color: #0d6efd !important;
+  color: #568fcf !important;
 }
 
 .linkButtonJournal:hover {
@@ -414,7 +419,7 @@ body {
 }
 
 .footerLink:hover {
-  color: #0d6efd !important;
+  color: #568fcf !important;
 }
 
 /* ----- BUILDING EVALUATION ----- */
