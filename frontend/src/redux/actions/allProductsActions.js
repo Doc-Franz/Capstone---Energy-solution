@@ -2,6 +2,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 export const UPDATE_PRODUCTS_PAGE = "UPDATE_PRODUCTS_PAGE";
 export const PREVENTIVE_PRODUCTS_PAGE = "PREVENTIVE_PRODUCTS_PAGE";
+export const RESET_PRODUCTS_PAGE = "RESET_PRODUCTS_PAGE";
 
 const allProductsPage = (allProducts) => ({
   type: UPDATE_PRODUCTS_PAGE,
@@ -13,18 +14,23 @@ const preventiveProductPage = (preventiveProducts) => ({
   payload: preventiveProducts
 });
 
+export const resetProductsPage = () => ({
+  type: RESET_PRODUCTS_PAGE
+});
+
 // fetch che carica una pagina con i prodotti che soddisfano i parametri inseriti in building evaluation
-export const allPreventiveProducts = (power) => {
+export const allPreventiveProducts = (machine, power) => {
   return async (dispatch) => {
     try {
       // passo power come query string
-      const response = await fetch(`http://localhost:8080/user/preventiveProducts?power=${power}`);
+      const response = await fetch(`http://localhost:8080/user/preventiveProducts?type=${machine}&power=${power}`);
 
       if (response.ok) {
         const data = await response.json();
         dispatch(preventiveProductPage(data));
       } else {
         console.log("errore");
+        dispatch(resetProductsPage());
       }
     } catch (error) {
       console.log(error);
@@ -42,6 +48,7 @@ export const buildProductsPage = (product) => {
         dispatch(allProductsPage(data));
       } else {
         console.log("Errore");
+        dispatch(resetProductsPage());
       }
     } catch (error) {
       console.log(error);

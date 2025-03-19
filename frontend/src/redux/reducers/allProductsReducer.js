@@ -1,4 +1,4 @@
-import { PREVENTIVE_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
+import { PREVENTIVE_PRODUCTS_PAGE, RESET_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
 
 const initialStateProducts = {
   content: [], // array che contiene tutti i prodotti
@@ -17,6 +17,8 @@ const productsReducer = (state = initialStateProducts, action) => {
         ...state,
         preventiveContent: action.payload
       };
+    case RESET_PRODUCTS_PAGE:
+      return initialStateProducts;
     default:
       return state;
   }

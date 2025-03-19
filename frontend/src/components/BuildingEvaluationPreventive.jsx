@@ -14,7 +14,7 @@ const BuildingEvaluationPreventive = () => {
 
   // al caricamento della pagina vengono mostrati tutti i prodotti derivati da building evaluation
   useEffect(() => {
-    dispatch(allPreventiveProducts(params.power));
+    dispatch(allPreventiveProducts(params.machine, params.power));
   }, []);
 
   const preventiveProducts = useSelector((state) => state.allProducts.preventiveContent);

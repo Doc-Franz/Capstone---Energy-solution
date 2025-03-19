@@ -395,6 +395,11 @@ body {
   box-shadow: none;
 }
 
+.formRegion option:checked {
+  background-color: #568fcf;
+  color: white;
+}
+
 .inputInsulation .form-control:focus,
 .inputInsulation .input-group:focus-within {
   outline: none;
