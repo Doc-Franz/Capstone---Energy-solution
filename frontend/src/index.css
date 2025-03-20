@@ -451,6 +451,15 @@ body {
   color: rgb(252, 89, 24);
 }
 
+/* ----- QUOTES ----- */
+.buyAgainBtn {
+  color: rgb(26, 13, 43);
+}
+
+.buyAgainBtn:hover {
+  color: #568fcf;
+}
+
 /* ----- ASSISTANCE ----- */
 
 @media screen and (min-width: 992px) {

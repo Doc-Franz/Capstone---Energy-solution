@@ -131,8 +131,10 @@ function MyNavbar(props) {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu align="end">
-                    <Dropdown.Item>Profilo</Dropdown.Item>
-                    <Dropdown.Item>I miei preventivi</Dropdown.Item>
+                    <Dropdown.Item as={Link} to={`/quotes/${userId}`}>
+                      Profilo
+                    </Dropdown.Item>
+                    <Dropdown.Item>I miei ordini</Dropdown.Item>
                     <NavDropdown.Divider />
                     <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
                   </Dropdown.Menu>
@@ -199,7 +201,9 @@ function MyNavbar(props) {
 
                       <Dropdown.Menu align="end">
                         <Dropdown.Item>Profilo</Dropdown.Item>
-                        <Dropdown.Item>I miei preventivi</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/quotes/${userId}`}>
+                          I miei ordini
+                        </Dropdown.Item>
                         <NavDropdown.Divider />
                         <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
                       </Dropdown.Menu>
@@ -289,19 +293,20 @@ function MyNavbar(props) {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-
-                <Link to={`/quotes/${userId}`} className="text-decoration-none">
-                  <Nav.Item
-                    className={
-                      props.quotesSelected
-                        ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
-                        : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
-                    }
-                  >
-                    <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Preventivi</Button>
-                    <ChevronRight className="chevronRight ms-auto text-dark" />
-                  </Nav.Item>
-                </Link>
+                {username ? (
+                  <Link to={`/quotes/${userId}`} className="text-decoration-none">
+                    <Nav.Item
+                      className={
+                        props.quotesSelected
+                          ? "navMenuLink navMenuLinkSelected d-flex justify-content-between align-items-center border-bottom"
+                          : "navMenuLink d-flex justify-content-between align-items-center border-bottom"
+                      }
+                    >
+                      <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Ordini</Button>
+                      <ChevronRight className="chevronRight ms-auto text-dark" />
+                    </Nav.Item>
+                  </Link>
+                ) : null}
 
                 <Link to="/assistance" className="text-decoration-none">
                   <Nav.Item
@@ -364,11 +369,13 @@ function MyNavbar(props) {
           </Col>
 
           <Col className="linksLowerXl ms-auto text-end">
-            <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Preventivi</Tooltip>}>
-              <Button className="linkButtonJournal bg-transparent rounded-0 me-3" style={{ color: "#568FCF", borderColor: "#568FCF" }}>
-                <JournalText />
-              </Button>
-            </OverlayTrigger>
+            {username ? (
+              <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Ordini</Tooltip>}>
+                <Button className="linkButtonJournal bg-transparent rounded-0 me-3" style={{ color: "#568FCF", borderColor: "#568FCF" }}>
+                  <JournalText />
+                </Button>
+              </OverlayTrigger>
+            ) : null}
 
             <Link to="/contacts" className="text-decoration-none">
               <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Contattaci</Tooltip>}>

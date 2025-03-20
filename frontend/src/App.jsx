@@ -89,7 +89,7 @@ function App() {
               width: "50px",
               height: "50px",
               position: "fixed",
-              top: "92%",
+              top: "93%",
               left: "50%",
               zIndex: 999,
               opacity: 0.5

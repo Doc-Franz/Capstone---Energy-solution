@@ -10,6 +10,7 @@ import com.example.backend.payload.response.LoginResponse;
 import com.example.backend.repository.HeaterRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.service.HeaterService;
+import com.example.backend.service.TransactionService;
 import com.example.backend.service.UserService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -62,6 +63,9 @@ public class UserController {
 
     @Autowired
     HeaterService heaterService;
+
+    @Autowired
+    TransactionService transactionService;
 
     @PostMapping("/new")
     public ResponseEntity<Map<String, String>> userRegistration(@RequestPart("user") @Validated RegistrationRequest registrationRequest,
@@ -179,13 +183,13 @@ public class UserController {
     public ResponseEntity<?> getQuotesByUser(@PathVariable int userId) {
 
         try {
-            List<Heater> heaterList = userService.getAllQuotes(userId);
+            List<Transaction> transactionList = transactionService.getTransactionsWithHeaterByUserId(userId);
 
-            if (heaterList.isEmpty()) {
+            if (transactionList.isEmpty()) {
                 throw new HeaterNotFoundException("Nessun sistema acquistato");
             }
 
-            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+            return new ResponseEntity<>(transactionList, HttpStatus.OK);
         } catch (HeaterNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -313,19 +317,6 @@ public class UserController {
                     CustomerCreateParams customerParams = CustomerCreateParams.builder().setName(user.getUsername()).setEmail(user.getEmail()).build();
                     Customer customer = Customer.create(customerParams);
 
-                    // generazione di un intento di pagamento
-                   /* PaymentIntentCreateParams paymentParams =
-                            PaymentIntentCreateParams.builder()
-                                    .setAmount((long) (heater.getPrice() * 100))
-                                    .setCurrency("eur")
-                                    .setAutomaticPaymentMethods(
-                                            PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
-                                                    .setEnabled(true)
-                                                    .build()
-                                    )
-                                    .build();
-                    PaymentIntent paymentIntent = PaymentIntent.create(paymentParams);*/
-
                     // generazione di una sessione di checkout per il reindirizzamento del pagamento sulla pagina di Stripe
                     SessionCreateParams sessionParams = SessionCreateParams.builder()
                             .setSuccessUrl("http://localhost:5173/success")
@@ -361,6 +352,10 @@ public class UserController {
                     response.put("id", session.getId());
                     response.put("publishableKey", publishableKey);
                     // response.put("clientSecret", paymentIntent.getClientSecret());
+
+                    // salvataggio della transazione
+                    Transaction transaction = new Transaction(session.getId(), user, heater);
+                    transactionService.saveTransaction(transaction);
 
                     return new ResponseEntity<>(response, HttpStatus.OK);
                 } else {

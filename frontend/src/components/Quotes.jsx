@@ -4,15 +4,16 @@ import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserQuotes } from "../redux/actions/quotesActions";
+import { ChevronRight } from "react-bootstrap-icons";
 
 const Quotes = () => {
   const dispatch = useDispatch();
 
   const params = useParams();
-  const userId = params.userId;
-
+  const userId = params.userId; // recupero l'id dell'utente
   const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
-  const userQuotes = useSelector((state) => state.quotes.content); // variabile che contiene tutti gli acquisti dell'utente
+
+  const transactions = useSelector((state) => state.quotes.content); // variabile che contiene tutti gli acquisti dell'utente
 
   useEffect(() => {
     dispatch(getUserQuotes(userId));
@@ -22,51 +23,48 @@ const Quotes = () => {
     <>
       <MyNavbar quotesSelected={true} />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        {userQuotes.length > 0 ? (
+        {transactions.length > 0 ? (
           <>
             <Row className="fs-1 mb-4 fw-bold text-center mt-3">
-              <Col>Elenco dei preventivi da te richiesti</Col>
+              <Col>I tuoi ordini:</Col>
             </Row>
             <Container>
               <Row>
-                {userQuotes.map((product) => (
-                  <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
-                    <Card className="shadow">
-                      <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
-                      <Card.Body>
-                        <Card.Title className="text-center fs-3 fw-semibold">{product.title}</Card.Title>
-                        <Card.Text className="lead mb-2 text-center" style={{ marginBlockEnd: "0px" }}>
-                          {product.description}
-                        </Card.Text>
+                {transactions.map((transaction) => (
+                  <Col className="col-12 mb-4 d-flex stretch" xl={6} key={transaction.id}>
+                    <Card className="shadow" style={{ borderRadius: "0px" }}>
+                      <Row>
+                        <Col className="col-12 my-3 px-5" sm={6}>
+                          {" "}
+                          <Card.Img src={transaction.heater.image} style={{ borderRadius: "0px" }} />
+                        </Col>
+                        <Col>
+                          <Card.Body>
+                            <Card.Title className="fs-3 fw-semibold">{transaction.heater.title}</Card.Title>
+                            <Card.Text className="lead mb-2" style={{ marginBlockEnd: "0px" }}>
+                              {transaction.heater.description}
+                            </Card.Text>
 
-                        <Row className="my-3 g-0">
-                          <Col className="col-2 px-0">
-                            <Image fluid src={product.firstIcon} style={{ maxHeight: "40px" }} />
-                          </Col>
-                          <Col className="col-2 px-0">
-                            <Image fluid src={product.secondIcon} style={{ maxHeight: "40px" }} />
-                          </Col>
-                          <Col className="col-2 px-0">
-                            <Image fluid src={product.thirdIcon} style={{ maxHeight: "40px" }} />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col className="price fs-1 lead d-flex justify-content-end">{product.price} €</Col>
-                        </Row>
-
-                        {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
-                        {username ? (
-                          <Row className="text-center mb-2">
-                            <Col>
-                              <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={{ product }}>
-                                <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                                  SCEGLI E ACQUISTA
-                                </Button>
-                              </Link>
-                            </Col>{" "}
-                          </Row>
-                        ) : null}
-                      </Card.Body>
+                            <Row>
+                              <Col className="fs-6 lead d-flex">Acquistato il {transaction.transactionDate} </Col>
+                            </Row>
+                            <Row>
+                              <Col className="fs-6 d-flex mt-3 justify-content-between align-items-center">
+                                <Link
+                                  to={`/detailsProduct/${encodeURIComponent(username)}/${transaction.heater.id}`}
+                                  className="text-decoration-none"
+                                  state={transaction.heater}
+                                >
+                                  <Button className="buyAgainBtn bg-transparent border-0 rounded-0 px-0">
+                                    Compralo di nuovo
+                                    <ChevronRight className="ms-2 text-dark" />
+                                  </Button>
+                                </Link>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Col>
+                      </Row>
                     </Card>
                   </Col>
                 ))}
