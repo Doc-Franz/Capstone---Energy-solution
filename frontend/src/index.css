@@ -185,6 +185,17 @@ body {
   color: #568fcf !important;
 }
 
+@media screen and (max-width: 992px) {
+  .products:hover,
+  .navMenuLink:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+  }
+}
+
+.allProductsLink:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
 /* Underline dei link navigabili */
 @media screen and (min-width: 992px) {
   .products,
@@ -472,4 +483,20 @@ body {
   .assistancePoints {
     display: none;
   }
+}
+
+/* ----- INFORMATION ----- */
+
+@media screen and (min-width: 992px) {
+  .information {
+    margin-top: 200px;
+  }
+}
+
+.informationLink {
+  color: #568fcf !important;
+}
+
+.informationLink:hover {
+  border-bottom: 2px solid#568FCF !important;
 }

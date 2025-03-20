@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 200) {
         setIsScrolling(true);
       } else {
         setIsScrolling(false);
@@ -89,7 +89,7 @@ function App() {
               width: "50px",
               height: "50px",
               position: "fixed",
-              top: "93%",
+              top: "92%",
               left: "50%",
               zIndex: 999,
               opacity: 0.5

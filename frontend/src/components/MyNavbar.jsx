@@ -124,19 +124,21 @@ function MyNavbar(props) {
               <Row className>
                 <Dropdown>
                   <Dropdown.Toggle as="div" id="dropdown-basic" className="p-0 bg-transparent border-0 shadow-none w-100">
-                    <Dropdown.Item className="dropdownAvatar products d-flex justify-content-between align-items-center dropdown-toggle">
+                    <Dropdown.Item className="dropdownAvatar d-flex justify-content-between align-items-center dropdown-toggle">
                       <Col className="username d-flex justify-content-end">{username}</Col>
                       <Image fluid src={avatar} className="circularAvatar ms-3" style={{ maxHeight: "40px" }} />
                     </Dropdown.Item>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu align="end">
-                    <Dropdown.Item as={Link} to={`/quotes/${userId}`}>
+                    <Dropdown.Item className="allProductsLink" as={Link} to={`/quotes/${userId}`}>
                       Profilo
                     </Dropdown.Item>
-                    <Dropdown.Item>I miei ordini</Dropdown.Item>
+                    <Dropdown.Item className="allProductsLink">I miei ordini</Dropdown.Item>
                     <NavDropdown.Divider />
-                    <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
+                    <Dropdown.Item className="allProductsLink" onClick={handleExit}>
+                      Esci
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Row>
@@ -200,12 +202,14 @@ function MyNavbar(props) {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu align="end">
-                        <Dropdown.Item>Profilo</Dropdown.Item>
-                        <Dropdown.Item as={Link} to={`/quotes/${userId}`}>
+                        <Dropdown.Item className="allProductsLink">Profilo</Dropdown.Item>
+                        <Dropdown.Item className="allProductsLink" as={Link} to={`/quotes/${userId}`}>
                           I miei ordini
                         </Dropdown.Item>
                         <NavDropdown.Divider />
-                        <Dropdown.Item onClick={handleExit}>Esci</Dropdown.Item>
+                        <Dropdown.Item className="allProductsLink" onClick={handleExit}>
+                          Esci
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </Row>
@@ -254,7 +258,7 @@ function MyNavbar(props) {
                   <Dropdown.Menu className="border-0 shadow-none">
                     {/* Tutti i prodotti */}
 
-                    <Dropdown.Item as={Link} to="/allProducts" className="d-flex justify-content-between align-items-center border-bottom">
+                    <Dropdown.Item as={Link} to="/allProducts" className="allProductsLink d-flex justify-content-between align-items-center border-bottom">
                       {" "}
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Tutti i prodotti</Button>
                       <ChevronRight className="chevronRightProducts ms-auto text-dark" />
@@ -262,7 +266,7 @@ function MyNavbar(props) {
 
                     {/* Sistema geotermico */}
 
-                    <Dropdown.Item as={Link} to="/geothermic" className="d-flex justify-content-between align-items-center border-bottom">
+                    <Dropdown.Item as={Link} to="/geothermic" className="allProductsLink d-flex justify-content-between align-items-center border-bottom">
                       {" "}
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Sistemi geotermici</Button>
                       <ChevronRight className="chevronRightProducts ms-auto text-dark" />
@@ -270,7 +274,7 @@ function MyNavbar(props) {
 
                     {/* Pompa di calore */}
 
-                    <Dropdown.Item as={Link} to="/heatPump" className="d-flex justify-content-between align-items-center border-bottom">
+                    <Dropdown.Item as={Link} to="/heatPump" className="allProductsLink d-flex justify-content-between align-items-center border-bottom">
                       {" "}
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Pompe di calore</Button>
                       <ChevronRight className="chevronRightProducts ms-auto text-dark" />
@@ -278,7 +282,11 @@ function MyNavbar(props) {
 
                     {/* Caldaia tradizionale */}
 
-                    <Dropdown.Item as={Link} to="/traditionalBoiler" className="d-flex justify-content-between align-items-center border-bottom">
+                    <Dropdown.Item
+                      as={Link}
+                      to="/traditionalBoiler"
+                      className="allProductsLink d-flex justify-content-between align-items-center border-bottom"
+                    >
                       {" "}
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Caldaie tradizionali</Button>
                       <ChevronRight className="chevronRightProducts ms-auto text-dark" />
@@ -286,7 +294,7 @@ function MyNavbar(props) {
 
                     {/* Caldaia a condensazione */}
 
-                    <Dropdown.Item as={Link} to="/condensingBoiler" className="d-flex justify-content-between align-items-center border-bottom">
+                    <Dropdown.Item as={Link} to="/condensingBoiler" className="allProductsLink d-flex justify-content-between align-items-center border-bottom">
                       {" "}
                       <Button className="text-dark bg-transparent border-0 rounded-0 px-0">Caldaie a condensazione</Button>
                       <ChevronRight className="chevronRightProducts ms-auto text-dark" />

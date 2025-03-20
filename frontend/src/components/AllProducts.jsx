@@ -29,7 +29,7 @@ const AllProducts = () => {
             <Container>
               <Row>
                 {allProducts.map((product) => (
-                  <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
+                  <Col className="col-12 mb-4 d-flex stretch justify-content-between" sm={6} xl={4} xxl={3} key={product.id}>
                     <Card className="shadow">
                       <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
                       <Card.Body>

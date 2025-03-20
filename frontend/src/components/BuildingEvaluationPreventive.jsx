@@ -61,7 +61,7 @@ const BuildingEvaluationPreventive = () => {
                         {username ? (
                           <Row className="text-center mb-2">
                             <Col>
-                              <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={{ product }}>
+                              <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
                                 <Button className="btnBuyProduct mt-3 text-center" variant="primary">
                                   SCEGLI E ACQUISTA
                                 </Button>
