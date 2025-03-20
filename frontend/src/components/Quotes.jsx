@@ -1,24 +1,35 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MyNavbar from "./MyNavbar";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { getUserQuotes } from "../redux/actions/quotesActions";
 
 const Quotes = () => {
+  const dispatch = useDispatch();
+
+  const params = useParams();
+  const userId = params.userId;
+
   const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
-  const allProducts = useSelector((state) => state.allProducts.content);
+  const userQuotes = useSelector((state) => state.quotes.content); // variabile che contiene tutti gli acquisti dell'utente
+
+  useEffect(() => {
+    dispatch(getUserQuotes(userId));
+  }, []);
 
   return (
     <>
       <MyNavbar quotesSelected={true} />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        {allProducts.length > 0 ? (
+        {userQuotes.length > 0 ? (
           <>
             <Row className="fs-1 mb-4 fw-bold text-center mt-3">
               <Col>Elenco dei preventivi da te richiesti</Col>
             </Row>
             <Container>
               <Row>
-                {allProducts.map((product) => (
+                {userQuotes.map((product) => (
                   <Col className="col-12 mb-4 d-flex stretch" sm={6} xl={4} xxl={3} key={product.id}>
                     <Card className="shadow">
                       <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
@@ -64,7 +75,7 @@ const Quotes = () => {
           </>
         ) : (
           <Row className="fs-1 mb-4 fw-bold text-center">
-            <Col>Nessun prodotto trovato</Col>
+            <Col>Nessun acquisto effettuato</Col>
           </Row>
         )}
       </Container>

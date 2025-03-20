@@ -4,9 +4,11 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.backend.exception.EmailDuplicatedException;
 import com.example.backend.exception.UsernameDuplicatedException;
+import com.example.backend.model.Heater;
 import com.example.backend.model.User;
 import com.example.backend.payload.request.RegistrationRequest;
 import com.example.backend.payload.response.LoginResponse;
+import com.example.backend.repository.HeaterRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.security.jwt.JwtUtil;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -60,6 +63,9 @@ public class UserService {
 
     @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
+    HeaterRepository heaterRepository;
 
     public long saveUser(RegistrationRequest registrationRequest, String urlImage){
 
@@ -158,5 +164,10 @@ public class UserService {
             if (userRepository.existsByEmail(email)){
                 throw new EmailDuplicatedException("L'email" + email + "è già stata utilizzata");
             }
+    }
+
+    // metodo che restituisce tutti i preventivi dell'utente
+    public List<Heater> getAllQuotes(int userId) {
+        return heaterRepository.getUserQuotes(userId);
     }
 }

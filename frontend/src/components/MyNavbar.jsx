@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 function MyNavbar(props) {
   const navigate = useNavigate();
 
+  // riprendo l'Id dell'utente per poter accedere ai suoi acquisti
+  const userId = sessionStorage.getItem("userId");
+
   // stato che controlla se mostrare o meno il dropdown del Menu
   const [showMenu, setShowMenu] = useState(false);
 
@@ -287,7 +290,7 @@ function MyNavbar(props) {
                   </Dropdown.Menu>
                 </Dropdown>
 
-                <Link to="/quotes" className="text-decoration-none">
+                <Link to={`/quotes/${userId}`} className="text-decoration-none">
                   <Nav.Item
                     className={
                       props.quotesSelected

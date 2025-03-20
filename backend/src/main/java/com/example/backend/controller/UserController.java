@@ -131,6 +131,7 @@ public class UserController {
             response.put("token" , loginResponse.getToken());
 
             response.put("avatar", userService.getAvatarByUsername(loginRequest.getUsername()));
+            response.put("id", String.valueOf(userRepository.findByUsername(loginRequest.getUsername()).orElseThrow().getId()));
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -165,6 +166,23 @@ public class UserController {
 
             if (heaterList.isEmpty()) {
                 throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // GET che restituisce tutti i prodotti acquistati dall'utente
+    @GetMapping("/quotes/{userId}")
+    public ResponseEntity<?> getQuotesByUser(@PathVariable int userId) {
+
+        try {
+            List<Heater> heaterList = userService.getAllQuotes(userId);
+
+            if (heaterList.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema acquistato");
             }
 
             return new ResponseEntity<>(heaterList, HttpStatus.OK);
@@ -310,8 +328,8 @@ public class UserController {
 
                     // generazione di una sessione di checkout per il reindirizzamento del pagamento sulla pagina di Stripe
                     SessionCreateParams sessionParams = SessionCreateParams.builder()
-                            .setSuccessUrl("http://localhost:5174/success")
-                            .setCancelUrl("http://localhost:5174/cancel")
+                            .setSuccessUrl("http://localhost:5173/success")
+                            .setCancelUrl("http://localhost:5173/cancel")
                             .setCustomer(customer.getId())
                             .addLineItem(
                                     SessionCreateParams.LineItem.builder()

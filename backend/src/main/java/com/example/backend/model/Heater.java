@@ -1,9 +1,13 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "heaters")
@@ -48,6 +52,10 @@ public abstract class Heater {
 
     @Column(nullable = false)
     private String image;
+
+    @ManyToMany(mappedBy = "heaterList")
+    @JsonIgnore // gli utenti non saranno inclusi nella serializzazione degli heater
+    private List<User> users = new ArrayList<>();
 
     // quando viene acquistato un prodotto si riduce il numero di pezzi disponibile a magazzino
     public void reduceNumberOfPieces () {

@@ -3,6 +3,7 @@ package com.example.backend.repository;
 import com.example.backend.model.Heater;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,10 @@ public interface HeaterRepository extends JpaRepository<Heater, Long> {
     // ricerca per tipo di sistema e potenza
     @Query("SELECT h FROM Heater h WHERE TYPE(h) = :heaterClass AND h.power >= :powerEvaluated")
     List<Heater> findByBuildingEvaluation (Class<? extends Heater> heaterClass, int powerEvaluated);
+
+    // ricerca di tutti i sistemi acquistati da un utente
+    @Query("SELECT h FROM Heater h JOIN h.users u WHERE u.id = :userId")
+    List<Heater> getUserQuotes (@Param("userId") int userId);
 
     // ricerca un heater dalla barra di ricerca case insensitive
     List<Heater> findByTitleStartingWithIgnoreCase(String search);

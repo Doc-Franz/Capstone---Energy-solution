@@ -92,6 +92,7 @@ export const login = (userLogin) => {
         sessionStorage.setItem("token", loginResponse.token);
         sessionStorage.setItem("avatar", loginResponse.avatar);
         sessionStorage.setItem("username", loginResponse.username);
+        sessionStorage.setItem("userId", loginResponse.id);
 
         // l'avatar viene salvato nello store
         dispatch(getAvatar(loginResponse.avatar));

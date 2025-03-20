@@ -56,7 +56,7 @@ function App() {
         <div className="routeContainer">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/quotes" element={<Quotes />} />
+            <Route path="/quotes/:userId" element={<Quotes />} />
             <Route path="/assistance" element={<Assistance />} />
             <Route path="/information" element={<Information />} />
             <Route path="/photovoltaic" element={<Photovoltaic />} />
