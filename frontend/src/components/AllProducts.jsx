@@ -21,14 +21,14 @@ const AllProducts = () => {
     <>
       <MyNavbar />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        {allProducts.length > 0 ? (
+        {allProducts && allProducts.content && Array.isArray(allProducts.content) && allProducts.content.length > 0 ? (
           <>
             <Row className="fs-1 mb-4 fw-bold text-center mt-3">
               <Col>Tutti i prodotti disponibili a catalogo</Col>
             </Row>
             <Container>
               <Row>
-                {allProducts.map((product) => (
+                {allProducts.content.map((product) => (
                   <Col className="col-12 mb-4 d-flex stretch justify-content-between" sm={6} xl={4} xxl={3} key={product.id}>
                     <Card className="shadow">
                       <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "10%" }} />

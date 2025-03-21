@@ -23,6 +23,7 @@ import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -162,7 +163,7 @@ public class UserController {
     }
 
     // GET di tutti i prodotti
-    @GetMapping("/allProducts")
+   /* @GetMapping("/allProducts")
     public ResponseEntity<?> getAllProducts() {
 
         try {
@@ -173,6 +174,24 @@ public class UserController {
             }
 
             return new ResponseEntity<>(heaterList, HttpStatus.OK);
+        } catch (HeaterNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }*/
+
+    @GetMapping("/allProducts")
+    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "3") int page,
+                                            @RequestParam(defaultValue = "12") int size,
+                                            @RequestParam(defaultValue = "id") String sortBy) {
+
+        try {
+            Page<Heater> heaterPage = heaterService.getAllProducts(page, size, sortBy);
+
+            if (heaterPage.isEmpty()) {
+                throw new HeaterNotFoundException("Nessun sistema trovato");
+            }
+
+            return new ResponseEntity<>(heaterPage, HttpStatus.OK);
         } catch (HeaterNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }

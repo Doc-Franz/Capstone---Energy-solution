@@ -9,6 +9,10 @@ import com.example.backend.payload.request.TraditionalBoilerDTO;
 import com.example.backend.repository.HeaterRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,6 +96,12 @@ public class HeaterService {
 
         heaterRepository.save(newCondensingBoiler);
         return newCondensingBoiler.getId();
+    }
+
+    // metodo che permette la paginazione di tutti i prodotti
+    public Page<Heater> getAllProducts(int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return heaterRepository.findAll(pageable);
     }
 
     // metodo che restituisce un tipo di sistema

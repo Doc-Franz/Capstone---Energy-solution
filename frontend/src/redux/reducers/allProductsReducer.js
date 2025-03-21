@@ -1,7 +1,7 @@
 import { PREVENTIVE_PRODUCTS_PAGE, RESET_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
 
 const initialStateProducts = {
-  content: [], // array che contiene tutti i prodotti
+  content: null,
   preventiveContent: [] // array che contiene i prodotti derivati dal calcolo in building evaluation
 };
 
