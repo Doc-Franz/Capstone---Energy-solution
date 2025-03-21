@@ -31,9 +31,9 @@ const CondensingBoiler = () => {
                 {condensingBoiler.map((product) => (
                   <Col className="col-12 mb-4 d-flex stretch justify-content-between" sm={6} xl={4} xxl={3} key={product.id}>
                     <Card className="shadow">
-                      <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "20%" }} />
+                      <Card.Img variant="top" src={product.image} style={{ paddingInline: "20%", paddingTop: "10%" }} />
                       <Card.Body>
-                        <Card.Title className="text-center fs-3 fw-semibold">{product.title}</Card.Title>
+                        <Card.Title className="text-center fs-3">{product.title}</Card.Title>
                         <Card.Text className="lead mb-2 text-center" style={{ marginBlockEnd: "0px" }}>
                           {product.description}
                         </Card.Text>
@@ -50,7 +50,7 @@ const CondensingBoiler = () => {
                           </Col>
                         </Row>
                         <Row>
-                          <Col className="price fs-1 lead d-flex justify-content-end">{product.price} €</Col>
+                          <Col className="price fw-bold fs-1 lead d-flex justify-content-end">{product.price} €</Col>
                         </Row>
 
                         {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
