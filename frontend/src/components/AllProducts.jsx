@@ -1,27 +1,43 @@
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import MyNavbar from "./MyNavbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { buildProductsPage } from "../redux/actions/allProductsActions";
+import { buildAllProductsPage } from "../redux/actions/allProductsActions";
+import goRight from "../assets/images/goright.svg";
+import goLeft from "../assets/images/goleft.svg";
 import { Link } from "react-router-dom";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
 
+  let [page, setPage] = useState(0); // stato che controlla la paginazione
+
   const username = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per navigare nella pagina
 
   // al caricamento della pagina vengono mostrati tutti i prodotti
   useEffect(() => {
-    dispatch(buildProductsPage("allProducts"));
-  }, []);
+    dispatch(buildAllProductsPage(page, 12));
+  }, [page]);
 
-  const allProducts = useSelector((state) => state.allProducts.content);
+  const allProducts = useSelector((state) => state.allProducts.allProductsContent);
+
+  const handleNextPage = () => {
+    if (page < allProducts.totalPages - 1) {
+      setPage((page += 1));
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (page > 0) {
+      setPage((page -= 1));
+    }
+  };
 
   return (
     <>
       <MyNavbar />
       <Container fluid className="hero" style={{ marginTop: "100px", paddingTop: "100px" }}>
-        {allProducts && allProducts.content && Array.isArray(allProducts.content) && allProducts.content.length > 0 ? (
+        {allProducts && allProducts.content && allProducts.content.length > 0 ? (
           <>
             <Row className="fs-1 mb-4 fw-bold text-center mt-3">
               <Col>Tutti i prodotti disponibili a catalogo</Col>
@@ -59,7 +75,7 @@ const AllProducts = () => {
                             <Col>
                               <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
                                 <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                                  SCEGLI E ACQUISTA
+                                  DETTAGLI
                                 </Button>
                               </Link>
                             </Col>{" "}
@@ -77,6 +93,22 @@ const AllProducts = () => {
             <Col>Nessun prodotto trovato</Col>
           </Row>
         )}
+
+        <Row className="text-center mt-5">
+          {allProducts && allProducts.content && allProducts.content.length > 0 ? (
+            <>
+              <Col>
+                <Button onClick={handlePreviousPage} className="btnPagination me-4 rounded-circle" style={{ width: "40px", height: "40px" }}>
+                  <Image fluid src={goLeft} />
+                </Button>
+                {page + 1} di {allProducts.totalPages}
+                <Button onClick={handleNextPage} className="btnPagination ms-4 rounded-circle" style={{ width: "40px", height: "40px" }}>
+                  <Image fluid src={goRight} />
+                </Button>
+              </Col>
+            </>
+          ) : null}
+        </Row>
       </Container>
     </>
   );

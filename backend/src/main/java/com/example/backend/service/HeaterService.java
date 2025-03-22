@@ -110,13 +110,13 @@ public class HeaterService {
     }
 
     // metodo che restituisce tutte le macchine con potenza maggiore di quella calcolata in building evaluation
-    public List<Heater> getByPowerGreaterThan(int power) {
-        return heaterRepository.findByPowerGreaterThan(power);
+    public List<Heater> getByPowerGreaterThan(int power, int maxPower) {
+        return heaterRepository.findByPowerGreaterThanAndPowerLessThan(power, maxPower);
     }
 
     // metodo che restituisce tutte le macchine del tipo indicato con potenza maggiore di quella calcolata in building evaluation
-    public List<Heater> getByPowerandType(Class<? extends Heater> heaterClass, int power) {
-        return heaterRepository.findByBuildingEvaluation(heaterClass, power);
+    public List<Heater> getByPowerandType(Class<? extends Heater> heaterClass, int power, double maxPower) {
+        return heaterRepository.findByBuildingEvaluation(heaterClass, power, maxPower);
     }
 
     // metodo che restituisce le macchine ricercate dalla barra di ricerca

@@ -180,7 +180,7 @@ public class UserController {
     }*/
 
     @GetMapping("/allProducts")
-    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "3") int page,
+    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "12") int size,
                                             @RequestParam(defaultValue = "id") String sortBy) {
 
@@ -238,7 +238,18 @@ public class UserController {
                     heaterClass = Heater.class;
             }
 
-            List<Heater> heaterList = heaterService.getByPowerandType(heaterClass, power);
+            List<Heater> heaterList = new ArrayList<>();
+
+            // ricerco tutte le macchina con potenza maggiore di quella calcolata e minore della potenza calcolata * 1.6
+            // se la potenza calcolata è minore di 10 kW imposto la potenza minima di ricerca a 10 kW
+            if (power > 10)
+            {
+                heaterList = heaterService.getByPowerandType(heaterClass, power, (int) (power * 1.6));
+            }
+            else {
+                int minPower = 10;
+                heaterList = heaterService.getByPowerandType(heaterClass, minPower, (int) (minPower * 1.6));
+            }
 
             if (heaterList.isEmpty()) {
                 throw new HeaterNotFoundException("Nessun sistema trovato");

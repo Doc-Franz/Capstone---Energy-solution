@@ -1,10 +1,16 @@
 import { loadStripe } from "@stripe/stripe-js";
 
+export const UPDATE_ALL_PRODUCTS_PAGE = "UPDATE_ALL_PRODUCTS_PAGE";
 export const UPDATE_PRODUCTS_PAGE = "UPDATE_PRODUCTS_PAGE";
 export const PREVENTIVE_PRODUCTS_PAGE = "PREVENTIVE_PRODUCTS_PAGE";
 export const RESET_PRODUCTS_PAGE = "RESET_PRODUCTS_PAGE";
 
 const allProductsPage = (allProducts) => ({
+  type: UPDATE_ALL_PRODUCTS_PAGE,
+  payload: allProducts
+});
+
+const singleProductsPage = (allProducts) => ({
   type: UPDATE_PRODUCTS_PAGE,
   payload: allProducts
 });
@@ -38,14 +44,32 @@ export const allPreventiveProducts = (machine, power) => {
   };
 };
 
-// fetch che carica le pagine con i prodotti
+// fetch che carica le pagine con tutti i prodotti
+export const buildAllProductsPage = (page, size) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`http://localhost:8080/user/allProducts?page=${page}&size=${size}`);
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(allProductsPage(data));
+      } else {
+        console.log("Errore");
+        dispatch(resetProductsPage());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// fetch che carica le pagine con i prodotti specifici
 export const buildProductsPage = (product) => {
   return async (dispatch) => {
     try {
       const response = await fetch("http://localhost:8080/user/" + product);
       if (response.ok) {
         const data = await response.json();
-        dispatch(allProductsPage(data));
+        dispatch(singleProductsPage(data));
       } else {
         console.log("Errore");
         dispatch(resetProductsPage());

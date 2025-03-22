@@ -1,12 +1,18 @@
-import { PREVENTIVE_PRODUCTS_PAGE, RESET_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
+import { PREVENTIVE_PRODUCTS_PAGE, RESET_PRODUCTS_PAGE, UPDATE_ALL_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
 
 const initialStateProducts = {
-  content: null,
+  allProductsContent: null, // oggetto che contiene tutti i prodotti divisi per paginazione
+  content: [], // array che contiene i prodotti specifici
   preventiveContent: [] // array che contiene i prodotti derivati dal calcolo in building evaluation
 };
 
 const productsReducer = (state = initialStateProducts, action) => {
   switch (action.type) {
+    case UPDATE_ALL_PRODUCTS_PAGE:
+      return {
+        ...state,
+        allProductsContent: action.payload
+      };
     case UPDATE_PRODUCTS_PAGE:
       return {
         ...state,
