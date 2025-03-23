@@ -29,6 +29,12 @@ body {
   font-family: "Space Grotesk", sans-serif;
 }
 
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* viene aggiunta opacità al caricamento dopo il login */
 .pageLoading {
   opacity: 0.3;
