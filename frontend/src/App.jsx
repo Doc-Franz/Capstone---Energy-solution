@@ -16,7 +16,7 @@ import SearchProducts from "./components/SearchProducts";
 import { useEffect, useState } from "react";
 import { Button, Image, Row } from "react-bootstrap";
 import goUp from "../src/assets/images/goup.svg";
-import Login from "./components/Login.Jsx";
+import Login from "./components/Login.jsx";
 import Assistance from "./components/Assistance";
 import Quotes from "./components/Quotes";
 import Information from "./components/Information";
