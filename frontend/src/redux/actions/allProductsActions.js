@@ -48,7 +48,7 @@ export const allPreventiveProducts = (machine, power) => {
 export const buildAllProductsPage = (page, size) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`https://energysolution.netlify.app/user/allProducts?page=${page}&size=${size}`);
+      const response = await fetch(`http://localhost:8080/user/allProducts?page=${page}&size=${size}`);
       if (response.ok) {
         const data = await response.json();
         dispatch(allProductsPage(data));
