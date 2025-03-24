@@ -143,7 +143,9 @@ function MyNavbar(props) {
                 </Dropdown>
               </Row>
             ) : (
-              <Navbar.Brand style={{ marginRight: "0px" }}>Logo 2</Navbar.Brand>
+              <Navbar.Brand className="fw-bold" style={{ marginRight: "0px" }}>
+                SmartHeat
+              </Navbar.Brand>
             )}
           </Col>
           <Col xl={10} className="linksHigherXl ms-auto text-end gx-0">
