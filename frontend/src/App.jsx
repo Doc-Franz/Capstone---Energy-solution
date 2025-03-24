@@ -82,17 +82,18 @@ function App() {
       {isScrolling && (
         <Row>
           <Button
-            className="rounded-circle"
+            className="goUp rounded-circle"
             style={{
               backgroundColor: "rgb(202, 202, 202)",
               border: "none",
               width: "50px",
               height: "50px",
               position: "fixed",
-              top: "92%",
+              top: "90%",
               left: "50%",
+              transform: "translateX(-50%)",
               zIndex: 999,
-              opacity: 0.5
+              opacity: 0.4
             }}
             onClick={handleScroll}
           >

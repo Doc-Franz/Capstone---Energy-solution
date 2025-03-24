@@ -19,6 +19,12 @@ xx-large: da 1400 a Infinite */
   flex: 1;
 }
 
+@media screen and (max-width: 576px) {
+  .goUp {
+    display: none;
+  }
+}
+
 /* ----- BODY ----- */
 
 body {
