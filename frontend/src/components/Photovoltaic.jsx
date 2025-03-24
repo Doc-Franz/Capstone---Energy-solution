@@ -111,7 +111,7 @@ const Photovoltaic = () => {
             <Row className="mt-4 d-flex flex-column text-center">
               <Col className="col-12 mb-4">
                 <Row>
-                  <Col className="text-start">Tipologia tetto</Col>
+                  <Col className="text-start fs-5 fw-bold">Tipologia tetto</Col>
                 </Row>
                 <Row>
                   <Col className="mt-2 d-flex justify-content-center">
@@ -138,7 +138,7 @@ const Photovoltaic = () => {
               </Col>
               <Col>
                 <Row>
-                  <Col className="mb-2 text-start">Regione di provenienza</Col>
+                  <Col className="mb-2 text-start fs-5 fw-bold">Regione di provenienza</Col>
                 </Row>
                 <Row className="d-flex justify-content-center">
                   <Col className="col-6" sm={5} lg={3}>
@@ -167,7 +167,7 @@ const Photovoltaic = () => {
                   </Col>
                 </Row>
                 <Row className="mt-2">
-                  <Col className="mb-2 text-start">Superficie calpestabile</Col>
+                  <Col className="mb-2 text-start fs-5 fw-bold">Superficie calpestabile</Col>
                 </Row>
                 <Row>
                   <Col className="d-flex justify-content-center">
@@ -178,7 +178,7 @@ const Photovoltaic = () => {
                   </Col>
                 </Row>
                 <Row className="d-flex flex-column mt-4">
-                  <Col className="text-start">Spesa media elettricità</Col>
+                  <Col className="text-start fs-5 fw-bold">Spesa media elettricità</Col>
                   <Col>
                     <Form.Range className="sliderAreaBuilding" min={5} max={200} step={5} value={sliderValue} onChange={handleSliderChange} />
                     <p>{sliderValue} €/mese</p>
