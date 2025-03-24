@@ -221,7 +221,7 @@ function MyNavbar(props) {
 
         {/* barra di ricerca attiva quando si clicca sulla lente di ricerca */}
         {isSearching ? (
-          <Col className="col-12 mb-3" sm={8} md={6} lg={4} xl={3}>
+          <Col className="col-19 mb-3" sm={8} md={6} lg={4} xl={3}>
             <Form className="search" onSubmit={SearchProducts}>
               <Form.Control
                 type="text"
