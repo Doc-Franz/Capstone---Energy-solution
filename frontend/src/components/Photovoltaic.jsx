@@ -199,13 +199,13 @@ const Photovoltaic = () => {
           </Row>
         ) : (
           <>
-            <Row className="mt-4 d-flex flex-column text-center">
-              <Col className="col-12 mb-4">
+            <Row className=" d-flex text-center" style={{ marginTop: "60px" }}>
+              <Col className="col-12 mb-4" lg={6}>
                 <Row>
                   <Col className="text-start fs-5 fw-bold">Tipologia tetto</Col>
                 </Row>
                 <Row>
-                  <Col className="mt-2 d-flex justify-content-center">
+                  <Col className="mt-2 d-flex justify-content-center justify-content-lg-start">
                     <Card
                       className="cardSelection"
                       onClick={handleFirstCardClick}
@@ -215,7 +215,7 @@ const Photovoltaic = () => {
                       <Card.Text className="text-center mb-3 mx-2">Tetto piano</Card.Text>
                     </Card>
                   </Col>
-                  <Col className="mt-2 d-flex justify-content-center">
+                  <Col className="mt-2 d-flex justify-content-center justify-content-lg-start">
                     <Card
                       className="cardSelection"
                       onClick={handleSecondCardClick}
@@ -227,12 +227,12 @@ const Photovoltaic = () => {
                   </Col>
                 </Row>
               </Col>
-              <Col>
+              <Col className="col-12" lg={6}>
                 <Row>
                   <Col className="mb-2 text-start fs-5 fw-bold">Regione di provenienza</Col>
                 </Row>
-                <Row className="d-flex justify-content-center">
-                  <Col className="col-6" sm={5} lg={3}>
+                <Row className="d-flex justify-content-center justify-content-lg-start">
+                  <Col className="col-6" sm={5} lg={5}>
                     <Form.Select className="formRegion mb-3" htmlSize={3} onClick={handleFormSelection}>
                       <option value="abruzzo">Abruzzo</option>
                       <option value="basilicata">Basilicata</option>
@@ -261,7 +261,7 @@ const Photovoltaic = () => {
                   <Col className="mb-2 text-start fs-5 fw-bold">Superficie calpestabile</Col>
                 </Row>
                 <Row>
-                  <Col className="d-flex justify-content-center">
+                  <Col className="d-flex justify-content-center justify-content-lg-start">
                     <InputGroup className="inputInsulation" style={{ maxWidth: "120px" }}>
                       <Form.Control type="number" min="0" onChange={handleArea} />
                       <InputGroup.Text id="basic-addon2">m&sup2;</InputGroup.Text>
@@ -271,8 +271,14 @@ const Photovoltaic = () => {
                 <Row className="d-flex flex-column mt-4">
                   <Col className="text-start fs-5 fw-bold">Spesa media elettricità</Col>
                   <Col>
-                    <Form.Range className="sliderAreaBuilding" min={5} max={200} step={5} value={sliderValue} onChange={handleSliderChange} />
-                    <p>{sliderValue} €/mese</p>
+                    <Row className="d-flex flex-column align-items-center align-items-lg-start">
+                      <Col className="col-12" sm={8}>
+                        <Form.Range className="sliderAreaBuilding" min={5} max={200} step={5} value={sliderValue} onChange={handleSliderChange} />
+                      </Col>
+                      <Col>
+                        <p>{sliderValue} €/mese</p>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Col>
