@@ -180,7 +180,7 @@ const Photovoltaic = () => {
                 <Row className="d-flex flex-column mt-4">
                   <Col className="text-start fs-5 fw-bold">Spesa media elettricità</Col>
                   <Col>
-                    <Form.Range className="sliderAreaBuilding" min={5} max={200} step={5} value={sliderValue} onChange={handleSliderChange} />
+                    <Form.Range className="sliderAreaBuilding" min={5} max={220} step={5} value={sliderValue} onChange={handleSliderChange} />
                     <p>{sliderValue} €/mese</p>
                   </Col>
                 </Row>
