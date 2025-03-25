@@ -9,7 +9,7 @@ const updateUserQuotes = (userQuotes) => ({
 export const getUserQuotes = (userId) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://localhost:8080/user/quotes/` + userId);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/quotes/` + userId);
 
       if (response.ok) {
         const data = await response.json();

@@ -29,7 +29,7 @@ export const allPreventiveProducts = (machine, power) => {
   return async (dispatch) => {
     try {
       // passo power come query string
-      const response = await fetch(`http://localhost:8080/user/preventiveProducts?type=${machine}&power=${power}`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/preventiveProducts?type=${machine}&power=${power}`);
 
       if (response.ok) {
         const data = await response.json();
@@ -48,7 +48,7 @@ export const allPreventiveProducts = (machine, power) => {
 export const buildAllProductsPage = (page, size) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://localhost:8080/user/allProducts?page=${page}&size=${size}`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/allProducts?page=${page}&size=${size}`);
       if (response.ok) {
         const data = await response.json();
         dispatch(allProductsPage(data));
@@ -66,7 +66,7 @@ export const buildAllProductsPage = (page, size) => {
 export const buildProductsPage = (product) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("http://localhost:8080/user/" + product);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/` + product);
       if (response.ok) {
         const data = await response.json();
         dispatch(singleProductsPage(data));
@@ -84,7 +84,7 @@ export const buildProductsPage = (product) => {
 export const allProductsBySearch = (searchProduct) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://localhost:8080/user/search?search=${searchProduct}`);
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/search?search=${searchProduct}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -107,7 +107,7 @@ export const buyProduct = (username, heaterId) => {
     const stripe = await loadStripe("pk_test_51R2E70RvZG041WSozJBdsotDKeGkogDJotMyVao4a0JLsvp3qoEOE8uoqr8sCOuawFxniPpBbPjZ3w3bRD1p0FUQ002UIZ6DiM");
 
     try {
-      const response = await fetch("http://localhost:8080/user/buyProduct/" + username + "/" + heaterId, {
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/buyProduct/` + username + "/" + heaterId, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

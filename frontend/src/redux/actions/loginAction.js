@@ -48,7 +48,7 @@ export const getUsername = (username) => ({
 export const prova = (tokenUser) => {
   return async () => {
     try {
-      const response = await fetch("http://localhost:8080/admin/prova", {
+      const response = await fetch(`${import.meta.env.VITE_URL}/admin/prova`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export const login = (userLogin) => {
       dispatch(checkUserLogin(false)); // reset della variabile di controllo sul login
       dispatch(checkLoginSubmit(false)); // reset della variabile di controllo sul submit login
 
-      const response = await fetch("http://localhost:8080/user/login", {
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

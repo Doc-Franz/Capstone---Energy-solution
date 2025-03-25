@@ -50,7 +50,7 @@ export const addUser = (user, avatar) => {
       dispatch(checkHasSubmitted(false)); // il form viene resettato
       dispatch(checkRegistration(false)); // l'errore di registrazione viene resettato
 
-      const response = await fetch("http://localhost:8080/user/new", {
+      const response = await fetch(`${import.meta.env.VITE_URL}/user/new`, {
         method: "POST",
         body: formData
       });
