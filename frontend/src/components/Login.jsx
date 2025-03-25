@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { login, prova, resetLoginAction, resetLoginState, spinnerLoading } from "../redux/actions/loginAction";
+import { login, resetLoginAction, resetLoginState, spinnerLoading } from "../redux/actions/loginAction";
 import loginImage from "../assets/images/login/login.jpeg";
 import logo from "../assets/images/logo.svg";
 
@@ -82,10 +82,10 @@ const Login = () => {
   };
 
   // ❗❗❗ metodo di prova
-  const handleButtonDiProva = () => {
-    const tokenUser = sessionStorage.getItem("token");
-    dispatch(prova(tokenUser));
-  };
+  // const handleButtonDiProva = () => {
+  //   const tokenUser = sessionStorage.getItem("token");
+  //   dispatch(prova(tokenUser));
+  // };
 
   return (
     <>
@@ -174,9 +174,9 @@ const Login = () => {
             </Form>
             <Row className="loginProfessionals mt-5">
               {/* ❗❗❗Bottone di prova  */}
-              <Button className="navigationBtn btn-danger mb-3" onClick={handleButtonDiProva}>
+              {/* <Button className="navigationBtn btn-danger mb-3" onClick={handleButtonDiProva}>
                 Bottone di prova
-              </Button>
+              </Button> */}
 
               <h1>Professionisti nel settore</h1>
               <p>
