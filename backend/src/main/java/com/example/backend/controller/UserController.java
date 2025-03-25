@@ -47,6 +47,9 @@ public class UserController {
     @Value("${stripe.secretKey}")
     String secretKey;
 
+    @Value(("${production.url}"))
+    String productionUrl;
+
     @Value("${stripe.publishableKey}")
     String publishableKey;
 
@@ -349,8 +352,8 @@ public class UserController {
 
                     // generazione di una sessione di checkout per il reindirizzamento del pagamento sulla pagina di Stripe
                     SessionCreateParams sessionParams = SessionCreateParams.builder()
-                            .setSuccessUrl("http://localhost:5173/success")
-                            .setCancelUrl("http://localhost:5173/cancel")
+                            .setSuccessUrl(productionUrl + "/success")
+                            .setCancelUrl(productionUrl + "/cancel")
                             .setCustomer(customer.getId())
                             .addLineItem(
                                     SessionCreateParams.LineItem.builder()
