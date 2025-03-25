@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {} from "../../src/assets/images/thumb.svg";
 import registrationImage from "../assets/images/login/registration.jpeg";
 import boy from "../assets/images/login/boy.svg";
+import pointer from "../assets/images/login/pointer.svg";
 import logo from "../assets/images/logo.svg";
 
 const Registration = () => {
@@ -219,8 +220,8 @@ const Registration = () => {
                 <Row className="d-flex flex-column text-success">
                   <Col>Registrazione effettuata!</Col>
                   <Col>
-                    <Link to="/reservedArea/login">
-                      <Image src="../../src/assets/images/thumb.svg" className="me-2" alt="thumb icon" style={{ width: "40px", height: "40px" }}></Image>
+                    <Link to="/reservedArea/login" style={{ color: "#568FCF" }}>
+                      <Image src={pointer} className="me-2" alt="thumb icon" style={{ width: "40px", height: "40px" }}></Image>
                       Vai al login
                     </Link>
                   </Col>
