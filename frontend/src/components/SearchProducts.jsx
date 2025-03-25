@@ -20,7 +20,7 @@ const SearchProducts = () => {
     dispatch(allProductsBySearch(productSearch));
   }, [productSearch]);
 
-  const productsBySearch = useSelector((state) => state.allProducts.content);
+  const productsBySearch = useSelector((state) => state.allProducts.allProductsContent);
 
   return (
     <>
