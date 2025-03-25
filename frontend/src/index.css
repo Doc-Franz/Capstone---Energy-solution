@@ -533,3 +533,33 @@ body {
 .informationLink:hover {
   border-bottom: 2px solid#568FCF !important;
 }
+
+/* ----- PHOTOVOLTAIC ----- */
+
+.photovoltaicEvaluation {
+  width: 150px;
+  border: 0px;
+  border-radius: 0;
+  background-color: rgb(26, 13, 43);
+}
+
+.photovoltaicEvaluation:hover {
+  background-color: #568fcf;
+  scale: 1.02;
+}
+
+.photovoltaicEvaluation:active {
+  background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
+}
+
+/* .navigationBtn:active {
+  background-color: rgb(26, 13, 43) !important;
+  box-shadow: none !important;
+} */
+
+.photovoltaicEvaluation:disabled {
+  background-color: rgb(26, 13, 43) !important;
+  opacity: 0.5;
+  box-shadow: none !important;
+}
