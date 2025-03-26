@@ -1,4 +1,4 @@
-import { ADD_REQUEST, REQUEST_SUBMITTED, RESET_REQUEST_STATE } from "../actions/RequestActions";
+import { ADD_REQUEST, REQUEST_SUBMITTED, RESET_REQUEST_STATE } from "../actions/requestActions";
 
 const initialStateRequest = {
   request: [],
