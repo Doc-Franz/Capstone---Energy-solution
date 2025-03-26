@@ -2,8 +2,8 @@ import MyNavbar from "./MyNavbar";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, FloatingLabel, Form, FormLabel, Image, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewRequest, resetRequestState } from "../redux/actions/requestActions";
 import userImage from "../assets/images/contatti/user.jpeg";
+import { addNewRequest, resetRequestState } from "../redux/actions/RequestActions";
 
 const Contacts = () => {
   const dispatch = useDispatch();
