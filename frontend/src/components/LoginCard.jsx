@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const LoginCard = (props) => {
   return (
-    <Container ref={props.ref} style={{ paddingTop: "1px" }}>
+    <Container ref={props.ref} style={{ marginTop: "30px", paddingTop: "1px" }}>
       <Card className="cardLogin">
         <Card.Header className="fs-3 fw-semibold border-bottom-0" style={{ backgroundColor: "rgba(13, 110, 253, 0.1)" }}>
           <KeyFill className="text-warning me-4" style={{ height: "60px", width: "60px" }} />
