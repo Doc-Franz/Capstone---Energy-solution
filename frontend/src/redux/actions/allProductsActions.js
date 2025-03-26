@@ -4,6 +4,7 @@ export const UPDATE_ALL_PRODUCTS_PAGE = "UPDATE_ALL_PRODUCTS_PAGE";
 export const UPDATE_PRODUCTS_PAGE = "UPDATE_PRODUCTS_PAGE";
 export const PREVENTIVE_PRODUCTS_PAGE = "PREVENTIVE_PRODUCTS_PAGE";
 export const RESET_PRODUCTS_PAGE = "RESET_PRODUCTS_PAGE";
+export const IS_PRODUCT_AVAILABLE = "IS_PRODUCT_AVAILABLE";
 
 const allProductsPage = (allProducts) => ({
   type: UPDATE_ALL_PRODUCTS_PAGE,
@@ -22,6 +23,11 @@ const preventiveProductPage = (preventiveProducts) => ({
 
 export const resetProductsPage = () => ({
   type: RESET_PRODUCTS_PAGE
+});
+
+export const checkAvailability = (isAvailable) => ({
+  type: IS_PRODUCT_AVAILABLE,
+  payload: isAvailable
 });
 
 // fetch che carica una pagina con i prodotti che soddisfano i parametri inseriti in building evaluation
@@ -102,7 +108,7 @@ export const allProductsBySearch = (searchProduct) => {
 
 // fetch per acquistare una macchina
 export const buyProduct = (username, heaterId) => {
-  return async () => {
+  return async (dispatch) => {
     // caricamento della libreria stripe utilizzando la chiave pubblicabile
     const stripe = await loadStripe("pk_test_51R2E70RvZG041WSozJBdsotDKeGkogDJotMyVao4a0JLsvp3qoEOE8uoqr8sCOuawFxniPpBbPjZ3w3bRD1p0FUQ002UIZ6DiM");
 
@@ -114,23 +120,20 @@ export const buyProduct = (username, heaterId) => {
         }
       });
 
-      if (response.ok) {
-        const session = await response.json();
+      const session = await response.json();
 
-        if (session && session.id) {
-          // reindirizzamento alla pagina di stripe, se la sessione contiene un ID valido
-          const result = await stripe.redirectToCheckout({
-            sessionId: session.id
-          });
+      if (session && session.id && response.ok) {
+        // reindirizzamento alla pagina di stripe, se la sessione contiene un ID valido
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id
+        });
 
-          if (result.error) {
-            console.error(result.error.message);
-          }
-        } else {
-          console.log("Session ID non disponibile");
+        if (result.error) {
+          console.error(result.error.message);
         }
       } else {
-        console.log("Errore nella fetch");
+        console.log("Session ID non disponibile");
+        dispatch(checkAvailability(false));
       }
     } catch (error) {
       console.log(error);

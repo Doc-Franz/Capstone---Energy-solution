@@ -2,6 +2,7 @@ import { Badge, Button, Col, Container, Dropdown, Form, Image, Nav, Navbar, NavD
 import { List, X, ChevronRight, JournalText, Envelope, Search, BoxArrowInRight } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
+import user from "../assets/images/user.svg";
 import { useEffect, useState } from "react";
 
 function MyNavbar(props) {
@@ -92,6 +93,12 @@ function MyNavbar(props) {
     navigate("/", { state: { scrollToEvaluation: true } });
   };
 
+  // metodo che gestisce lo scroll fino alla card del login
+  const handleScrollToLogin = () => {
+    // quando clicco su "area riservata" viene impostato uno stato su true
+    navigate("/reservedArea", { state: { scrollToLogin: true } });
+  };
+
   return (
     <Navbar expand="lg" className="bg-white fixed-top">
       <Container className="d-flex flex-column align-items-start">
@@ -131,10 +138,10 @@ function MyNavbar(props) {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu align="end">
+                    <Dropdown.Item className="allProductsLink">Profilo</Dropdown.Item>
                     <Dropdown.Item className="allProductsLink" as={Link} to={`/quotes/${userId}`}>
-                      Profilo
+                      I miei ordini
                     </Dropdown.Item>
-                    <Dropdown.Item className="allProductsLink">I miei ordini</Dropdown.Item>
                     <NavDropdown.Divider />
                     <Dropdown.Item className="allProductsLink" onClick={handleExit}>
                       Esci
@@ -143,9 +150,15 @@ function MyNavbar(props) {
                 </Dropdown>
               </Row>
             ) : (
-              <Navbar.Brand className="fw-bold" style={{ marginRight: "0px" }}>
-                SmartHeat
-              </Navbar.Brand>
+              <Row className="" style={{ marginRight: "0px" }}>
+                <Col>
+                  <Link to="/reservedArea/login" className="text-decoration-none">
+                    <Button className="linkButton text-dark bg-transparent border-0 rounded-0"> Accedi</Button>
+
+                    <Image fluid src={user} style={{ width: "16px", height: "16px" }} />
+                  </Link>
+                </Col>
+              </Row>
             )}
           </Col>
           <Col xl={10} className="linksHigherXl ms-auto text-end gx-0">
@@ -173,12 +186,10 @@ function MyNavbar(props) {
 
               {username != "" ? null : (
                 <Col className="d-flex justify-content-center" xl={3}>
-                  <Link to="/reservedArea" className="text-decoration-none">
-                    <Button className="linkButton text-dark bg-transparent border-0 rounded-0">
-                      <BoxArrowInRight className="me-3" />
-                      Area riservata
-                    </Button>
-                  </Link>
+                  <Button className="linkButton text-dark bg-transparent border-0 rounded-0" onClick={handleScrollToLogin}>
+                    <BoxArrowInRight className="me-3" />
+                    Area riservata
+                  </Button>
                 </Col>
               )}
 
@@ -205,7 +216,7 @@ function MyNavbar(props) {
 
                       <Dropdown.Menu align="end">
                         <Dropdown.Item className="allProductsLink">Profilo</Dropdown.Item>
-                        <Dropdown.Item className="allProductsLink" as={Link} to={`/quotes/${userId}`}>
+                        <Dropdown.Item as={Link} to={`/quotes/${userId}`} className="allProductsLink">
                           I miei ordini
                         </Dropdown.Item>
                         <NavDropdown.Divider />
@@ -239,7 +250,7 @@ function MyNavbar(props) {
 
         <Row className="gx-0 w-100 d-flex justify-content-start">
           <Col>
-            <Navbar.Toggle className="toggle text-dark border-0 p-0 shadow-none" onClick={handleShowMenu}>
+            <Navbar.Toggle className="toggle text-dark border-0 px-0 shadow-none" onClick={handleShowMenu}>
               {showMenu ? <X className="fs-3 me-2" /> : <List className="me-3" />}
               Menu
             </Navbar.Toggle>
@@ -381,9 +392,11 @@ function MyNavbar(props) {
           <Col className="linksLowerXl ms-auto text-end">
             {username ? (
               <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltipLink">Ordini</Tooltip>}>
-                <Button className="linkButtonJournal bg-transparent rounded-0 me-3" style={{ color: "#568FCF", borderColor: "#568FCF" }}>
-                  <JournalText />
-                </Button>
+                <Link to={`/quotes/${userId}`} className="text-decoration-none">
+                  <Button className="linkButtonJournal bg-transparent rounded-0 me-3" style={{ color: "#568FCF", borderColor: "#568FCF" }}>
+                    <JournalText />
+                  </Button>
+                </Link>
               </OverlayTrigger>
             ) : null}
 

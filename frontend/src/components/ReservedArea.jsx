@@ -1,7 +1,7 @@
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import Hero from "./Hero";
 import { CheckLg, KeyFill } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MyNavbar from "./MyNavbar";
 import img6 from "../assets/images/areaRiservata/img6.jpg";
 import img7 from "../assets/images/areaRiservata/img7.jpg";
@@ -9,35 +9,34 @@ import img8 from "../assets/images/areaRiservata/img8.jpg";
 import img9 from "../assets/images/areaRiservata/img9.jpg";
 import img10 from "../assets/images/areaRiservata/img10.jpg";
 import img11 from "../assets/images/areaRiservata/img11.jpeg";
+import { useEffect, useRef } from "react";
+import LoginCard from "./LoginCard";
 
 const ReservedArea = () => {
-  {
-    /* ❗❗❗ CAMBIARE LE IMMAGINI */
-  }
   const carouselArray = [img6, img7, img8, img9, img10];
   const cardInfo = "Visita la nostra azienda";
+
+  // gestione dello scroll fino alla card di login
+  const evaluationRef = useRef(null);
+
+  // recupero lo stato scrollToLogin settato nella navbar durante la navigazione
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.state);
+    console.log(evaluationRef.current);
+    if (location.state?.scrollToLogin && evaluationRef.current) {
+      evaluationRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location]);
 
   return (
     <>
       <MyNavbar />
       <Hero carouselImage={carouselArray} cardTitle={cardInfo} />
-      <Container style={{ marginTop: "120px" }}>
-        <Card className="cardLogin">
-          <Card.Header className="fs-3 fw-semibold text-primary-emphasis">
-            <KeyFill className="text-warning me-4" style={{ height: "60px", width: "60px" }} />
-            Area riservata
-          </Card.Header>
-          <Card.Body>
-            <Card.Text>Per accedere all'area riservata, clicca su Accedi ed inserisci le credenziali</Card.Text>
-            <Link to="/reservedArea/login" className="text-decoration-none">
-              <Button variant="primary" className="navigationBtn rounded-0">
-                Accedi
-              </Button>
-            </Link>
-          </Card.Body>
-        </Card>
-      </Container>
-      <Container className="mb-4">
+      <LoginCard ref={evaluationRef} />
+
+      <Container className="mb-4" style={{ marginTop: "60px" }}>
         <Row className="fs-1 fw-bold d-flex justify-content-center text-center mt-4">Entra a far parte della nostra rete!</Row>
         <Row className="lead fs-6 d-flex justify-content-start">
           <Col className="d-flex justify-content-center">

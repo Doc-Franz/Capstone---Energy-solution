@@ -341,9 +341,12 @@ public class UserController {
         // ricerco l'heater tramite ID
         Heater heater = heaterRepository.findById(heaterId).orElseThrow();
 
-        try {
+        if (heater.getNumberOfPieces() == 0) {
+            response.put("message", "Siamo spiacenti ma il prodotto è esaurito");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
 
-                if (heater.getNumberOfPieces() > 0) {
+        try {
 
                     // viene generato l'oggetto Customer che avrà accesso al pagamento
                     Stripe.apiKey = secretKey;
@@ -391,12 +394,8 @@ public class UserController {
                     transactionService.saveTransaction(transaction);
 
                     return new ResponseEntity<>(response, HttpStatus.OK);
-                } else {
-                    throw new ProductOutOfStockException("Siamo spiacenti ma il prodotto è esaurito");
-                }
 
-
-        } catch (ProductOutOfStockException ex) {
+        } catch (Exception ex) {
             response.put("message", ex.getMessage());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }

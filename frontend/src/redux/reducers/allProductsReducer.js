@@ -1,9 +1,16 @@
-import { PREVENTIVE_PRODUCTS_PAGE, RESET_PRODUCTS_PAGE, UPDATE_ALL_PRODUCTS_PAGE, UPDATE_PRODUCTS_PAGE } from "../actions/allProductsActions";
+import {
+  IS_PRODUCT_AVAILABLE,
+  PREVENTIVE_PRODUCTS_PAGE,
+  RESET_PRODUCTS_PAGE,
+  UPDATE_ALL_PRODUCTS_PAGE,
+  UPDATE_PRODUCTS_PAGE
+} from "../actions/allProductsActions";
 
 const initialStateProducts = {
   allProductsContent: null, // oggetto che contiene tutti i prodotti divisi per paginazione
   content: [], // array che contiene i prodotti specifici
-  preventiveContent: [] // array che contiene i prodotti derivati dal calcolo in building evaluation
+  preventiveContent: [], // array che contiene i prodotti derivati dal calcolo in building evaluation
+  isAvailable: true
 };
 
 const productsReducer = (state = initialStateProducts, action) => {
@@ -22,6 +29,11 @@ const productsReducer = (state = initialStateProducts, action) => {
       return {
         ...state,
         preventiveContent: action.payload
+      };
+    case IS_PRODUCT_AVAILABLE:
+      return {
+        ...state,
+        isAvailable: action.payload
       };
     case RESET_PRODUCTS_PAGE:
       return initialStateProducts;
