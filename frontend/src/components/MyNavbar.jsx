@@ -94,7 +94,8 @@ function MyNavbar(props) {
   };
 
   // metodo che gestisce lo scroll fino alla card del login
-  const handleScrollToLogin = () => {
+  const handleScrollToLogin = (e) => {
+    e.preventDefault();
     // quando clicco su "area riservata" viene impostato uno stato su true
     navigate("/reservedArea", { state: { scrollToLogin: true } });
   };
@@ -371,8 +372,8 @@ function MyNavbar(props) {
                   </Nav.Item>
                 </Link>
 
-                <Link to="/reservedArea" className="reservedAreaHigherSm text-decoration-none mt-2">
-                  <Nav.Item className="navMenuLink d-flex justify-content-between align-items-center border-bottom">
+                <Link to="/reservedArea" className="reservedAreaHigherSm text-decoration-none mt-2" onClick={handleScrollToLogin}>
+                  <Nav.Item className="navMenuLink reservedAreaHigherSm d-flex justify-content-between align-items-center border-bottom">
                     <Row className="fs-5 text-dark fw-bold d-flex flex-column align-items-start">
                       <Col>Area riservata</Col>
 
