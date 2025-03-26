@@ -14,7 +14,9 @@ const Footer = () => {
             </Link>
           </Col>
           <Col className="footerLink text-nowrap mb-2" style={{ cursor: "pointer" }}>
-            Lavora con noi
+            <Link to="/contacts" className="text-decoration-none footerLink text-dark">
+              Lavora con noi
+            </Link>
           </Col>
           <Col className="footerLink text-nowrap mb-2" style={{ cursor: "pointer" }}>
             <Link to="/assistance" className="text-decoration-none footerLink text-dark">

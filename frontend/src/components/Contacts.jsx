@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, FloatingLabel, Form, FormLabel, Image, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewRequest, resetRequestState } from "../redux/actions/RequestActions";
-import registrationImage from "../assets/images/login/registration.jpeg";
+import userImage from "../assets/images/contatti/user.jpeg";
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -221,7 +221,7 @@ const Contacts = () => {
               </Col>
               <Col className="imageLogin text-end">
                 {/* ❗❗❗ Sostituire immagine */}
-                <Image fluid src={registrationImage} className="energyImage" />
+                <Image fluid src={userImage} className="energyImage" />
               </Col>
             </Row>
           ) : (
