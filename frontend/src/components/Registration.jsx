@@ -114,7 +114,7 @@ const Registration = () => {
                   <Form.Label className="fs-3 fw-semibold text-primary-emphasis">Registrati</Form.Label>
                 </Row>
 
-                <FloatingLabel label="Email" className="mb-3">
+                <FloatingLabel label="Email *" className="mb-3">
                   <Form.Control
                     className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
                     id="emailRegistration"
@@ -122,12 +122,12 @@ const Registration = () => {
                     value={userRegistration.email}
                     onChange={(e) => setUserRegistration({ ...userRegistration, email: e.target.value })} // all'onchange nel campo lo state è in ascolto e la proprietà viene aggiornata tramite value
                     autoComplete="off"
-                    placeholder="Email"
+                    placeholder="Email *"
                     required
                   />
                 </FloatingLabel>
 
-                <FloatingLabel label="Username" className="mb-3">
+                <FloatingLabel label="Username *" className="mb-3">
                   <Form.Control
                     className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
                     id="usernameRegistration"
@@ -135,12 +135,12 @@ const Registration = () => {
                     value={userRegistration.username}
                     onChange={(e) => setUserRegistration({ ...userRegistration, username: e.target.value })}
                     autoComplete="off"
-                    placeholder="Username"
+                    placeholder="Username *"
                     required
                   />
                 </FloatingLabel>
 
-                <FloatingLabel label="Nome" className="mb-3">
+                <FloatingLabel label="Nome *" className="mb-3">
                   <Form.Control
                     className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
                     id="firstNameRegistration"
@@ -148,12 +148,12 @@ const Registration = () => {
                     value={userRegistration.firstName}
                     onChange={(e) => setUserRegistration({ ...userRegistration, firstName: e.target.value })}
                     autoComplete="off"
-                    placeholder="Nome"
+                    placeholder="Nome *"
                     required
                   />
                 </FloatingLabel>
 
-                <FloatingLabel label="Cognome" className="mb-3">
+                <FloatingLabel label="Cognome *" className="mb-3">
                   <Form.Control
                     className="text-decoration-none border-0 rounded-0 border-bottom no-focus mb-3"
                     id="lastNameRegistration"
@@ -161,12 +161,12 @@ const Registration = () => {
                     value={userRegistration.lastName}
                     onChange={(e) => setUserRegistration({ ...userRegistration, lastName: e.target.value })}
                     autoComplete="off"
-                    placeholder="Cognome"
+                    placeholder="Cognome *"
                     required
                   />
                 </FloatingLabel>
 
-                <FloatingLabel label="Password" className="mb-3">
+                <FloatingLabel label="Password *" className="mb-3">
                   <Form.Control
                     className="text-decoration-none border-0 rounded-0 border-bottom no-focus"
                     id="passwordRegistration"
@@ -174,7 +174,7 @@ const Registration = () => {
                     value={userRegistration.password}
                     onChange={(e) => setUserRegistration({ ...userRegistration, password: e.target.value })}
                     autoComplete="off"
-                    placeholder="Password"
+                    placeholder="Password *"
                     required
                   />
                 </FloatingLabel>

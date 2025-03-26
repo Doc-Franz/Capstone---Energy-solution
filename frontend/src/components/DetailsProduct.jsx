@@ -15,6 +15,8 @@ const DetailsProduct = () => {
   const location = useLocation();
   const { username, heaterId } = useParams();
 
+  const user = sessionStorage.getItem("username"); // variabile che controlla se l'utente ha credenziali per acquistare
+
   // recupero lo state -> product
   const heater = location.state;
 
@@ -84,23 +86,25 @@ const DetailsProduct = () => {
                     </Row>
                   </Col>
                 </Row>
-                <Row className="mb-3">
-                  <Col>
-                    {" "}
-                    <Row className="mt-auto">
-                      <Col>
-                        <Button
-                          className="btnBuyProduct"
-                          onClick={() => {
-                            handleBuyBtn();
-                          }}
-                        >
-                          COMPLETA L'ACQUISTO
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
+                {user && (
+                  <Row className="mb-3">
+                    <Col>
+                      {" "}
+                      <Row className="mt-auto">
+                        <Col>
+                          <Button
+                            className="btnBuyProduct"
+                            onClick={() => {
+                              handleBuyBtn();
+                            }}
+                          >
+                            COMPLETA L'ACQUISTO
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                )}
               </Col>
             </Row>
           </Container>

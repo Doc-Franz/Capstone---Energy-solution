@@ -21,6 +21,7 @@ import Assistance from "./components/Assistance";
 import Quotes from "./components/Quotes";
 import Information from "./components/Information";
 import Photovoltaic from "./components/Photovoltaic";
+import Contacts from "./components/Contacts.jsx";
 
 function App() {
   // gestione dello scroll all'interno delle pagine
@@ -60,6 +61,7 @@ function App() {
             <Route path="/assistance" element={<Assistance />} />
             <Route path="/information" element={<Information />} />
             <Route path="/photovoltaic" element={<Photovoltaic />} />
+            <Route path="/contacts" element={<Contacts />} />
             <Route path="/reservedArea" element={<ReservedArea />} />
             <Route path="/reservedArea/login" element={<Login />} />
             <Route path="/reservedArea/registration" element={<Registration />} />

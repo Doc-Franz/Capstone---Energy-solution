@@ -73,17 +73,16 @@ const SearchProducts = () => {
                         <Row>
                           <Col className="price fs-1 lead d-flex justify-content-end">{product.price} €</Col>
                         </Row>
-                        {username && (
-                          <Row className="text-center mb-2">
-                            <Col>
-                              <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
-                                <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                                  DETTAGLI
-                                </Button>
-                              </Link>
-                            </Col>
-                          </Row>
-                        )}
+
+                        <Row className="text-center mb-2">
+                          <Col>
+                            <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
+                              <Button className="btnBuyProduct mt-3 text-center" variant="primary">
+                                DETTAGLI
+                              </Button>
+                            </Link>
+                          </Col>
+                        </Row>
                       </Card.Body>
                     </Card>
                   </Col>

@@ -54,17 +54,16 @@ const TraditionalBoiler = () => {
                         </Row>
 
                         {/* controllare se l'utente registrato sta navigando nella pagina per abilitare l'acquisto */}
-                        {username ? (
-                          <Row className="text-center mb-2">
-                            <Col>
-                              <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
-                                <Button className="btnBuyProduct mt-3 text-center" variant="primary">
-                                  DETTAGLI
-                                </Button>
-                              </Link>
-                            </Col>{" "}
-                          </Row>
-                        ) : null}
+
+                        <Row className="text-center mb-2">
+                          <Col>
+                            <Link to={`/detailsProduct/${encodeURIComponent(username)}/${product.id}`} className="text-decoration-none" state={product}>
+                              <Button className="btnBuyProduct mt-3 text-center" variant="primary">
+                                DETTAGLI
+                              </Button>
+                            </Link>
+                          </Col>{" "}
+                        </Row>
                       </Card.Body>
                     </Card>
                   </Col>

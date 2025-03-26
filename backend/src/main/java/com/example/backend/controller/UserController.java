@@ -6,11 +6,13 @@ import com.example.backend.exception.*;
 import com.example.backend.model.*;
 import com.example.backend.payload.request.LoginRequest;
 import com.example.backend.payload.request.RegistrationRequest;
+import com.example.backend.payload.request.UserRequestDTO;
 import com.example.backend.payload.response.LoginResponse;
 import com.example.backend.repository.HeaterRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.service.HeaterService;
 import com.example.backend.service.TransactionService;
+import com.example.backend.service.UserRequestService;
 import com.example.backend.service.UserService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -70,6 +72,9 @@ public class UserController {
 
     @Autowired
     TransactionService transactionService;
+
+    @Autowired
+    UserRequestService userRequestService;
 
     @PostMapping("/new")
     public ResponseEntity<Map<String, String>> userRegistration(@RequestPart("user") @Validated RegistrationRequest registrationRequest,
@@ -400,5 +405,31 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PostMapping("/request")
+    public ResponseEntity<?> saveNewRequest(@RequestBody @Validated UserRequestDTO userRequestDTO, BindingResult validation){
+
+        // oggetto convertibile in formato JSON
+        Map<String, String> response = new HashMap<>();
+
+        if(validation.hasErrors()) {
+
+            StringBuilder errorMessage = new StringBuilder("Problema nella validazione dei dati: \n");
+
+            for(ObjectError error : validation.getAllErrors()){
+                errorMessage.append(error.getDefaultMessage()).append("\n");
+            }
+
+            response.put("Errore", errorMessage.toString());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+
+        }
+
+        long idNewUserRequest = userRequestService.saveUserRequest(userRequestDTO);
+
+        response.put("messsage", "La richiesta con id " + idNewUserRequest + " è stata salvata correttamente");
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
