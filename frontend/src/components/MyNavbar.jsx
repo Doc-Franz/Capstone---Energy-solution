@@ -139,7 +139,9 @@ function MyNavbar(props) {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu align="end">
-                    <Dropdown.Item className="allProductsLink">Profilo</Dropdown.Item>
+                    <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${username}`}>
+                      Profilo
+                    </Dropdown.Item>
                     <Dropdown.Item className="allProductsLink" as={Link} to={`/quotes/${userId}`}>
                       I miei ordini
                     </Dropdown.Item>
@@ -216,7 +218,9 @@ function MyNavbar(props) {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu align="end">
-                        <Dropdown.Item className="allProductsLink">Profilo</Dropdown.Item>
+                        <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${username}`}>
+                          Profilo
+                        </Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/quotes/${userId}`} className="allProductsLink">
                           I miei ordini
                         </Dropdown.Item>

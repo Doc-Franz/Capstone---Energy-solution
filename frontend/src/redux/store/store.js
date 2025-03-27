@@ -5,13 +5,15 @@ import loginReducer from "../reducers/loginReducer";
 import productsReducer from "../reducers/allProductsReducer";
 import quotesReducer from "../reducers/quotesReducer";
 import requestReducer from "../reducers/requestReducer";
+import profileReducer from "../reducers/profileReducer";
 
 const rootReducer = combineReducers({
   registration: registrationReducer,
   login: loginReducer,
   allProducts: productsReducer,
   quotes: quotesReducer,
-  request: requestReducer
+  request: requestReducer,
+  profile: profileReducer
 });
 
 const store = configureStore({

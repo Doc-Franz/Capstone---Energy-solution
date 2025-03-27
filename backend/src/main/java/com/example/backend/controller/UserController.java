@@ -118,6 +118,14 @@ public class UserController {
         }
     }
 
+    // restituisce tutte le informazioni del profilo dell'utente
+    @GetMapping("/profile/{username}")
+    public ResponseEntity<?> getUserInfo(@PathVariable String username){
+
+        User user = userRepository.findByUsername(username).orElseThrow();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Validated @RequestBody LoginRequest loginRequest, BindingResult validation){
 
@@ -169,23 +177,6 @@ public class UserController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-    // GET di tutti i prodotti
-   /* @GetMapping("/allProducts")
-    public ResponseEntity<?> getAllProducts() {
-
-        try {
-            List<Heater> heaterList = heaterRepository.findAll();
-
-            if (heaterList.isEmpty()) {
-                throw new HeaterNotFoundException("Nessun sistema trovato");
-            }
-
-            return new ResponseEntity<>(heaterList, HttpStatus.OK);
-        } catch (HeaterNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }*/
 
     @GetMapping("/allProducts")
     public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "0") int page,
