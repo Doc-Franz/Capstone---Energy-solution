@@ -126,6 +126,50 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PatchMapping("profile/editProfile/{username}")
+    public ResponseEntity<?> editUserProfile(@RequestPart("user") Map<String, String> userInfo,
+                                             @RequestPart(value = "avatar", required = false) MultipartFile avatar,
+                                             @PathVariable String username)
+    {
+        // oggetto convertibile in formato JSON
+        Map<String, String> response = new HashMap<>();
+
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        user.setFirstName(userInfo.get("firstName"));
+        user.setLastName(userInfo.get("lastName"));
+        user.setUsername(userInfo.get("username"));
+        user.setEmail(userInfo.get("email"));
+
+        if (avatar != null && !avatar.isEmpty()){
+            try {
+
+                // invio immagine al servizio Cloudinary
+                Map mapUpload = cloudinary.uploader().upload(avatar.getBytes(), ObjectUtils.emptyMap());
+
+                // salvo l'indirizzo dell'immagine
+                String urlImage = mapUpload.get("secure_url").toString();
+
+                user.setAvatar(urlImage);
+
+                // salvo il nuovo user e associo l'avatar
+                userRepository.save(user);
+
+                response.put("Salvataggio effettuato", "Utente con username " + username + " è stato aggiornato correttemente");
+                return new ResponseEntity<>(response, HttpStatus.OK);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        userRepository.save(user);
+        response.put("Salvataggio effettuato", "Utente con username " + username + " è stato aggiornato correttemente");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Validated @RequestBody LoginRequest loginRequest, BindingResult validation){
 

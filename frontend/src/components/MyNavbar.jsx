@@ -31,16 +31,20 @@ function MyNavbar(props) {
   // stato che controlla la stringa dentro la barra di ricerca
   const [searchBar, setSearchBar] = useState("");
 
-  // al caricamento della pagina riprendo i dati da session storage
+  // al caricamento della pagina riprendo i dati da session storage e anche all'aggiornamento dei dati
+
+  const storedAvatar = sessionStorage.getItem("avatar");
+  const storedUsername = sessionStorage.getItem("username");
+
   useEffect(() => {
-    const storedAvatar = sessionStorage.getItem("avatar");
-    const storedUsername = sessionStorage.getItem("username");
+    // const storedAvatar = sessionStorage.getItem("avatar");
+    // const storedUsername = sessionStorage.getItem("username");
 
     if (storedUsername) {
       setAvatar(storedAvatar);
       setUsername(storedUsername);
     }
-  }, []);
+  }, [storedUsername, storedAvatar]);
 
   // metodo che controlla la barra di ricerca
   const handleSearch = () => {
