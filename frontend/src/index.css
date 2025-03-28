@@ -553,13 +553,17 @@ body {
   box-shadow: none !important;
 }
 
-/* .navigationBtn:active {
-  background-color: rgb(26, 13, 43) !important;
-  box-shadow: none !important;
-} */
-
 .photovoltaicEvaluation:disabled {
   background-color: rgb(26, 13, 43) !important;
   opacity: 0.5;
   box-shadow: none !important;
+}
+
+/* ----- PROFILE ----- */
+
+@media screen and (min-width: 1400px) {
+  #profileImage {
+    width: 200px !important;
+    height: 200px !important;
+  }
 }

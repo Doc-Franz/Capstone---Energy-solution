@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editProfileInfo, getUserInfo } from "../redux/actions/profileActions";
 import { Button, Col, Container, Form, Image, Modal, Row } from "react-bootstrap";
 import pencil from "../assets/images/profilo/pencil.svg";
+import profilo from "../assets/images/profilo/profilo.jpeg";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ const Profile = () => {
   // username che recupero dall'URL -> mi serve per fare la ricerca nel db quando l'username ancora non è aggiornato e quindi mi serve quello precedente
 
   const previousUsername = params.username;
+
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
 
   useEffect(() => {
     dispatch(getUserInfo(previousUsername));
@@ -26,20 +30,21 @@ const Profile = () => {
     firstName: "",
     lastName: "",
     username: "",
-    email: "",
-    avatar: ""
+    email: ""
   });
 
-  // nel momento in cui ricevo le info dell'utente dallo store setto il profilo modificabile dal modale
+  // nel momento in cui ricevo le info dell'utente dallo store setto il profilo
   useEffect(() => {
     if (userInfo) {
       setUserProfile({
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         username: userInfo.username,
-        email: userInfo.email,
-        avatar: userInfo.avatar
+        email: userInfo.email
       });
+
+      setAvatarPreview(userInfo.avatar);
+      setAvatarFile(null);
     }
   }, [userInfo]);
 
@@ -47,19 +52,25 @@ const Profile = () => {
   const handleSaveNewInfo = (e) => {
     e.preventDefault();
 
-    const updatedAvatar = e.target.elements.avatar.files.length > 0 ? e.target.elements.avatar.files[0] : userInfo.avatar;
+    const updatedAvatar = avatarFile || userInfo.avatar;
 
-    setUserProfile({
+    const updatedProfile = {
       firstName: e.target.elements.firstName.value,
       lastName: e.target.elements.lastName.value,
       username: e.target.elements.username.value,
-      email: e.target.elements.email.value,
-      avatar: updatedAvatar
-    });
+      email: e.target.elements.email.value
+    };
 
-    dispatch(editProfileInfo(userProfile, previousUsername));
+    // aggiornamento del session storage per visualizzare i dati correttamente nella navbar
+    sessionStorage.setItem("avatar", avatarFile ? URL.createObjectURL(avatarFile) : userInfo.avatar);
+    sessionStorage.setItem("username", updatedProfile.username);
 
-    navigate(`/profile/${e.target.elements.username.value}`);
+    setAvatarPreview(updatedAvatar instanceof File ? URL.createObjectURL(updatedAvatar) : updatedAvatar);
+    setUserProfile(updatedProfile);
+
+    dispatch(editProfileInfo(updatedProfile, avatarFile || userInfo.avatar, previousUsername));
+
+    navigate(`/profile/${updatedProfile.username}`);
   };
 
   // controllo del bottone per modificare le info del profilo
@@ -85,9 +96,10 @@ const Profile = () => {
                     <Col className="col-12 mb-3 d-flex justify-start-center align-items-end">
                       <Image
                         fluid
+                        id="profileImage"
                         className="circularAvatar"
                         style={{ width: "120px", height: "120px", border: "3px solid #568FCF" }}
-                        src={userProfile.avatar || userInfo.avatar}
+                        src={avatarPreview || userInfo.avatar}
                       />
                       <div>
                         <Form.Control
@@ -98,10 +110,8 @@ const Profile = () => {
                           onChange={(e) => {
                             if (e.target.files.length > 0) {
                               const file = e.target.files[0];
-                              setUserProfile({
-                                ...userProfile,
-                                avatar: URL.createObjectURL(file) // generazione di un URL temporaneo per visualizzare l'immagine in anteprima
-                              });
+                              setAvatarPreview(URL.createObjectURL(file)); // Per la preview
+                              setAvatarFile(file); // Per l'invio al backend
                               setShowConfirmBtn(true);
                             }
                           }}
@@ -181,7 +191,9 @@ const Profile = () => {
                   </Form>
                 </Row>
               </Col>
-              <Col className="imageLogin text-end"></Col>
+              <Col className="imageLogin text-end">
+                <Image fluid src={profilo} className="energyImage" />
+              </Col>
             </Row>
           </Container>
         ) : null}

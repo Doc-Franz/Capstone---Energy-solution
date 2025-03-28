@@ -1,9 +1,18 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import logo from "../assets/images/logo.svg";
 import success from "../assets/images/success.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Success = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  }, []);
+
   return (
     <>
       <Container fluid className="headerLogin">

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import user from "../assets/images/user.svg";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function MyNavbar(props) {
   const navigate = useNavigate();
@@ -31,20 +32,28 @@ function MyNavbar(props) {
   // stato che controlla la stringa dentro la barra di ricerca
   const [searchBar, setSearchBar] = useState("");
 
-  // al caricamento della pagina riprendo i dati da session storage e anche all'aggiornamento dei dati
-
-  const storedAvatar = sessionStorage.getItem("avatar");
-  const storedUsername = sessionStorage.getItem("username");
-
+  // al caricamento della pagina riprendo i dati da session storage
   useEffect(() => {
-    // const storedAvatar = sessionStorage.getItem("avatar");
-    // const storedUsername = sessionStorage.getItem("username");
+    const storedAvatar = sessionStorage.getItem("avatar");
+    const storedUsername = sessionStorage.getItem("username");
 
     if (storedUsername) {
       setAvatar(storedAvatar);
       setUsername(storedUsername);
     }
-  }, [storedUsername, storedAvatar]);
+  }, []);
+
+  // Quando le info del profilo vengono aggiornate si aggiorna subito anche la navbar
+  const updatedInfo = useSelector((state) => state.profile.userUpdated);
+  useEffect(() => {
+    const storedAvatar = sessionStorage.getItem("avatar");
+    const storedUsername = sessionStorage.getItem("username");
+
+    if (storedUsername) {
+      setAvatar(storedAvatar);
+      setUsername(storedUsername);
+    }
+  }, [updatedInfo]);
 
   // metodo che controlla la barra di ricerca
   const handleSearch = () => {
@@ -222,7 +231,7 @@ function MyNavbar(props) {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu align="end">
-                        <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${username}`}>
+                        <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${userId}`}>
                           Profilo
                         </Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/quotes/${userId}`} className="allProductsLink">
