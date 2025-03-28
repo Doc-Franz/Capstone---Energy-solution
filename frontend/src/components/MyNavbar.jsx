@@ -231,7 +231,7 @@ function MyNavbar(props) {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu align="end">
-                        <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${userId}`}>
+                        <Dropdown.Item className="allProductsLink" as={Link} to={`/profile/${username}`}>
                           Profilo
                         </Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/quotes/${userId}`} className="allProductsLink">
